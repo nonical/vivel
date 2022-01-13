@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel", "Vivel\Vivel.csproj", "{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{50DFA335-A8B7-4E94-8635-623A9970451D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
