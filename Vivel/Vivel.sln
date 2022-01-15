@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivel", "Vivel\Vivel.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Model", "Vivel.Model\Vivel.Model.csproj", "{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{50DFA335-A8B7-4E94-8635-623A9970451D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
