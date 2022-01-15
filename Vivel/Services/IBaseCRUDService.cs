@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Vivel.Services
 {
-    public interface IBaseCRUDService<Dto, SearchRequest, InsertRequest, UpdateRequest> 
-        where Dto : class 
-        where SearchRequest: class
-        where InsertRequest: class
-        where UpdateRequest: class
+    public interface IBaseCRUDService<Dto, SearchRequest, InsertRequest, UpdateRequest>
+        where Dto : class
+        where SearchRequest : class
+        where InsertRequest : class
+        where UpdateRequest : class
     {
         Task<List<Dto>> Get(SearchRequest request = null);
 

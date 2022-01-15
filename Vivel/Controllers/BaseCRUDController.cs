@@ -28,7 +28,7 @@ namespace Vivel.Controllers
 
         [HttpGet("{id}")]
         public async virtual Task<T> GetById(string id)
-        {    
+        {
             return await _service.GetById(id);
         }
 
