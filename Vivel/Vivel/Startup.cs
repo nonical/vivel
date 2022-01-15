@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vivel.Database;
+using Vivel.Services;
 
 namespace Vivel
 {
@@ -30,11 +31,14 @@ namespace Vivel
             services.AddControllers();
 
             services.AddSwaggerGen();
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<vivelContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            services.AddScoped<IFaqService, FaqService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

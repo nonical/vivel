@@ -5,19 +5,17 @@ using System.Collections.Generic;
 
 namespace Vivel.Database
 {
-    public partial class PresetBadge
+    public partial class PresetBadge : BaseModel
     {
         public PresetBadge()
         {
             Badges = new HashSet<Badge>();
         }
 
-        public string PresetBadgeId { get; set; }
+        public string PresetBadgeId { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
         public string Description { get; set; }
         public string Picture { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
 
         public virtual ICollection<Badge> Badges { get; set; }
     }
