@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -25,11 +28,6 @@ namespace Vivel.Database
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<PresetBadge> PresetBadges { get; set; }
         public virtual DbSet<User> Users { get; set; }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-
-        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -247,11 +245,40 @@ namespace Vivel.Database
                 entity.Property(e => e.BloodType)
                     .HasMaxLength(3)
                     .IsUnicode(false);
+
+                entity.Property(e => e.CreatedAt).HasColumnType("datetime");
+
+                entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            HandleTimestampProperties();
+
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            HandleTimestampProperties();
+
+            return base.SaveChanges();
+        }
+
+        private void HandleTimestampProperties()
+        {
+            var AddedEntities = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Added).ToList();
+
+            AddedEntities.ForEach(entry => entry.Property("CreatedAt").CurrentValue = DateTime.Now);
+
+            var EditedEntities = ChangeTracker.Entries().Where(entry => entry.State == EntityState.Modified).ToList();
+
+            EditedEntities.ForEach(entry => entry.Property("UpdatedAt").CurrentValue = DateTime.Now);
+        }
     }
 }

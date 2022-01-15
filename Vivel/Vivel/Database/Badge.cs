@@ -5,13 +5,11 @@ using System.Collections.Generic;
 
 namespace Vivel.Database
 {
-    public partial class Badge
+    public partial class Badge : BaseModel
     {
         public string BadgeId { get; set; }
         public string UserId { get; set; }
         public string PresetBadgeId { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
 
         public virtual PresetBadge PresetBadge { get; set; }
         public virtual User User { get; set; }

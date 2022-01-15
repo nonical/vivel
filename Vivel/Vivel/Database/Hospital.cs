@@ -5,19 +5,17 @@ using System.Collections.Generic;
 
 namespace Vivel.Database
 {
-    public partial class Hospital
+    public partial class Hospital : BaseModel
     {
         public Hospital()
         {
             Drives = new HashSet<Drive>();
         }
 
-        public string HospitalId { get; set; }
+        public string HospitalId { get; set; } = Guid.NewGuid().ToString();
         public string Name { get; set; }
         public decimal? Longitude { get; set; }
         public decimal? Latitude { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
 
         public virtual ICollection<Drive> Drives { get; set; }
     }

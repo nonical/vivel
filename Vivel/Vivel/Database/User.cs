@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Vivel.Database
 {
-    public partial class User
+    public partial class User : BaseModel
     {
         public User()
         {
@@ -14,9 +14,9 @@ namespace Vivel.Database
             Notifications = new HashSet<Notification>();
         }
 
-        public string UserId { get; set; }
+        public string UserId { get; set; } = Guid.NewGuid().ToString();
         public string BloodType { get; set; }
-        public bool? Verified { get; set; }
+        public bool? Verified { get; set; } = false;
 
         public virtual ICollection<Badge> Badges { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }

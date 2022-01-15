@@ -5,13 +5,11 @@ using System.Collections.Generic;
 
 namespace Vivel.Database
 {
-    public partial class Faq
+    public partial class Faq : BaseModel
     {
-        public string Faqid { get; set; }
+        public string Faqid { get; set; } = Guid.NewGuid().ToString();
         public string Question { get; set; }
         public string Answer { get; set; }
-        public bool? Answered { get; set; }
-        public DateTime? CreatedAt { get; set; }
-        public DateTime? UpdatedAt { get; set; }
+        public bool? Answered { get; set; } = false;
     }
 }
