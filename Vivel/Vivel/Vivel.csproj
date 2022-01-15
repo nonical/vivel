@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Vivel.Dto\Vivel.Model.csproj" />
+    <ProjectReference Include="..\Vivel.Model\Vivel.Model.csproj" />
   </ItemGroup>
 
 

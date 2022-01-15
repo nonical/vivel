@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vivel.Dto.Requests.Faq
+namespace Vivel.Model.Requests.Faq
 {
     public class FaqUpdateRequest
     {

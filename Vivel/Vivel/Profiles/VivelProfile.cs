@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Vivel.Model.Requests;
+using Vivel.Model.Dto;
+using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Profiles
 {
@@ -11,7 +12,7 @@ namespace Vivel.Profiles
     {
         public VivelProfile()
         {
-            CreateMap<Database.Faq, Dto.Faq>().ReverseMap();
+            CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
             CreateMap<Database.Faq, FaqUpdateRequest>().ReverseMap();
         }

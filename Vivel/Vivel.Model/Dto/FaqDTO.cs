@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vivel.Dto.Dto
+namespace Vivel.Model.Dto
 {
-    public class Faq
+    public class FaqDTO
     {
         public string Faqid { get; set; }
         public string Question { get; set; }

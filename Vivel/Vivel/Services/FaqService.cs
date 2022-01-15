@@ -5,20 +5,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Vivel.Database;
+using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Services
 {
-    public class FaqService : BaseCRUDService<Dto.Faq, Database.Faq, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>, IFaqService
+    public class FaqService : BaseCRUDService<FaqDTO, Faq, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>, IFaqService
     {
         public FaqService(vivelContext context, IMapper mapper) : base(context, mapper)
         {
 
         }
 
-        public async override Task<List<Dto.Faq>> Get(FaqSearchRequest request = null)
+        public async override Task<List<FaqDTO>> Get(FaqSearchRequest request = null)
         {
-            var entity = _context.Set<Database.Faq>().AsQueryable();
+            var entity = _context.Set<Faq>().AsQueryable();
 
             if (request?.Answered != null)
             {
@@ -27,7 +28,7 @@ namespace Vivel.Services
 
             var list = await entity.ToListAsync();
 
-            return _mapper.Map<List<Dto.Faq>>(list);
+            return _mapper.Map<List<FaqDTO>>(list);
         }
     }
 }
