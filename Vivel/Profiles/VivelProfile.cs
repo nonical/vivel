@@ -7,6 +7,7 @@ using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.PresetBadge;
 using Vivel.Model.Requests.Hospital;
+using Vivel.Model.Requests.Notification;
 
 namespace Vivel.Profiles
 {
@@ -26,6 +27,9 @@ namespace Vivel.Profiles
             CreateMap<Database.Hospital, HospitalDTO>().ReverseMap();
             CreateMap<Database.Hospital, HospitalInsertRequest>().ReverseMap();
             CreateMap<Database.Hospital, HospitalUpdateRequest>().ReverseMap();
+
+            CreateMap<Database.Notification, NotificationDTO>().ReverseMap();
+            CreateMap<Database.Notification, NotificationInsertRequest>().ReverseMap();
         }
     }
 }
