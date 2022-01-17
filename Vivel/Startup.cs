@@ -39,6 +39,7 @@ namespace Vivel
             });
 
             services.AddScoped<IFaqService, FaqService>();
+            services.AddScoped<IPresetBadgeService, PresetBadgeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
