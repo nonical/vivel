@@ -43,6 +43,7 @@ namespace Vivel
             services.AddScoped<IHospitalService, HospitalService>();
             services.AddScoped<INotificationService, NotificationService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDriveService, DriveService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
