@@ -7,11 +7,6 @@ namespace Vivel.Database
 {
     public partial class Drive : BaseModel
     {
-        public Drive()
-        {
-            Donations = new HashSet<Donation>();
-        }
-
         public string DriveId { get; set; } = Guid.NewGuid().ToString();
         public string HospitalId { get; set; }
         public DateTime? Date { get; set; }

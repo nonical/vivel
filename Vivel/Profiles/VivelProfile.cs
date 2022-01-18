@@ -9,6 +9,7 @@ using Vivel.Model.Requests.PresetBadge;
 using Vivel.Model.Requests.Hospital;
 using Vivel.Model.Requests.Notification;
 using Vivel.Model.Requests.User;
+using Vivel.Model.Requests.Drive;
 
 namespace Vivel.Profiles
 {
@@ -32,6 +33,10 @@ namespace Vivel.Profiles
 
             CreateMap<Database.User, UserDTO>().ReverseMap();
             CreateMap<Database.User, UserUpdateRequest>().ReverseMap();
+
+            CreateMap<Database.Drive, DriveDTO>().ReverseMap();
+            CreateMap<Database.Drive, DriveInsertRequest>().ReverseMap();
+            CreateMap<Database.Drive, DriveUpdateRequest>().ReverseMap();
         }
     }
 }
