@@ -9,13 +9,13 @@ namespace Vivel.Model.Requests.Notification
     {
         [Required(AllowEmptyStrings = false)]
         public string Title { get; set; }
-        
+
         [Required(AllowEmptyStrings = false)]
         public string Content { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string UserId { get; set; }        
-        
+        public string UserId { get; set; }
+
         [Required(AllowEmptyStrings = false)]
         public string LinkId { get; set; }
 
