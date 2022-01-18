@@ -10,6 +10,7 @@ using Vivel.Model.Requests.Hospital;
 using Vivel.Model.Requests.Notification;
 using Vivel.Model.Requests.User;
 using Vivel.Model.Requests.Drive;
+using Vivel.Model.Requests.Donation;
 
 namespace Vivel.Profiles
 {
@@ -37,6 +38,10 @@ namespace Vivel.Profiles
             CreateMap<Database.Drive, DriveDTO>().ReverseMap();
             CreateMap<Database.Drive, DriveInsertRequest>().ReverseMap();
             CreateMap<Database.Drive, DriveUpdateRequest>().ReverseMap();
+
+            CreateMap<Database.Donation, DonationDTO>().ReverseMap();
+            CreateMap<Database.Donation, DonationInsertRequest>().ReverseMap();
+            CreateMap<Database.Donation, DonationUpdateRequest>().ReverseMap();
         }
     }
 }
