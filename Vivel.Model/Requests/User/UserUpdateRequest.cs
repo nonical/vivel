@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Vivel.Model.Requests.User
 {
-    public class UserUpsertRequest
+    public class UserUpdateRequest
     {
         [Required(AllowEmptyStrings = false)]
         public string BloodType { get; set; }

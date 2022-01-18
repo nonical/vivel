@@ -31,7 +31,7 @@ namespace Vivel.Profiles
             CreateMap<Database.Notification, NotificationInsertRequest>().ReverseMap();
 
             CreateMap<Database.User, UserDTO>().ReverseMap();
-            CreateMap<Database.User, UserUpsertRequest>().ReverseMap();
+            CreateMap<Database.User, UserUpdateRequest>().ReverseMap();
         }
     }
 }

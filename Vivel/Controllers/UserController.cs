@@ -6,7 +6,7 @@ using Vivel.Services;
 
 namespace Vivel.Controllers
 {
-    public class UserController : BaseCRUDController<UserDTO, UserSearchRequest, object, UserUpsertRequest>
+    public class UserController : BaseCRUDController<UserDTO, UserSearchRequest, object, UserUpdateRequest>
     {
         public UserController(IUserService service) : base(service) { }
 

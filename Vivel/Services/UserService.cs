@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Vivel.Services
 {
-    public class UserService : BaseCRUDService<UserDTO, User, UserSearchRequest, object, UserUpsertRequest>, IUserService
+    public class UserService : BaseCRUDService<UserDTO, User, UserSearchRequest, object, UserUpdateRequest>, IUserService
     {
         public UserService(vivelContext context, IMapper mapper) : base(context, mapper) { }
 

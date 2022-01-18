@@ -3,7 +3,7 @@ using Vivel.Model.Requests.User;
 
 namespace Vivel.Services
 {
-    public interface IUserService : IBaseCRUDService<UserDTO, UserSearchRequest, object, UserUpsertRequest>
+    public interface IUserService : IBaseCRUDService<UserDTO, UserSearchRequest, object, UserUpdateRequest>
     {
     }
 }
