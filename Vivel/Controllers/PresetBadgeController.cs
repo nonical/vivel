@@ -5,7 +5,7 @@ using Vivel.Model.Requests.PresetBadge;
 
 namespace Vivel.Controllers
 {
-    public class PresetBadgeController : BaseCRUDController<PresetBadgeDTO, PresetBadgeSearchRequest, PresetBadgeInsertRequest, PresetBadgeUpdateRequest>
+    public class PresetBadgeController : BaseCRUDController<PresetBadgeDTO, PresetBadgeSearchRequest, PresetBadgeUpsertRequest, PresetBadgeUpsertRequest>
     {
         public PresetBadgeController(IPresetBadgeService service) : base(service)
         {

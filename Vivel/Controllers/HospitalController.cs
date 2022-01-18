@@ -5,7 +5,7 @@ using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Controllers
 {
-    public class HospitalController : BaseCRUDController<HospitalDTO, HospitalSearchRequest, HospitalInsertRequest, HospitalUpdateRequest>
+    public class HospitalController : BaseCRUDController<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
         public HospitalController(IHospitalService service) : base(service)
         {

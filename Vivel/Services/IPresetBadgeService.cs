@@ -9,7 +9,7 @@ using Vivel.Model.Requests.PresetBadge;
 
 namespace Vivel.Services
 {
-    public interface IPresetBadgeService : IBaseCRUDService<PresetBadgeDTO, PresetBadgeSearchRequest, PresetBadgeInsertRequest, PresetBadgeUpdateRequest>
+    public interface IPresetBadgeService : IBaseCRUDService<PresetBadgeDTO, PresetBadgeSearchRequest, PresetBadgeUpsertRequest, PresetBadgeUpsertRequest>
     {
     }
 }

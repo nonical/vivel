@@ -21,12 +21,10 @@ namespace Vivel.Profiles
 
 
             CreateMap<Database.PresetBadge, PresetBadgeDTO>().ReverseMap();
-            CreateMap<Database.PresetBadge, PresetBadgeInsertRequest>().ReverseMap();
-            CreateMap<Database.PresetBadge, PresetBadgeUpdateRequest>().ReverseMap();
+            CreateMap<Database.PresetBadge, PresetBadgeUpsertRequest>().ReverseMap();
 
             CreateMap<Database.Hospital, HospitalDTO>().ReverseMap();
-            CreateMap<Database.Hospital, HospitalInsertRequest>().ReverseMap();
-            CreateMap<Database.Hospital, HospitalUpdateRequest>().ReverseMap();
+            CreateMap<Database.Hospital, HospitalUpsertRequest>().ReverseMap();
 
             CreateMap<Database.Notification, NotificationDTO>().ReverseMap();
             CreateMap<Database.Notification, NotificationInsertRequest>().ReverseMap();

@@ -10,7 +10,7 @@ using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Services
 {
-    public class HospitalService : BaseCRUDService<HospitalDTO, Hospital, HospitalSearchRequest, HospitalInsertRequest, HospitalUpdateRequest>, IHospitalService
+    public class HospitalService : BaseCRUDService<HospitalDTO, Hospital, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>, IHospitalService
     {
         public HospitalService(vivelContext context, IMapper mapper) : base(context, mapper)
         {

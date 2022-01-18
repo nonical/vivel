@@ -8,7 +8,7 @@ using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Services
 {
-    public interface IHospitalService : IBaseCRUDService<HospitalDTO, HospitalSearchRequest, HospitalInsertRequest, HospitalUpdateRequest>
+    public interface IHospitalService : IBaseCRUDService<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
     }
 }

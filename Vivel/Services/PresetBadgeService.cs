@@ -11,7 +11,7 @@ using Vivel.Model.Requests.PresetBadge;
 
 namespace Vivel.Services
 {
-    public class PresetBadgeService : BaseCRUDService<PresetBadgeDTO, PresetBadge, PresetBadgeSearchRequest, PresetBadgeInsertRequest, PresetBadgeUpdateRequest>, IPresetBadgeService
+    public class PresetBadgeService : BaseCRUDService<PresetBadgeDTO, PresetBadge, PresetBadgeSearchRequest, PresetBadgeUpsertRequest, PresetBadgeUpsertRequest>, IPresetBadgeService
     {
         public PresetBadgeService(vivelContext context, IMapper mapper) : base(context, mapper)
         {
