@@ -21,9 +21,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Vivel.Model\Vivel.Model.csproj" />
-  </ItemGroup>
-
-
 </Project>
