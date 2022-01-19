@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30711.63
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivel", "Vivel\Vivel.csproj", "{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Model", "Vivel.Model\Vivel.Model.csproj", "{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivel.Model", "Vivel.Model\Vivel.Model.csproj", "{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{50DFA335-A8B7-4E94-8635-623A9970451D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{50DFA335-A8B7-4E94-8635-623A9970451D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{ACAFED86-98B3-4649-8893-DFDD49CCC01B}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
