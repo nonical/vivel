@@ -25,5 +25,4 @@
     <ProjectReference Include="..\Vivel.Model\Vivel.Model.csproj" />
   </ItemGroup>
 
-
 </Project>

@@ -1,6 +1,6 @@
-﻿using Vivel.Model.Requests.Faq;
+﻿using Vivel.Model.Dto;
+using Vivel.Model.Requests.Faq;
 using Vivel.Services;
-using Vivel.Model.Dto;
 
 namespace Vivel.Controllers
 {

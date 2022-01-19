@@ -1,11 +1,11 @@
-﻿using AutoMapper;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.User;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Vivel.Services
 {
