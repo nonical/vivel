@@ -1,5 +1,5 @@
-﻿using Vivel.Identity;
-using Serilog;
+﻿using Serilog;
+using Vivel.Identity;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()

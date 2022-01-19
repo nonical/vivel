@@ -1,9 +1,9 @@
 using Duende.IdentityServer;
-using Vivel.Identity.Data;
 using IdentityServerHost.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
+using Vivel.Identity.Data;
 
 namespace Vivel.Identity;
 
