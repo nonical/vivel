@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Text.Json.Serialization;
+using Ardalis.SmartEnum.SystemTextJson;
+using Vivel.Model.Enums;
 
 namespace Vivel.Model.Requests.User
 {
     public class UserSearchRequest
     {
-        public string BloodType { get; set; }
+        [JsonConverter(typeof(SmartEnumNameConverter<BloodType, int>))]
+        public BloodType BloodType { get; set; }
         public bool? Verified { get; set; }
     }
 }
