@@ -16,7 +16,7 @@ namespace Vivel.Services
 
         public override async Task<List<UserDTO>> Get(UserSearchRequest request = null)
         {
-            var query = _context.Set<User>().AsQueryable();
+            var query = _context.Users.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request?.BloodType))
             {
@@ -30,5 +30,35 @@ namespace Vivel.Services
 
             return _mapper.Map<List<UserDTO>>(await query.ToListAsync());
         }
+
+        public async Task<UserDetailsDTO> Details(string id)
+        {
+            var entity = await _context.Users.Include(x => x.Donations).Where(x => x.UserId == id).FirstAsync();
+
+            return _mapper.Map<UserDetailsDTO>(entity);
+        }
+
+
+        public async Task<List<DonationDTO>> Donations(string id)
+        {
+            var entities = await _context.Donations.Where(x => x.UserId == id).ToListAsync();
+
+            return _mapper.Map<List<DonationDTO>>(entities);
+        }
+
+        public async Task<List<NotificationDTO>> Notifications(string id)
+        {
+            var entities = await _context.Notifications.Where(x => x.UserId == id).ToListAsync();
+
+            return _mapper.Map<List<NotificationDTO>>(entities);
+        }
+
+        public async Task<List<BadgeDTO>> Badges(string id)
+        {
+            var entities = await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).ToListAsync();
+
+            return _mapper.Map<List<BadgeDTO>>(entities);
+        }
+
     }
 }
