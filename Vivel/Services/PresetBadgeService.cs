@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.PresetBadge;

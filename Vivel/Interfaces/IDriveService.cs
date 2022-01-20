@@ -6,7 +6,7 @@ using Vivel.Database;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Drive;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface IDriveService : IBaseCRUDService<DriveDTO, DriveSearchRequest, DriveInsertRequest, DriveUpdateRequest>
     {

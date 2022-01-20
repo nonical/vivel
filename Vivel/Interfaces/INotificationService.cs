@@ -6,7 +6,7 @@ using Vivel.Database;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Notification;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface INotificationService : IBaseCRUDService<NotificationDTO, NotificationSearchRequest, NotificationInsertRequest, object>
     {

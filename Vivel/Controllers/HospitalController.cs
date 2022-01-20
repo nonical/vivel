@@ -1,4 +1,5 @@
-﻿using Vivel.Model.Dto;
+﻿using Vivel.Interfaces;
+using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.Hospital;
 using Vivel.Services;
