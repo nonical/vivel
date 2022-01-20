@@ -3,7 +3,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Vivel.Model.Enums;
 
 #nullable disable
 
@@ -243,6 +243,9 @@ namespace Vivel.Database
                     .IsFixedLength(true);
 
                 entity.Property(e => e.BloodType)
+                    .HasConversion(
+                        x => x.Name,
+                        x => BloodType.FromName(x, false))
                     .HasMaxLength(3)
                     .IsUnicode(false);
 

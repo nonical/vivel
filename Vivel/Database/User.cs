@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Vivel.Model.Enums;
 
 #nullable disable
 
@@ -15,7 +16,7 @@ namespace Vivel.Database
         }
 
         public string UserId { get; set; } = Guid.NewGuid().ToString();
-        public string BloodType { get; set; }
+        public BloodType BloodType { get; set; }
         public bool? Verified { get; set; } = false;
 
         public virtual ICollection<Badge> Badges { get; set; }
