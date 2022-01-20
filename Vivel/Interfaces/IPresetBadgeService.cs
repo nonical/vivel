@@ -7,7 +7,7 @@ using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.PresetBadge;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface IPresetBadgeService : IBaseCRUDService<PresetBadgeDTO, PresetBadgeSearchRequest, PresetBadgeUpsertRequest, PresetBadgeUpsertRequest>
     {

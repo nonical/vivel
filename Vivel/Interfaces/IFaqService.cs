@@ -6,7 +6,7 @@ using Vivel.Database;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface IFaqService : IBaseCRUDService<FaqDTO, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>
     {

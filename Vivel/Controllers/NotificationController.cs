@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.Notification;

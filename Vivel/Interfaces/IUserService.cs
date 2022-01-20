@@ -1,7 +1,7 @@
 ﻿using Vivel.Model.Dto;
 using Vivel.Model.Requests.User;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface IUserService : IBaseCRUDService<UserDTO, UserSearchRequest, object, UserUpdateRequest>
     {

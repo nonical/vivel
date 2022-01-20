@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Vivel.Services
+namespace Vivel.Interfaces
 {
     public interface IBaseCRUDService<Dto, SearchRequest, InsertRequest, UpdateRequest>
         where Dto : class
