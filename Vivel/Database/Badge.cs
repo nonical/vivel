@@ -7,7 +7,7 @@ namespace Vivel.Database
 {
     public partial class Badge : BaseModel
     {
-        public string BadgeId { get; set; }
+        public string BadgeId { get; set; } = new Guid().ToString();
         public string UserId { get; set; }
         public string PresetBadgeId { get; set; }
 
