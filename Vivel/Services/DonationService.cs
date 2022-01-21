@@ -21,16 +21,6 @@ namespace Vivel.Services
         {
             var entity = _context.Set<Donation>().AsQueryable();
 
-            if (!string.IsNullOrWhiteSpace(request?.UserId))
-            {
-                entity = entity.Where(x => x.UserId == request.UserId);
-            }
-
-            if (!string.IsNullOrWhiteSpace(request?.DriveId))
-            {
-                entity = entity.Where(x => x.DriveId == request.DriveId);
-            }
-
             if (request?.ScheduledAt != null)
             {
                 entity = entity.Where(x => x.ScheduledAt.Value.Date == request.ScheduledAt.Value.Date);

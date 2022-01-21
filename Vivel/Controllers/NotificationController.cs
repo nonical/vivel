@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -12,6 +13,12 @@ namespace Vivel.Controllers
     {
         public NotificationController(INotificationService service) : base(service)
         {
+        }
+
+        [NonAction]
+        public override Task<List<NotificationDTO>> Get(NotificationSearchRequest request)
+        {
+            return base.Get(request);
         }
 
         [NonAction]

@@ -2,10 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Requests.Notification;
 using Vivel.Model.Enums;
 using Vivel.Model.Requests.User;
 
@@ -47,9 +49,28 @@ namespace Vivel.Services
             return _mapper.Map<List<DonationDTO>>(entities);
         }
 
-        public async Task<List<NotificationDTO>> Notifications(string id)
+        public async Task<DonationDTO> Donation(string userId, string donationId)
         {
-            var entities = await _context.Notifications.Where(x => x.UserId == id).ToListAsync();
+            var entities = await _context.Donations.Where(x => x.UserId == userId && x.DonationId == donationId).FirstOrDefaultAsync();
+
+            return _mapper.Map<DonationDTO>(entities);
+        }
+
+        public async Task<List<NotificationDTO>> Notifications(string id, NotificationSearchRequest request)
+        {
+            var entities = _context.Notifications.Where(x => x.UserId == id).AsQueryable();
+
+            if (request?.LinkId != null)
+            {
+                entities = entities.Where(x => x.LinkId == request.LinkId);
+            }
+
+            if (request?.LinkId != null && request.LinkType != null)
+            {
+                entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
+            }
+
+            var list = await entities.ToListAsync();
 
             return _mapper.Map<List<NotificationDTO>>(entities);
         }

@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 
 namespace Vivel.Services
@@ -20,11 +21,6 @@ namespace Vivel.Services
         public async override Task<List<DriveDTO>> Get(DriveSearchRequest request = null)
         {
             var entity = _context.Set<Drive>().AsQueryable();
-
-            if (!string.IsNullOrWhiteSpace(request?.HospitalId))
-            {
-                entity = entity.Where(x => x.HospitalId == request.HospitalId);
-            }
 
             if (request?.FromDate != null)
             {
@@ -52,14 +48,29 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Status == request.Status);
             }
 
-            if (request?.IncludeHospital == true)
-            {
-                entity = entity.Include(x => x.Hospital);
-            }
-
             var list = await entity.ToListAsync();
 
             return _mapper.Map<List<DriveDTO>>(list);
         }
+
+        public async Task<List<DonationDTO>> Donations(string id, DonationSearchRequest request)
+        {
+            var entity = _context.Donations.Where(x => x.DriveId == id).AsQueryable();
+
+            if (request?.ScheduledAt != null)
+            {
+                entity = entity.Where(x => x.ScheduledAt.Value.Date == request.ScheduledAt.Value.Date);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request?.Status))
+            {
+                entity = entity.Where(x => x.Status == request.Status);
+            }
+
+            var list = await entity.ToListAsync();
+
+            return _mapper.Map<List<DonationDTO>>(list);
+        }
+
     }
 }
