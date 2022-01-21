@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using Vivel.Model.Dto;
+using Vivel.Model.Enums;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Faq;
@@ -18,6 +16,10 @@ namespace Vivel.Profiles
     {
         public VivelProfile()
         {
+            // Custom Type Converters
+            CreateMap<string, BloodType>().ConvertUsing(s => BloodType.FromName(s, false));
+            CreateMap<BloodType, string>().ConvertUsing(s => s.Name);
+
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
             CreateMap<Database.Faq, FaqUpdateRequest>().ReverseMap();
