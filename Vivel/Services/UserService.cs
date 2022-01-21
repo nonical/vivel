@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Enums;
 using Vivel.Model.Requests.User;
 
 namespace Vivel.Services
@@ -18,9 +19,9 @@ namespace Vivel.Services
         {
             var query = _context.Users.AsQueryable();
 
-            if (request?.BloodType != null)
+            if (request?.BloodType != null && BloodType.TryFromName(request.BloodType, out var bloodType))
             {
-                query = query.Where(x => x.BloodType == request.BloodType);
+                query = query.Where(x => x.BloodType == bloodType);
             }
 
             if (request?.Verified != null)

@@ -6,8 +6,7 @@ namespace Vivel.Model.Requests.User
 {
     public class UserSearchRequest
     {
-        [JsonConverter(typeof(SmartEnumNameConverter<BloodType, int>))]
-        public BloodType BloodType { get; set; }
+        public string BloodType { get; set; }
         public bool? Verified { get; set; }
     }
 }
