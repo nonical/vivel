@@ -43,7 +43,7 @@ namespace Vivel.Services
         {
             var set = _context.Set<TDb>();
 
-            TDb entity = _mapper.Map<TDb>(request);
+            var entity = _mapper.Map<TDb>(request);
 
             await set.AddAsync(entity);
 
@@ -52,11 +52,11 @@ namespace Vivel.Services
             return _mapper.Map<Dto>(entity);
         }
 
-        public async Task<Dto> Update(string id, UpdateRequest request)
+        public async virtual Task<Dto> Update(string id, UpdateRequest request)
         {
             var set = _context.Set<TDb>();
 
-            TDb entity = set.Find(id);
+            var entity = await set.FindAsync(id);
 
             _mapper.Map(request, entity);
 
@@ -65,7 +65,7 @@ namespace Vivel.Services
             return _mapper.Map<Dto>(entity);
         }
 
-        public async Task<Dto> Delete(string id)
+        public async virtual Task<Dto> Delete(string id)
         {
             var set = _context.Set<TDb>();
 
