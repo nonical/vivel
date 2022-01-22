@@ -15,7 +15,7 @@ namespace Vivel.Services
 {
     public class HospitalService : BaseCRUDService<HospitalDTO, Hospital, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>, IHospitalService
     {
-        public HospitalService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public HospitalService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

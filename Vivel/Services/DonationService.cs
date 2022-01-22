@@ -13,7 +13,7 @@ namespace Vivel.Services
 {
     public class DonationService : BaseCRUDService<DonationDTO, Donation, DonationSearchRequest, DonationInsertRequest, DonationUpdateRequest>, IDonationService
     {
-        public DonationService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public DonationService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

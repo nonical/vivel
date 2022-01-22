@@ -13,7 +13,7 @@ namespace Vivel.Services
 {
     public class FaqService : BaseCRUDService<FaqDTO, Faq, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>, IFaqService
     {
-        public FaqService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public FaqService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
 
         }

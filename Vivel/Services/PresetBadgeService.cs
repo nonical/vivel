@@ -14,7 +14,7 @@ namespace Vivel.Services
 {
     public class PresetBadgeService : BaseCRUDService<PresetBadgeDTO, PresetBadge, PresetBadgeSearchRequest, PresetBadgeUpsertRequest, PresetBadgeUpsertRequest>, IPresetBadgeService
     {
-        public PresetBadgeService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public PresetBadgeService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

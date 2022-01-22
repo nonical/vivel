@@ -15,7 +15,7 @@ namespace Vivel.Services
 {
     public class DriveService : BaseCRUDService<DriveDTO, Drive, DriveSearchRequest, DriveInsertRequest, DriveUpdateRequest>, IDriveService
     {
-        public DriveService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public DriveService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
 

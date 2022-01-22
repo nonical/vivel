@@ -14,7 +14,7 @@ namespace Vivel.Services
 {
     public class UserService : BaseCRUDService<UserDTO, User, UserSearchRequest, object, UserUpdateRequest>, IUserService
     {
-        public UserService(vivelContext context, IMapper mapper) : base(context, mapper) { }
+        public UserService(VivelContext context, IMapper mapper) : base(context, mapper) { }
 
         public override async Task<List<UserDTO>> Get(UserSearchRequest request = null)
         {
