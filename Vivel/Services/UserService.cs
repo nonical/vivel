@@ -20,9 +20,9 @@ namespace Vivel.Services
         {
             var query = _context.Users.AsQueryable();
 
-            if (request?.BloodType != null)
+            if (request?.BloodType?.Count > 0)
             {
-                query = query.Where(x => x.BloodType == BloodType.FromName(request.BloodType, false));
+                query = query.Where(user => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == user.BloodType));
             }
 
             if (request?.Verified != null)
