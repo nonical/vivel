@@ -9,9 +9,9 @@ namespace Vivel.Model.Requests.Drive
     {
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
-        public string BloodType { get; set; }
+        public List<string> BloodType { get; set; }
         public int? Amount { get; set; }
-        public string Status { get; set; }
+        public List<string> Status { get; set; }
         public bool? Urgency { get; set; }
     }
 }

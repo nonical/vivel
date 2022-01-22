@@ -58,9 +58,9 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Date <= request.ToDate);
             }
 
-            if (request?.BloodType != null)
+            if (request?.BloodType?.Count > 0)
             {
-                entity = entity.Where(x => x.BloodType == BloodType.FromName(request.BloodType, false));
+                entity = entity.Where(drive => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == drive.BloodType));
             }
 
             if (request?.Amount != null)
@@ -68,9 +68,9 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Amount == request.Amount);
             }
 
-            if (!string.IsNullOrWhiteSpace(request?.Status))
+            if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(x => x.Status == request.Status);
+                entity = entity.Where(drive => request.Status.Any(x => x.Equals(drive.Status)));
             }
 
             var list = await entity.ToListAsync();

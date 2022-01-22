@@ -7,6 +7,6 @@ namespace Vivel.Model.Requests.Donation
     public class DonationSearchRequest
     {
         public DateTime? ScheduledAt { get; set; }
-        public string Status { get; set; }
+        public List<string> Status { get; set; }
     }
 }

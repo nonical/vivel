@@ -26,9 +26,9 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.ScheduledAt.Value.Date == request.ScheduledAt.Value.Date);
             }
 
-            if (!string.IsNullOrWhiteSpace(request?.Status))
+            if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(x => x.Status == request.Status);
+                entity = entity.Where(donation => request.Status.Any(x => x.Equals(donation.Status)));
             }
 
             var list = await entity.ToListAsync();
