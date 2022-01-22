@@ -23,6 +23,9 @@ namespace Vivel.Profiles
             CreateMap<string, DriveStatus>().ConvertUsing(s => DriveStatus.FromName(s, false));
             CreateMap<DriveStatus, string>().ConvertUsing(s => s.Name);
 
+            CreateMap<string, DonationStatus>().ConvertUsing(s => DonationStatus.FromName(s, false));
+            CreateMap<DonationStatus, string>().ConvertUsing(s => s.Name);
+
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
             CreateMap<Database.Faq, FaqUpdateRequest>().ReverseMap();
@@ -40,8 +43,7 @@ namespace Vivel.Profiles
             CreateMap<Database.User, UserDTO>().ReverseMap();
             CreateMap<Database.User, UserDetailsDTO>()
                 .ForMember(destination => destination.DonationCount, o => o.MapFrom(source => source.Donations.Count))
-                // TODO: Status property in the following map should be replaced with an enum one
-                .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status == "Finished").OrderBy(x => x.UpdatedAt).Last().UpdatedAt))
+                .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Approved).OrderBy(x => x.UpdatedAt).Last().UpdatedAt))
                 .ForMember(destination => destination.LitresDonated, o => o.MapFrom(source => source.Donations.Sum(x => x.Amount) * 0.001));
             CreateMap<Database.User, UserUpdateRequest>().ReverseMap();
 

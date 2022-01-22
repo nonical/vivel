@@ -83,7 +83,11 @@ namespace Vivel.Database
 
                 entity.Property(e => e.ScheduledAt).HasColumnType("datetime");
 
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.Status)
+                    .HasConversion(
+                        e => e.Name,
+                        e => DonationStatus.FromName(e, false))
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 

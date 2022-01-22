@@ -65,7 +65,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Any(x => x.Equals(donation.Status)));
+                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
             var list = await entity.ToListAsync();
