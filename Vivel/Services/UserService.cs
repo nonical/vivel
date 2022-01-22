@@ -2,13 +2,12 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Requests.Notification;
 using Vivel.Model.Enums;
+using Vivel.Model.Requests.Notification;
 using Vivel.Model.Requests.User;
 
 namespace Vivel.Services

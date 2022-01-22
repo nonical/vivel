@@ -1,8 +1,4 @@
-﻿using System.Text.Json.Serialization;
-using Ardalis.SmartEnum.SystemTextJson;
-using Vivel.Model.Enums;
-
-namespace Vivel.Model.Dto
+﻿namespace Vivel.Model.Dto
 {
     public class UserDTO
     {
