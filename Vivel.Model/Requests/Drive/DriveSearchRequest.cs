@@ -7,13 +7,11 @@ namespace Vivel.Model.Requests.Drive
 {
     public class DriveSearchRequest
     {
-        public string HospitalId { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
         public string BloodType { get; set; }
         public int? Amount { get; set; }
         public string Status { get; set; }
         public bool? Urgency { get; set; }
-        public bool? IncludeHospital { get; set; }
     }
 }

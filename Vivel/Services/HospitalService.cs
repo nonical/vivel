@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Services
@@ -39,6 +40,41 @@ namespace Vivel.Services
             var list = await entity.ToListAsync();
 
             return _mapper.Map<List<HospitalDTO>>(list);
+        }
+
+        public async Task<List<DriveDTO>> Drives(string id, DriveSearchRequest request)
+        {
+            var entity = _context.Drives.Where(x => x.HospitalId == id).AsQueryable();
+
+            if (request?.FromDate != null)
+            {
+                entity = entity.Where(x => x.Date >= request.FromDate);
+
+            }
+
+            if (request?.ToDate != null)
+            {
+                entity = entity.Where(x => x.Date <= request.ToDate);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request?.BloodType))
+            {
+                entity = entity.Where(x => x.BloodType == request.BloodType);
+            }
+
+            if (request?.Amount != null)
+            {
+                entity = entity.Where(x => x.Amount == request.Amount);
+            }
+
+            if (!string.IsNullOrWhiteSpace(request?.Status))
+            {
+                entity = entity.Where(x => x.Status == request.Status);
+            }
+
+            var list = await entity.ToListAsync();
+
+            return _mapper.Map<List<DriveDTO>>(list);
         }
     }
 }
