@@ -121,6 +121,9 @@ namespace Vivel.Database
                     .IsFixedLength(true);
 
                 entity.Property(e => e.BloodType)
+                    .HasConversion(
+                        x => x.Name,
+                        x => BloodType.FromName(x, false))
                     .HasMaxLength(3)
                     .IsUnicode(false);
 

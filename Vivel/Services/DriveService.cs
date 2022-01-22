@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Enums;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 
@@ -33,9 +34,9 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Date <= request.ToDate);
             }
 
-            if (!string.IsNullOrWhiteSpace(request?.BloodType))
+            if (request?.BloodType != null)
             {
-                entity = entity.Where(x => x.BloodType == request.BloodType);
+                entity = entity.Where(x => x.BloodType == BloodType.FromName(request.BloodType, false));
             }
 
             if (request?.Amount != null)
