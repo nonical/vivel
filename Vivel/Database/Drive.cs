@@ -13,7 +13,7 @@ namespace Vivel.Database
         public DateTime? Date { get; set; }
         public BloodType BloodType { get; set; }
         public int? Amount { get; set; }
-        public string Status { get; set; }
+        public DriveStatus Status { get; set; }
         public bool? Urgency { get; set; }
 
         public virtual Hospital Hospital { get; set; }

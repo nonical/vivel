@@ -15,7 +15,7 @@ namespace Vivel.Services
 {
     public class DriveService : BaseCRUDService<DriveDTO, Drive, DriveSearchRequest, DriveInsertRequest, DriveUpdateRequest>, IDriveService
     {
-        public DriveService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public DriveService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
 
@@ -46,7 +46,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Any(x => x.Equals(drive.Status)));
+                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
             var list = await entity.ToListAsync();
@@ -65,7 +65,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Any(x => x.Equals(donation.Status)));
+                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
             var list = await entity.ToListAsync();

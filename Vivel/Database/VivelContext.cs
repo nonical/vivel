@@ -9,17 +9,8 @@ using Vivel.Model.Enums;
 
 namespace Vivel.Database
 {
-    public partial class vivelContext : DbContext
+    public partial class VivelContext : DbContext
     {
-        public vivelContext()
-        {
-        }
-
-        public vivelContext(DbContextOptions<vivelContext> options)
-            : base(options)
-        {
-        }
-
         public virtual DbSet<Badge> Badges { get; set; }
         public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<Drive> Drives { get; set; }
@@ -28,6 +19,9 @@ namespace Vivel.Database
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<PresetBadge> PresetBadges { get; set; }
         public virtual DbSet<User> Users { get; set; }
+
+        public VivelContext() { }
+        public VivelContext(DbContextOptions<VivelContext> options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -89,7 +83,11 @@ namespace Vivel.Database
 
                 entity.Property(e => e.ScheduledAt).HasColumnType("datetime");
 
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.Status)
+                    .HasConversion(
+                        e => e.Name,
+                        e => DonationStatus.FromName(e, false))
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
@@ -137,7 +135,11 @@ namespace Vivel.Database
                     .HasColumnName("HospitalID")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.Status)
+                    .HasConversion(
+                        x => x.Name,
+                        x => DriveStatus.FromName(x, false))
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 

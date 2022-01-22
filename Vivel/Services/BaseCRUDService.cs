@@ -16,10 +16,10 @@ namespace Vivel.Services
         where InsertRequest : class
         where UpdateRequest : class
     {
-        protected vivelContext _context { get; set; }
+        protected VivelContext _context { get; set; }
         protected IMapper _mapper { get; set; }
 
-        public BaseCRUDService(vivelContext context, IMapper mapper)
+        public BaseCRUDService(VivelContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

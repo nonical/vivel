@@ -14,7 +14,7 @@ namespace Vivel.Services
 {
     public class NotificationService : BaseCRUDService<NotificationDTO, Notification, NotificationSearchRequest, NotificationInsertRequest, object>, INotificationService
     {
-        public NotificationService(vivelContext context, IMapper mapper) : base(context, mapper)
+        public NotificationService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
         }
     }

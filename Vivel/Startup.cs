@@ -34,7 +34,7 @@ namespace Vivel
             services.AddSwaggerGen();
             services.AddAutoMapper(typeof(Startup));
 
-            services.AddDbContext<vivelContext>(options =>
+            services.AddDbContext<VivelContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
