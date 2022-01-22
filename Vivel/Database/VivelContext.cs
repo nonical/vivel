@@ -131,7 +131,11 @@ namespace Vivel.Database
                     .HasColumnName("HospitalID")
                     .IsFixedLength(true);
 
-                entity.Property(e => e.Status).HasMaxLength(50);
+                entity.Property(e => e.Status)
+                    .HasConversion(
+                        x => x.Name,
+                        x => DriveStatus.FromName(x, false))
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 

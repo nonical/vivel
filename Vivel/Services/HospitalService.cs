@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -15,9 +14,7 @@ namespace Vivel.Services
 {
     public class HospitalService : BaseCRUDService<HospitalDTO, Hospital, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>, IHospitalService
     {
-        public HospitalService(VivelContext context, IMapper mapper) : base(context, mapper)
-        {
-        }
+        public HospitalService(VivelContext context, IMapper mapper) : base(context, mapper) { }
 
         public async override Task<List<HospitalDTO>> Get(HospitalSearchRequest request = null)
         {
@@ -70,7 +67,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Any(x => x.Equals(drive.Status)));
+                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
             var list = await entity.ToListAsync();

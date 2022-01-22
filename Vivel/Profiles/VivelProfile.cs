@@ -20,6 +20,9 @@ namespace Vivel.Profiles
             CreateMap<string, BloodType>().ConvertUsing(s => BloodType.FromName(s, false));
             CreateMap<BloodType, string>().ConvertUsing(s => s.Name);
 
+            CreateMap<string, DriveStatus>().ConvertUsing(s => DriveStatus.FromName(s, false));
+            CreateMap<DriveStatus, string>().ConvertUsing(s => s.Name);
+
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
             CreateMap<Database.Faq, FaqUpdateRequest>().ReverseMap();
