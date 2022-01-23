@@ -20,9 +20,6 @@ namespace Vivel.Model.Requests.Drive
         public int? Amount { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        public string Status { get; set; }
-
-        [Required(AllowEmptyStrings = false)]
         public bool? Urgency { get; set; }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
@@ -52,6 +53,41 @@ namespace Vivel.Services
             var list = await entity.ToListAsync();
 
             return _mapper.Map<List<DriveDTO>>(list);
+        }
+
+        public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
+        {
+            using var connection = _context.Database.GetDbConnection();
+            await connection.OpenAsync();
+
+            using var transaction = await connection.BeginTransactionAsync();
+            _context.Database.UseTransaction(transaction);
+
+            var entity = await _context.Drives.FindAsync(id);
+            _mapper.Map(request, entity);
+            await _context.SaveChangesAsync();
+
+            if (request.Status == DriveStatus.Closed.Name)
+            {
+                var rawSql = @"UPDATE Donation
+                               SET Status = 'Rejected', Note = @Note
+                               WHERE DriveID = @DriveID AND (Status = 'Pending' OR Status = 'Scheduled')";
+
+                var driveId = new SqlParameter("@DriveID", id);
+                var note = new SqlParameter("@Note", "Drive has been closed by the hospital");
+
+                var command = connection.CreateCommand();
+                command.Transaction = transaction;
+                command.CommandText = rawSql;
+                command.Parameters.Add(driveId);
+                command.Parameters.Add(note);
+
+                await command.ExecuteNonQueryAsync();
+            }
+
+            transaction.Commit();
+
+            return _mapper.Map<DriveDTO>(entity);
         }
 
         public async Task<List<DonationDTO>> Donations(string id, DonationSearchRequest request)
