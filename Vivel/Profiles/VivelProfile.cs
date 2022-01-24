@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Ardalis.SmartEnum;
 using AutoMapper;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
@@ -14,17 +15,18 @@ namespace Vivel.Profiles
 {
     public class VivelProfile : Profile
     {
+        private void EnumNameConverter<T>() where T : SmartEnum<T, int>
+        {
+            CreateMap<string, T>().ConvertUsing(s => SmartEnum<T>.FromName(s, false));
+            CreateMap<T, string>().ConvertUsing(s => s.Name);
+        }
+
         public VivelProfile()
         {
             // Custom Type Converters
-            CreateMap<string, BloodType>().ConvertUsing(s => BloodType.FromName(s, false));
-            CreateMap<BloodType, string>().ConvertUsing(s => s.Name);
-
-            CreateMap<string, DriveStatus>().ConvertUsing(s => DriveStatus.FromName(s, false));
-            CreateMap<DriveStatus, string>().ConvertUsing(s => s.Name);
-
-            CreateMap<string, DonationStatus>().ConvertUsing(s => DonationStatus.FromName(s, false));
-            CreateMap<DonationStatus, string>().ConvertUsing(s => s.Name);
+            EnumNameConverter<BloodType>();
+            EnumNameConverter<DriveStatus>();
+            EnumNameConverter<DonationStatus>();
 
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
