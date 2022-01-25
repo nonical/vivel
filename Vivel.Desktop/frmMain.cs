@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vivel.Desktop.Hospital;
 
 namespace Vivel.Desktop
 {
@@ -92,6 +93,14 @@ namespace Vivel.Desktop
             {
                 childForm.Close();
             }
+        }
+
+        private void hospitalsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmHospital form = new frmHospital();
+            form.MdiParent = this;
+            form.Dock = DockStyle.Fill;
+            form.Show();
         }
     }
 }

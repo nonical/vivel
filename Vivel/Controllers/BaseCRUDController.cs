@@ -39,7 +39,7 @@ namespace Vivel.Controllers
             return await _service.Insert(request);
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async virtual Task<T> Update(string id, [FromBody] UpdateRequest request)
         {
             return await _service.Update(id, request);
