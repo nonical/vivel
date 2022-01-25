@@ -13,13 +13,18 @@ namespace Vivel.Desktop.Services
     {
         private readonly string _apiUrl;
 
-        public APIService(string controllerName)
+        public APIService(string resource)
         {
-            _apiUrl = $"{Properties.Settings.Default.ApiURL}/{controllerName}";
+            _apiUrl = $"{Properties.Settings.Default.ApiURL}/{resource}";
         }
-        public async Task<T> Get<T>(object request)
+        public async Task<T> Get<T>(object request = null)
         {
-            var queryString = await request.ToQueryString();
+            var queryString = "";
+
+            if (request != null)
+            {
+                queryString = await request?.ToQueryString();
+            }
 
             var result = await $"{_apiUrl}?{queryString}".GetJsonAsync<T>();
 
