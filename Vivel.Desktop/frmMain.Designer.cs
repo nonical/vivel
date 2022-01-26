@@ -33,8 +33,8 @@
             this.usersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.drivesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetBadgesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             //
@@ -49,7 +49,7 @@
             this.reportsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(632, 24);
+            this.menuStrip.Size = new System.Drawing.Size(800, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
             //
@@ -58,6 +58,7 @@
             this.hospitalsToolStripMenuItem.Name = "hospitalsToolStripMenuItem";
             this.hospitalsToolStripMenuItem.Size = new System.Drawing.Size(68, 20);
             this.hospitalsToolStripMenuItem.Text = "Hospitals";
+            this.hospitalsToolStripMenuItem.Click += new System.EventHandler(this.hospitalsToolStripMenuItem_Click);
             //
             // usersToolStripMenuItem
             //
@@ -77,27 +78,28 @@
             this.fAQToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.fAQToolStripMenuItem.Text = "FAQ";
             //
-            // reportsToolStripMenuItem
-            //
-            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.reportsToolStripMenuItem.Text = "Reports";
-            //
             // presetBadgesToolStripMenuItem
             //
             this.presetBadgesToolStripMenuItem.Name = "presetBadgesToolStripMenuItem";
             this.presetBadgesToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.presetBadgesToolStripMenuItem.Text = "Preset Badges";
             //
+            // reportsToolStripMenuItem
+            //
+            this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
+            this.reportsToolStripMenuItem.Text = "Reports";
+            //
             // frmMain
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(632, 453);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmMain";
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
