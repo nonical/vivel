@@ -16,6 +16,7 @@ namespace Vivel.Database
         }
 
         public string UserId { get; set; } = Guid.NewGuid().ToString();
+        public string UserName { get; set; }
         public BloodType BloodType { get; set; }
         public bool? Verified { get; set; } = false;
 
