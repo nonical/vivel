@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Vivel.Desktop.Hospital;
+using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
@@ -108,6 +109,14 @@ namespace Vivel.Desktop
                 Dock = DockStyle.Fill
             };
 
+            form.Show();
+        }
+
+        private void drivesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            frmDrive form = new frmDrive();
+            form.MdiParent = this;
+            form.Dock = DockStyle.Fill;
             form.Show();
         }
     }
