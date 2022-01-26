@@ -72,6 +72,7 @@
             this.drivesToolStripMenuItem.Name = "drivesToolStripMenuItem";
             this.drivesToolStripMenuItem.Size = new System.Drawing.Size(51, 20);
             this.drivesToolStripMenuItem.Text = "Drives";
+            this.drivesToolStripMenuItem.Click += new System.EventHandler(this.drivesToolStripMenuItem_Click);
             //
             // fAQToolStripMenuItem
             //
