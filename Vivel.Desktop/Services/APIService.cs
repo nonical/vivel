@@ -9,6 +9,7 @@ using Vivel.Model.Extensions;
 
 namespace Vivel.Desktop.Services
 {
+    // TODO: Make APIService class generic, instead of methods
     public class APIService
     {
         private readonly string _apiUrl;

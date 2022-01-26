@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Vivel.Desktop.Hospital;
+using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
 {
@@ -97,9 +91,23 @@ namespace Vivel.Desktop
 
         private void hospitalsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHospital form = new frmHospital();
-            form.MdiParent = this;
-            form.Dock = DockStyle.Fill;
+            frmHospital form = new frmHospital
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
+        }
+
+        private void usersToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form form = new frmUser
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
             form.Show();
         }
     }
