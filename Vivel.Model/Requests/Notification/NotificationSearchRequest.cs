@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vivel.Model.Requests.Notification
 {
-    public class NotificationSearchRequest
+    public class NotificationSearchRequest : BaseSearchObject
     {
         public string LinkId { get; set; }
         public string LinkType { get; set; }

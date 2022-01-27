@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Requests.Badge;
+using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Notification;
 using Vivel.Model.Requests.User;
 using Vivel.Services;
@@ -30,9 +33,9 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
-        public Task<List<DonationDTO>> Donations(string id)
+        public Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
-            return _userService.Donations(id);
+            return _userService.Donations(id, request);
         }
 
         [HttpGet("{userId}/donation/{donationId}")]
@@ -42,15 +45,15 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/notifications")]
-        public Task<List<NotificationDTO>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
+        public Task<PagedResult<NotificationDTO>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
         {
             return _userService.Notifications(id, request);
         }
 
         [HttpGet("{id}/badges")]
-        public Task<List<BadgeDTO>> Badges(string id)
+        public Task<PagedResult<BadgeDTO>> Badges(string id, [FromQuery] BadgeSearchRequest request)
         {
-            return _userService.Badges(id);
+            return _userService.Badges(id, request);
         }
     }
 }

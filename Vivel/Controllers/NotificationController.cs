@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
@@ -16,7 +17,7 @@ namespace Vivel.Controllers
         }
 
         [NonAction]
-        public override Task<List<NotificationDTO>> Get(NotificationSearchRequest request)
+        public override Task<PagedResult<NotificationDTO>> Get(NotificationSearchRequest request)
         {
             return base.Get(request);
         }

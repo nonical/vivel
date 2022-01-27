@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Services;
 
@@ -22,7 +23,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet]
-        public async virtual Task<List<T>> Get([FromQuery] SearchRequest request)
+        public async virtual Task<PagedResult<T>> Get([FromQuery] SearchRequest request)
         {
             return await _service.Get(request);
         }

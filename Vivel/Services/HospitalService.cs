@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
@@ -16,7 +18,7 @@ namespace Vivel.Services
     {
         public HospitalService(VivelContext context, IMapper mapper) : base(context, mapper) { }
 
-        public async override Task<List<HospitalDTO>> Get(HospitalSearchRequest request = null)
+        public async override Task<PagedResult<HospitalDTO>> Get(HospitalSearchRequest request = null)
         {
             var entity = _context.Set<Hospital>().AsQueryable();
 
@@ -35,12 +37,20 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Longitude == request.Longitude);
             }
 
-            var list = await entity.ToListAsync();
+            var hospitals = await entity.GetPagedAsync(request.Page);
 
-            return _mapper.Map<List<HospitalDTO>>(list);
+            var mappedList = _mapper.Map<List<HospitalDTO>>(hospitals.Results);
+
+            return new PagedResult<HospitalDTO>
+            {
+                Results = mappedList,
+                CurrentPage = request.Page,
+                PageCount = hospitals.PageCount,
+                TotalItems = hospitals.TotalItems
+            };
         }
 
-        public async Task<List<DriveDTO>> Drives(string id, DriveSearchRequest request)
+        public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
         {
             var entity = _context.Drives.Where(x => x.HospitalId == id).AsQueryable();
 
@@ -70,9 +80,17 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var list = await entity.ToListAsync();
+            var drives = await entity.GetPagedAsync(request.Page);
 
-            return _mapper.Map<List<DriveDTO>>(list);
+            var mappedList = _mapper.Map<List<DriveDTO>>(drives.Results);
+
+            return new PagedResult<DriveDTO>
+            {
+                Results = mappedList,
+                CurrentPage = request.Page,
+                PageCount = drives.PageCount,
+                TotalItems = drives.TotalItems
+            };
         }
     }
 }

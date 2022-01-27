@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Vivel.Helpers;
 
 namespace Vivel.Interfaces
 {
@@ -11,7 +12,7 @@ namespace Vivel.Interfaces
         where InsertRequest : class
         where UpdateRequest : class
     {
-        Task<List<Dto>> Get(SearchRequest request = null);
+        Task<PagedResult<Dto>> Get(SearchRequest request = null);
 
         Task<Dto> GetById(string id);
 

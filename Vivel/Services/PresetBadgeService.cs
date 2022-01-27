@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Faq;
@@ -18,7 +20,7 @@ namespace Vivel.Services
         {
         }
 
-        public async override Task<List<PresetBadgeDTO>> Get(PresetBadgeSearchRequest request = null)
+        public async override Task<PagedResult<PresetBadgeDTO>> Get(PresetBadgeSearchRequest request = null)
         {
             var entity = _context.Set<PresetBadge>().AsQueryable();
 
@@ -27,9 +29,17 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Name.Contains(request.Name));
             }
 
-            var list = await entity.ToListAsync();
+            var presetBadges = await entity.GetPagedAsync(request.Page);
 
-            return _mapper.Map<List<PresetBadgeDTO>>(list);
+            var mappedList = _mapper.Map<List<PresetBadgeDTO>>(presetBadges.Results);
+
+            return new PagedResult<PresetBadgeDTO>
+            {
+                Results = mappedList,
+                CurrentPage = request.Page,
+                PageCount = presetBadges.PageCount,
+                TotalItems = presetBadges.TotalItems
+            };
         }
     }
 }

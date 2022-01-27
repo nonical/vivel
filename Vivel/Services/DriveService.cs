@@ -6,9 +6,12 @@ using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
+using Vivel.Model.Requests;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 
@@ -20,7 +23,7 @@ namespace Vivel.Services
         {
         }
 
-        public async override Task<List<DriveDTO>> Get(DriveSearchRequest request = null)
+        public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
             var entity = _context.Set<Drive>().AsQueryable();
 
@@ -50,9 +53,17 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var list = await entity.ToListAsync();
+            var drives = await entity.GetPagedAsync(request.Page);
 
-            return _mapper.Map<List<DriveDTO>>(list);
+            var mappedList = _mapper.Map<List<DriveDTO>>(drives.Results);
+
+            return new PagedResult<DriveDTO>
+            {
+                Results = mappedList,
+                CurrentPage = request.Page,
+                PageCount = drives.PageCount,
+                TotalItems = drives.TotalItems
+            };
         }
 
         public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
@@ -90,7 +101,7 @@ namespace Vivel.Services
             return _mapper.Map<DriveDTO>(entity);
         }
 
-        public async Task<List<DonationDTO>> Donations(string id, DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations.Where(x => x.DriveId == id).AsQueryable();
 
@@ -104,9 +115,17 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var list = await entity.ToListAsync();
+            var donations = await entity.GetPagedAsync(request.Page);
 
-            return _mapper.Map<List<DonationDTO>>(list);
+            var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
+
+            return new PagedResult<DonationDTO>
+            {
+                Results = mappedList,
+                CurrentPage = request.Page,
+                PageCount = donations.PageCount,
+                TotalItems = donations.TotalItems
+            };
         }
 
     }

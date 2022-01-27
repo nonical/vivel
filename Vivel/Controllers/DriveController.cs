@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Requests.Donation;
@@ -19,7 +20,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
-        public Task<List<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
+        public Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             return _driveService.Donations(id, request);
         }

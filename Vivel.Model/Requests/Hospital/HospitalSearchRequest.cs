@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Vivel.Model.Requests.Hospital
 {
-    public class HospitalSearchRequest
+    public class HospitalSearchRequest : BaseSearchObject
     {
         public string Name { get; set; }
         public decimal? Latitude { get; set; }
