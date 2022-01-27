@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
+using Vivel.Desktop.Resources.FAQ;
 using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
@@ -92,7 +93,7 @@ namespace Vivel.Desktop
 
         private void hospitalsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmHospital form = new frmHospital
+            var form = new frmHospital
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -103,7 +104,7 @@ namespace Vivel.Desktop
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Form form = new frmUser
+            var form = new frmUser
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -114,9 +115,23 @@ namespace Vivel.Desktop
 
         private void drivesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            frmDrive form = new frmDrive();
-            form.MdiParent = this;
-            form.Dock = DockStyle.Fill;
+            var form = new frmDrive
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
+        }
+
+        private void fAQToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = new frmFAQ()
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
             form.Show();
         }
     }
