@@ -71,6 +71,12 @@
     <Compile Include="Resources\Drive\frmDrive.Designer.cs">
       <DependentUpon>frmDrive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\FAQ\frmFAQ.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\FAQ\frmFAQ.Designer.cs">
+      <DependentUpon>frmFAQ.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Hospital\frmHospital.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -101,14 +107,18 @@
     <EmbeddedResource Include="Resources\Drive\frmDrive.resx">
       <DependentUpon>frmDrive.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\FAQ\frmFAQ.resx">
+      <DependentUpon>frmFAQ.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Hospital\frmHospital.resx">
       <DependentUpon>frmHospital.cs</DependentUpon>
-	</EmbeddedResource>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
