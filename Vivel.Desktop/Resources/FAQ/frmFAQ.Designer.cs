@@ -189,7 +189,6 @@
             //
             // txtQuestion
             //
-            this.txtQuestion.Enabled = false;
             this.txtQuestion.Location = new System.Drawing.Point(473, 96);
             this.txtQuestion.Multiline = true;
             this.txtQuestion.Name = "txtQuestion";
