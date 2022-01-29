@@ -6,9 +6,9 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Extensions;
-using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.PresetBadge;
 

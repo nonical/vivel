@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Vivel.Helpers
+namespace Vivel.Model.Pagination
 {
     public class PagedResult<T>
     {

@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Vivel.Helpers;
 using Vivel.Interfaces;
+using Vivel.Model.Pagination;
 using Vivel.Services;
 
 namespace Vivel.Controllers
