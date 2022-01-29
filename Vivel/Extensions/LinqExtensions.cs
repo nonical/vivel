@@ -10,7 +10,7 @@ namespace Vivel.Extensions
 {
     public static class LinqExtensions
     {
-        public static async Task<PagedResult<T>> GetPagedAsync<T>(this IQueryable<T> query, int page, int pageSize = 20) where T : class
+        public static async Task<PagedResult<T>> GetPagedAsync<T>(this IQueryable<T> query, int page, int pageSize) where T : class
         {
             var result = new PagedResult<T>
             {
@@ -18,7 +18,7 @@ namespace Vivel.Extensions
                 TotalItems = await query.CountAsync()
             };
 
-            if (pageSize > 0)
+            if (page > 0)
             {
                 var pageCount = (double)result.TotalItems / pageSize;
                 result.PageCount = (int)Math.Ceiling(pageCount);

@@ -39,7 +39,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Verified == request.Verified);
             }
 
-            var users = await entity.GetPagedAsync(request.Page);
+            var users = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<UserDTO>>(users.Results);
 
@@ -74,7 +74,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var donations = await entity.GetPagedAsync(request.Page);
+            var donations = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
 
@@ -108,7 +108,7 @@ namespace Vivel.Services
                 entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
             }
 
-            var notifications = await entities.GetPagedAsync(request.Page);
+            var notifications = await entities.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<NotificationDTO>>(notifications.Results);
 
@@ -123,7 +123,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<BadgeDTO>> Badges(string id, BadgeSearchRequest request)
         {
-            var badges = await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync(request.Page);
+            var badges = await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<BadgeDTO>>(badges.Results);
 

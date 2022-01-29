@@ -53,7 +53,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var drives = await entity.GetPagedAsync(request.Page);
+            var drives = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<DriveDTO>>(drives.Results);
 
@@ -115,7 +115,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var donations = await entity.GetPagedAsync(request.Page);
+            var donations = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
 

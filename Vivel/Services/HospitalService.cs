@@ -37,7 +37,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Longitude == request.Longitude);
             }
 
-            var hospitals = await entity.GetPagedAsync(request.Page);
+            var hospitals = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<HospitalDTO>>(hospitals.Results);
 
@@ -80,7 +80,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var drives = await entity.GetPagedAsync(request.Page);
+            var drives = await entity.GetPagedAsync(request.Page, request.PageSize);
 
             var mappedList = _mapper.Map<List<DriveDTO>>(drives.Results);
 

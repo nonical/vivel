@@ -11,9 +11,5 @@ namespace Vivel.Helpers
         public int TotalItems { get; set; }
         public IList<T> Results { get; set; }
 
-        public PagedResult()
-        {
-            Results = new List<T>();
-        }
     }
 }
