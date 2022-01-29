@@ -51,8 +51,6 @@ namespace Vivel.Desktop.Hospital
 
         private void frmHospital_Load(object sender, EventArgs e)
         {
-            lblHospitalPrevious.Enabled = false;
-            lblHospitalNext.Enabled = false;
             GetHospitals();
         }
 

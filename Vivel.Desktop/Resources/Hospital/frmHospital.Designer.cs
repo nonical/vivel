@@ -210,6 +210,7 @@
             // lblHospitalNext
             //
             this.lblHospitalNext.AutoSize = true;
+            this.lblHospitalNext.Enabled = false;
             this.lblHospitalNext.Location = new System.Drawing.Point(492, 83);
             this.lblHospitalNext.Name = "lblHospitalNext";
             this.lblHospitalNext.Size = new System.Drawing.Size(27, 13);
@@ -221,6 +222,7 @@
             // lblHospitalPrevious
             //
             this.lblHospitalPrevious.AutoSize = true;
+            this.lblHospitalPrevious.Enabled = false;
             this.lblHospitalPrevious.Location = new System.Drawing.Point(412, 83);
             this.lblHospitalPrevious.Name = "lblHospitalPrevious";
             this.lblHospitalPrevious.Size = new System.Drawing.Size(47, 13);
