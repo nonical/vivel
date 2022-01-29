@@ -11,56 +11,80 @@ using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Extensions;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 
 namespace Vivel.Desktop.Resources.Drive
 {
     public partial class frmDrive : Form
     {
-        APIService _driveService = new APIService("Drive");
-        APIService _hospitalService = new APIService("Hospital");
+        APIService _service = new APIService("Hospital");
+
+        int _currentPage;
+
         public frmDrive()
         {
             InitializeComponent();
         }
 
-        private async void frmDrive_Load(object sender, EventArgs e)
+        private async void GetDrives(int pageNumber = 1)
         {
-            dgvDrive.DataSource = await _driveService.Get<List<DriveDTO>>(null);
+            _currentPage = pageNumber;
 
-            cmbHospitalSelect.DataSource = await _hospitalService.Get<List<HospitalDTO>>(null);
-            cmbHospitalSelect.DisplayMember = "Name";
-            cmbHospitalSelect.ValueMember = "HospitalId";
-        }
-
-        private async void btnSearchDrive_Click(object sender, EventArgs e)
-        {
             var hospitalId = cmbHospitalSelect.SelectedValue.ToString();
 
-            dgvDrive.DataSource = await _hospitalService.GetByID<List<DriveDTO>>(hospitalId + "/drives");
-        }
+            var statuses = new List<string>();
 
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            StatusSearch("Open");
-        }
-
-        private void btnClosed_Click(object sender, EventArgs e)
-        {
-            StatusSearch("Closed");
-        }
-
-        private async void StatusSearch(string status)
-        {
-            var hospitalId = cmbHospitalSelect.SelectedValue.ToString();
+            if (cbDriveOpen.Checked) statuses.Add("Open");
+            if (cbDriveClosed.Checked) statuses.Add("Closed");
 
             var request = new DriveSearchRequest
             {
-                Status = new List<string> { status }
+                Status = statuses,
+                Page = pageNumber
             };
 
             var queryString = await request?.ToQueryString();
-            dgvDrive.DataSource = await _hospitalService.GetByID<List<DriveDTO>>(hospitalId + $"/drives?{queryString}");
+
+            var response = await _service.GetByID<PagedResult<DriveDTO>>(hospitalId + $"/drives?{queryString}");
+
+            dgvDrive.DataSource = response.Results;
+
+            lblDrivePrevious.Enabled = _currentPage != 1;
+            lblDriveNext.Enabled = response.CurrentPage < response.PageCount;
+        }
+
+        private async void frmDrive_Load(object sender, EventArgs e)
+        {
+            btnSearchDrive.Enabled = false;
+            lblDrivePrevious.Enabled = false;
+            lblDriveNext.Enabled = false;
+
+            var response = await _service.Get<PagedResult<HospitalDTO>>(null);
+
+            cmbHospitalSelect.DataSource = response.Results;
+            cmbHospitalSelect.DisplayMember = "Name";
+            cmbHospitalSelect.ValueMember = "HospitalId";
+            cmbHospitalSelect.SelectedIndex = 0;
+
+            GetDrives();
+
+            btnSearchDrive.Enabled = true;
+        }
+
+        private void btnSearchDrive_Click(object sender, EventArgs e)
+        {
+            GetDrives();
+        }
+
+        private void lblDriveNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetDrives(_currentPage + 1);
+        }
+
+        private void lblDrivePrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetDrives(_currentPage - 1);
         }
     }
 }

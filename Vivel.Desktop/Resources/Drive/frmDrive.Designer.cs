@@ -33,8 +33,10 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvDrive = new System.Windows.Forms.DataGridView();
             this.cmbHospitalSelect = new System.Windows.Forms.ComboBox();
-            this.btnOpen = new System.Windows.Forms.Button();
-            this.btnClosed = new System.Windows.Forms.Button();
+            this.cbDriveOpen = new System.Windows.Forms.CheckBox();
+            this.cbDriveClosed = new System.Windows.Forms.CheckBox();
+            this.lblDrivePrevious = new System.Windows.Forms.LinkLabel();
+            this.lblDriveNext = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrive)).BeginInit();
             this.SuspendLayout();
@@ -89,33 +91,61 @@
             this.cmbHospitalSelect.Size = new System.Drawing.Size(121, 21);
             this.cmbHospitalSelect.TabIndex = 9;
             //
-            // btnOpen
+            // cbDriveOpen
             //
-            this.btnOpen.Location = new System.Drawing.Point(571, 44);
-            this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(97, 23);
-            this.btnOpen.TabIndex = 10;
-            this.btnOpen.Text = "Open";
-            this.btnOpen.UseVisualStyleBackColor = true;
-            this.btnOpen.Click += new System.EventHandler(this.btnOpen_Click);
+            this.cbDriveOpen.AutoSize = true;
+            this.cbDriveOpen.Checked = true;
+            this.cbDriveOpen.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbDriveOpen.Location = new System.Drawing.Point(17, 77);
+            this.cbDriveOpen.Name = "cbDriveOpen";
+            this.cbDriveOpen.Size = new System.Drawing.Size(52, 17);
+            this.cbDriveOpen.TabIndex = 12;
+            this.cbDriveOpen.Text = "Open";
+            this.cbDriveOpen.UseVisualStyleBackColor = true;
             //
-            // btnClosed
+            // cbDriveClosed
             //
-            this.btnClosed.Location = new System.Drawing.Point(691, 44);
-            this.btnClosed.Name = "btnClosed";
-            this.btnClosed.Size = new System.Drawing.Size(97, 23);
-            this.btnClosed.TabIndex = 11;
-            this.btnClosed.Text = "Closed";
-            this.btnClosed.UseVisualStyleBackColor = true;
-            this.btnClosed.Click += new System.EventHandler(this.btnClosed_Click);
+            this.cbDriveClosed.AutoSize = true;
+            this.cbDriveClosed.Checked = true;
+            this.cbDriveClosed.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbDriveClosed.Location = new System.Drawing.Point(75, 77);
+            this.cbDriveClosed.Name = "cbDriveClosed";
+            this.cbDriveClosed.Size = new System.Drawing.Size(58, 17);
+            this.cbDriveClosed.TabIndex = 13;
+            this.cbDriveClosed.Text = "Closed";
+            this.cbDriveClosed.UseVisualStyleBackColor = true;
+            //
+            // lblDrivePrevious
+            //
+            this.lblDrivePrevious.AutoSize = true;
+            this.lblDrivePrevious.Location = new System.Drawing.Point(689, 77);
+            this.lblDrivePrevious.Name = "lblDrivePrevious";
+            this.lblDrivePrevious.Size = new System.Drawing.Size(47, 13);
+            this.lblDrivePrevious.TabIndex = 15;
+            this.lblDrivePrevious.TabStop = true;
+            this.lblDrivePrevious.Text = "previous";
+            this.lblDrivePrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDrivePrevious_LinkClicked);
+            //
+            // lblDriveNext
+            //
+            this.lblDriveNext.AutoSize = true;
+            this.lblDriveNext.Location = new System.Drawing.Point(769, 77);
+            this.lblDriveNext.Name = "lblDriveNext";
+            this.lblDriveNext.Size = new System.Drawing.Size(27, 13);
+            this.lblDriveNext.TabIndex = 14;
+            this.lblDriveNext.TabStop = true;
+            this.lblDriveNext.Text = "next";
+            this.lblDriveNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDriveNext_LinkClicked);
             //
             // frmDrive
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 450);
-            this.Controls.Add(this.btnClosed);
-            this.Controls.Add(this.btnOpen);
+            this.Controls.Add(this.lblDrivePrevious);
+            this.Controls.Add(this.lblDriveNext);
+            this.Controls.Add(this.cbDriveClosed);
+            this.Controls.Add(this.cbDriveOpen);
             this.Controls.Add(this.cmbHospitalSelect);
             this.Controls.Add(this.btnSearchDrive);
             this.Controls.Add(this.label1);
@@ -138,7 +168,9 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvDrive;
         private System.Windows.Forms.ComboBox cmbHospitalSelect;
-        private System.Windows.Forms.Button btnOpen;
-        private System.Windows.Forms.Button btnClosed;
+        private System.Windows.Forms.CheckBox cbDriveOpen;
+        private System.Windows.Forms.CheckBox cbDriveClosed;
+        private System.Windows.Forms.LinkLabel lblDrivePrevious;
+        private System.Windows.Forms.LinkLabel lblDriveNext;
     }
 }
