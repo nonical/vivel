@@ -43,6 +43,7 @@
             //
             // btnSearchDrive
             //
+            this.btnSearchDrive.Enabled = false;
             this.btnSearchDrive.Location = new System.Drawing.Point(164, 44);
             this.btnSearchDrive.Name = "btnSearchDrive";
             this.btnSearchDrive.Size = new System.Drawing.Size(97, 23);
@@ -118,6 +119,7 @@
             // lblDrivePrevious
             //
             this.lblDrivePrevious.AutoSize = true;
+            this.lblDrivePrevious.Enabled = false;
             this.lblDrivePrevious.Location = new System.Drawing.Point(689, 77);
             this.lblDrivePrevious.Name = "lblDrivePrevious";
             this.lblDrivePrevious.Size = new System.Drawing.Size(47, 13);
@@ -129,6 +131,7 @@
             // lblDriveNext
             //
             this.lblDriveNext.AutoSize = true;
+            this.lblDriveNext.Enabled = false;
             this.lblDriveNext.Location = new System.Drawing.Point(769, 77);
             this.lblDriveNext.Name = "lblDriveNext";
             this.lblDriveNext.Size = new System.Drawing.Size(27, 13);

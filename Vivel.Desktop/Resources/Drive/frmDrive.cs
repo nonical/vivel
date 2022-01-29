@@ -56,10 +56,6 @@ namespace Vivel.Desktop.Resources.Drive
 
         private async void frmDrive_Load(object sender, EventArgs e)
         {
-            btnSearchDrive.Enabled = false;
-            lblDrivePrevious.Enabled = false;
-            lblDriveNext.Enabled = false;
-
             var response = await _service.Get<PagedResult<HospitalDTO>>(null);
 
             cmbHospitalSelect.DataSource = response.Results;
