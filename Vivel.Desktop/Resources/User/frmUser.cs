@@ -27,7 +27,6 @@ namespace Vivel.Desktop.Resources.User
         private async void getUsers(int pageNumber = 1)
         {
             _currentUserPage = pageNumber;
-            _currentDonationPage = 1;
 
             var response = await _apiService.Get<PagedResult<UserDTO>>(new UserSearchRequest() { UserName = txtSearch.Text.Trim(), Page = pageNumber });
 
@@ -42,7 +41,7 @@ namespace Vivel.Desktop.Resources.User
         {
             _currentDonationPage = pageNumber;
 
-            var queryString = new DonationSearchRequest() { Page = pageNumber }.ToQueryString();
+            var queryString = await new DonationSearchRequest() { Page = pageNumber }.ToQueryString();
 
             var response = await _apiService.GetByID<PagedResult<DonationDTO>>(userId + $"/donations?{queryString}");
 
