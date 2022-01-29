@@ -19,7 +19,7 @@ namespace Vivel.Desktop.Hospital
     {
         APIService _service = new APIService("Hospital");
 
-        int _currentPage = 1;
+        int _currentPage;
 
         public frmHospital()
         {
@@ -38,11 +38,10 @@ namespace Vivel.Desktop.Hospital
 
             var response = await _service.Get<PagedResult<HospitalDTO>>(request);
 
-            lblHospitalPrevious.Enabled = _currentPage == 1 ? false : true;
-
-            lblHospitalNext.Enabled = response.CurrentPage >= response.PageCount ? false : true;
-
             dgvHospital.DataSource = response.Results;
+
+            lblHospitalPrevious.Enabled = _currentPage != 1;
+            lblHospitalNext.Enabled = response.CurrentPage < response.PageCount;
         }
 
         private void btnSearchHospital_Click(object sender, EventArgs e)
