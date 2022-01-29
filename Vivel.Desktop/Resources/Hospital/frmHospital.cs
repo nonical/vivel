@@ -17,9 +17,9 @@ namespace Vivel.Desktop.Hospital
 {
     public partial class frmHospital : Form
     {
-        APIService _service = new APIService("Hospital");
+        private readonly APIService _service = new APIService("Hospital");
 
-        int _currentPage;
+        private int _currentPage;
 
         public frmHospital()
         {
@@ -30,11 +30,7 @@ namespace Vivel.Desktop.Hospital
         {
             _currentPage = pageNumber;
 
-            var request = new HospitalSearchRequest
-            {
-                Name = txtHospitalNameSearch.Text,
-                Page = pageNumber
-            };
+            var request = new HospitalSearchRequest { Name = txtHospitalNameSearch.Text, Page = pageNumber };
 
             var response = await _service.Get<PagedResult<HospitalDTO>>(request);
 

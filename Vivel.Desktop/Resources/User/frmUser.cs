@@ -14,9 +14,9 @@ namespace Vivel.Desktop.Resources.User
     {
         private readonly APIService _apiService = new APIService("User");
 
-        int _currentUserPage;
+        private int _currentUserPage;
 
-        int _currentDonationPage;
+        private int _currentDonationPage;
 
         public frmUser()
         {

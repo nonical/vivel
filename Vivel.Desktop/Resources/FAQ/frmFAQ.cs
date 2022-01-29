@@ -11,7 +11,7 @@ namespace Vivel.Desktop.Resources.FAQ
     {
         private readonly APIService _apiService = new APIService("Faq");
 
-        int _currentPage;
+        private int _currentPage;
 
         public frmFAQ()
         {
@@ -23,9 +23,7 @@ namespace Vivel.Desktop.Resources.FAQ
         {
             _currentPage = pageNumber;
 
-            var answered = cbFAQAnswered.Checked;
-
-            var request = new FaqSearchRequest() { Answered = answered, Page = pageNumber };
+            var request = new FaqSearchRequest() { Answered = cbFAQAnswered.Checked, Page = pageNumber };
 
             var response = await _apiService.Get<PagedResult<FaqDTO>>(request);
 

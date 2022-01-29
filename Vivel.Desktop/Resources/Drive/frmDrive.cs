@@ -18,9 +18,9 @@ namespace Vivel.Desktop.Resources.Drive
 {
     public partial class frmDrive : Form
     {
-        APIService _service = new APIService("Hospital");
+        private readonly APIService _service = new APIService("Hospital");
 
-        int _currentPage;
+        private int _currentPage;
 
         public frmDrive()
         {
@@ -38,13 +38,7 @@ namespace Vivel.Desktop.Resources.Drive
             if (cbDriveOpen.Checked) statuses.Add("Open");
             if (cbDriveClosed.Checked) statuses.Add("Closed");
 
-            var request = new DriveSearchRequest
-            {
-                Status = statuses,
-                Page = pageNumber
-            };
-
-            var queryString = await request?.ToQueryString();
+            var queryString = await new DriveSearchRequest { Status = statuses, Page = pageNumber }.ToQueryString();
 
             var response = await _service.GetByID<PagedResult<DriveDTO>>(hospitalId + $"/drives?{queryString}");
 
