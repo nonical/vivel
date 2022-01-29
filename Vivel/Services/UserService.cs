@@ -39,17 +39,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Verified == request.Verified);
             }
 
-            var users = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<UserDTO>>(users.Results);
-
-            return new PagedResult<UserDTO>
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = users.PageCount,
-                TotalItems = users.TotalItems
-            };
+            return await entity.GetPagedAsync<User, UserDTO>(_mapper, request.Page, request.PageSize);
         }
 
         public async Task<UserDetailsDTO> Details(string id)
@@ -74,17 +64,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var donations = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
-
-            return new PagedResult<DonationDTO>()
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = donations.PageCount,
-                TotalItems = donations.TotalItems
-            };
+            return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize);
         }
 
         public async Task<DonationDTO> Donation(string userId, string donationId)
@@ -108,32 +88,12 @@ namespace Vivel.Services
                 entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
             }
 
-            var notifications = await entities.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<NotificationDTO>>(notifications.Results);
-
-            return new PagedResult<NotificationDTO>()
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = notifications.PageCount,
-                TotalItems = notifications.TotalItems
-            };
+            return await entities.GetPagedAsync<Notification, NotificationDTO>(_mapper, request.Page, request.PageSize);
         }
 
         public async Task<PagedResult<BadgeDTO>> Badges(string id, BadgeSearchRequest request)
         {
-            var badges = await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<BadgeDTO>>(badges.Results);
-
-            return new PagedResult<BadgeDTO>()
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = badges.PageCount,
-                TotalItems = badges.TotalItems
-            };
+            return await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync<Badge, BadgeDTO>(_mapper, request.Page, request.PageSize);
         }
 
     }

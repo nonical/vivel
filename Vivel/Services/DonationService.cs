@@ -34,17 +34,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var donations = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
-
-            return new PagedResult<DonationDTO>()
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = donations.PageCount,
-                TotalItems = donations.TotalItems
-            };
+            return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize);
         }
     }
 }

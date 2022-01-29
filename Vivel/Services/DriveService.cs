@@ -53,17 +53,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var drives = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<DriveDTO>>(drives.Results);
-
-            return new PagedResult<DriveDTO>
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = drives.PageCount,
-                TotalItems = drives.TotalItems
-            };
+            return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize);
         }
 
         public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
@@ -115,17 +105,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var donations = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<DonationDTO>>(donations.Results);
-
-            return new PagedResult<DonationDTO>
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = donations.PageCount,
-                TotalItems = donations.TotalItems
-            };
+            return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize);
         }
 
     }

@@ -29,17 +29,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Answered == request.Answered);
             }
 
-            var faqs = await entity.GetPagedAsync(request.Page, request.PageSize);
-
-            var mappedList = _mapper.Map<List<FaqDTO>>(faqs.Results);
-
-            return new PagedResult<FaqDTO>
-            {
-                Results = mappedList,
-                CurrentPage = request.Page,
-                PageCount = faqs.PageCount,
-                TotalItems = faqs.TotalItems
-            };
+            return await entity.GetPagedAsync<Faq, FaqDTO>(_mapper, request.Page, request.PageSize);
         }
     }
 }
