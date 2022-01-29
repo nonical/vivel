@@ -7,8 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vivel;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Desktop.Hospital
@@ -16,24 +18,43 @@ namespace Vivel.Desktop.Hospital
     public partial class frmHospital : Form
     {
         APIService _service = new APIService("Hospital");
+
+        int _currentPage = 1;
+
         public frmHospital()
         {
             InitializeComponent();
         }
 
-        private async void btnSearchHospital_Click(object sender, EventArgs e)
+        private async void GetHospitals(int pageNumber = 1)
         {
+            _currentPage = pageNumber;
+
             var request = new HospitalSearchRequest
             {
-                Name = txtHospitalNameSearch.Text
+                Name = txtHospitalNameSearch.Text,
+                Page = pageNumber
             };
 
-            dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(request);
+            var response = await _service.Get<PagedResult<HospitalDTO>>(request);
+
+            lblHospitalPrevious.Enabled = _currentPage == 1 ? false : true;
+
+            lblHospitalNext.Enabled = response.CurrentPage >= response.PageCount ? false : true;
+
+            dgvHospital.DataSource = response.Results;
         }
 
-        private async void frmHospital_Load(object sender, EventArgs e)
+        private void btnSearchHospital_Click(object sender, EventArgs e)
         {
-            dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(null);
+            GetHospitals();
+        }
+
+        private void frmHospital_Load(object sender, EventArgs e)
+        {
+            lblHospitalPrevious.Enabled = false;
+            lblHospitalNext.Enabled = false;
+            GetHospitals();
         }
 
         private void dgvHospital_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -79,6 +100,16 @@ namespace Vivel.Desktop.Hospital
                 txtHospitalLatitudeUpsert.Text = "";
                 txtHospitalLongitudeUpsert.Text = "";
             }
+        }
+
+        private void lblHospitalNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetHospitals(_currentPage + 1);
+        }
+
+        private void lblHospitalPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetHospitals(_currentPage - 1);
         }
     }
 }

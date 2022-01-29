@@ -44,6 +44,8 @@
             this.txtHospitalNameSearch = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSearchHospital = new System.Windows.Forms.Button();
+            this.lblHospitalNext = new System.Windows.Forms.LinkLabel();
+            this.lblHospitalPrevious = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHospital)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -205,12 +207,36 @@
             this.btnSearchHospital.UseVisualStyleBackColor = true;
             this.btnSearchHospital.Click += new System.EventHandler(this.btnSearchHospital_Click);
             //
+            // lblHospitalNext
+            //
+            this.lblHospitalNext.AutoSize = true;
+            this.lblHospitalNext.Location = new System.Drawing.Point(492, 83);
+            this.lblHospitalNext.Name = "lblHospitalNext";
+            this.lblHospitalNext.Size = new System.Drawing.Size(27, 13);
+            this.lblHospitalNext.TabIndex = 5;
+            this.lblHospitalNext.TabStop = true;
+            this.lblHospitalNext.Text = "next";
+            this.lblHospitalNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblHospitalNext_LinkClicked);
+            //
+            // lblHospitalPrevious
+            //
+            this.lblHospitalPrevious.AutoSize = true;
+            this.lblHospitalPrevious.Location = new System.Drawing.Point(412, 83);
+            this.lblHospitalPrevious.Name = "lblHospitalPrevious";
+            this.lblHospitalPrevious.Size = new System.Drawing.Size(47, 13);
+            this.lblHospitalPrevious.TabIndex = 6;
+            this.lblHospitalPrevious.TabStop = true;
+            this.lblHospitalPrevious.Text = "previous";
+            this.lblHospitalPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblHospitalPrevious_LinkClicked);
+            //
             // frmHospital
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblHospitalPrevious);
+            this.Controls.Add(this.lblHospitalNext);
             this.Controls.Add(this.btnSearchHospital);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtHospitalNameSearch);
@@ -247,5 +273,7 @@
         private System.Windows.Forms.TextBox txtHospitalIdUpsert;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel lblHospitalClear;
+        private System.Windows.Forms.LinkLabel lblHospitalNext;
+        private System.Windows.Forms.LinkLabel lblHospitalPrevious;
     }
 }
