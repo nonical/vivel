@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Desktop.Resources.FAQ
@@ -10,18 +11,28 @@ namespace Vivel.Desktop.Resources.FAQ
     {
         private readonly APIService _apiService = new APIService("Faq");
 
+        int _currentPage;
+
         public frmFAQ()
         {
             InitializeComponent();
             getFAQs();
         }
 
-        async void getFAQs(bool? answered = null)
+        async void getFAQs(int pageNumber = 1)
         {
-            var searchReq = answered != null ? new FaqSearchRequest() { Answered = answered } : null;
-            var faqs = await _apiService.Get<List<FaqDTO>>(searchReq);
+            _currentPage = pageNumber;
 
-            dgvFAQs.DataSource = faqs;
+            var answered = cbFAQAnswered.Checked;
+
+            var request = new FaqSearchRequest() { Answered = answered, Page = pageNumber };
+
+            var response = await _apiService.Get<PagedResult<FaqDTO>>(request);
+
+            lblFAQPrevious.Enabled = _currentPage != 1;
+            lblFAQNext.Enabled = response.CurrentPage < response.PageCount;
+
+            dgvFAQs.DataSource = response.Results;
         }
 
         async void updateFAQ(string faqId, FaqUpdateRequest updateBody)
@@ -57,14 +68,19 @@ namespace Vivel.Desktop.Resources.FAQ
             });
         }
 
-        private void btnAnswered_Click(object sender, System.EventArgs e)
+        private void btnFAQSearch_Click(object sender, System.EventArgs e)
         {
-            getFAQs(true);
+            getFAQs();
         }
 
-        private void btnUnanswered_Click(object sender, System.EventArgs e)
+        private void lblFAQNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            getFAQs(false);
+            getFAQs(_currentPage + 1);
+        }
+
+        private void lblFAQPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            getFAQs(_currentPage - 1);
         }
     }
 }

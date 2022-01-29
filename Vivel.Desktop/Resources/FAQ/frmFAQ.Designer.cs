@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.btnAnswered = new System.Windows.Forms.Button();
-            this.btnUnanswered = new System.Windows.Forms.Button();
             this.dgvFAQs = new System.Windows.Forms.DataGridView();
             this.faqidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.questionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -46,29 +44,13 @@
             this.lbQuestion = new System.Windows.Forms.Label();
             this.txtQuestion = new System.Windows.Forms.TextBox();
             this.btnSave = new System.Windows.Forms.Button();
+            this.btnFAQSearch = new System.Windows.Forms.Button();
+            this.cbFAQAnswered = new System.Windows.Forms.CheckBox();
+            this.lblFAQPrevious = new System.Windows.Forms.LinkLabel();
+            this.lblFAQNext = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).BeginInit();
             this.SuspendLayout();
-            //
-            // btnAnswered
-            //
-            this.btnAnswered.Location = new System.Drawing.Point(12, 12);
-            this.btnAnswered.Name = "btnAnswered";
-            this.btnAnswered.Size = new System.Drawing.Size(75, 23);
-            this.btnAnswered.TabIndex = 0;
-            this.btnAnswered.Text = "Answered";
-            this.btnAnswered.UseVisualStyleBackColor = true;
-            this.btnAnswered.Click += new System.EventHandler(this.btnAnswered_Click);
-            //
-            // btnUnanswered
-            //
-            this.btnUnanswered.Location = new System.Drawing.Point(93, 12);
-            this.btnUnanswered.Name = "btnUnanswered";
-            this.btnUnanswered.Size = new System.Drawing.Size(75, 23);
-            this.btnUnanswered.TabIndex = 1;
-            this.btnUnanswered.Text = "Unanswered";
-            this.btnUnanswered.UseVisualStyleBackColor = true;
-            this.btnUnanswered.Click += new System.EventHandler(this.btnUnanswered_Click);
             //
             // dgvFAQs
             //
@@ -205,11 +187,59 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             //
+            // btnFAQSearch
+            //
+            this.btnFAQSearch.Location = new System.Drawing.Point(108, 8);
+            this.btnFAQSearch.Name = "btnFAQSearch";
+            this.btnFAQSearch.Size = new System.Drawing.Size(75, 23);
+            this.btnFAQSearch.TabIndex = 12;
+            this.btnFAQSearch.Text = "Search";
+            this.btnFAQSearch.UseVisualStyleBackColor = true;
+            this.btnFAQSearch.Click += new System.EventHandler(this.btnFAQSearch_Click);
+            //
+            // cbFAQAnswered
+            //
+            this.cbFAQAnswered.AutoSize = true;
+            this.cbFAQAnswered.Location = new System.Drawing.Point(12, 12);
+            this.cbFAQAnswered.Name = "cbFAQAnswered";
+            this.cbFAQAnswered.Size = new System.Drawing.Size(73, 17);
+            this.cbFAQAnswered.TabIndex = 13;
+            this.cbFAQAnswered.Text = "Answered";
+            this.cbFAQAnswered.UseVisualStyleBackColor = true;
+            //
+            // lblFAQPrevious
+            //
+            this.lblFAQPrevious.AutoSize = true;
+            this.lblFAQPrevious.Enabled = false;
+            this.lblFAQPrevious.Location = new System.Drawing.Point(356, 18);
+            this.lblFAQPrevious.Name = "lblFAQPrevious";
+            this.lblFAQPrevious.Size = new System.Drawing.Size(47, 13);
+            this.lblFAQPrevious.TabIndex = 17;
+            this.lblFAQPrevious.TabStop = true;
+            this.lblFAQPrevious.Text = "previous";
+            this.lblFAQPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblFAQPrevious_LinkClicked);
+            //
+            // lblFAQNext
+            //
+            this.lblFAQNext.AutoSize = true;
+            this.lblFAQNext.Enabled = false;
+            this.lblFAQNext.Location = new System.Drawing.Point(436, 18);
+            this.lblFAQNext.Name = "lblFAQNext";
+            this.lblFAQNext.Size = new System.Drawing.Size(27, 13);
+            this.lblFAQNext.TabIndex = 16;
+            this.lblFAQNext.TabStop = true;
+            this.lblFAQNext.Text = "next";
+            this.lblFAQNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblFAQNext_LinkClicked);
+            //
             // frmFAQ
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblFAQPrevious);
+            this.Controls.Add(this.lblFAQNext);
+            this.Controls.Add(this.cbFAQAnswered);
+            this.Controls.Add(this.btnFAQSearch);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtQuestion);
             this.Controls.Add(this.lbQuestion);
@@ -218,8 +248,6 @@
             this.Controls.Add(this.txtAnswer);
             this.Controls.Add(this.txtQuestionId);
             this.Controls.Add(this.dgvFAQs);
-            this.Controls.Add(this.btnUnanswered);
-            this.Controls.Add(this.btnAnswered);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmFAQ";
             this.Text = "frmFAQ";
@@ -231,9 +259,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnAnswered;
-        private System.Windows.Forms.Button btnUnanswered;
         private System.Windows.Forms.DataGridView dgvFAQs;
         private System.Windows.Forms.TextBox txtQuestionId;
         private System.Windows.Forms.TextBox txtAnswer;
@@ -249,5 +274,9 @@
         private System.Windows.Forms.Label lbQuestion;
         private System.Windows.Forms.TextBox txtQuestion;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Button btnFAQSearch;
+        private System.Windows.Forms.CheckBox cbFAQAnswered;
+        private System.Windows.Forms.LinkLabel lblFAQPrevious;
+        private System.Windows.Forms.LinkLabel lblFAQNext;
     }
 }
