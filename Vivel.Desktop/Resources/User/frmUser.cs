@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
+using Vivel.Model.Extensions;
+using Vivel.Model.Pagination;
+using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.User;
 
 namespace Vivel.Desktop.Resources.User
@@ -11,21 +14,42 @@ namespace Vivel.Desktop.Resources.User
     {
         private readonly APIService _apiService = new APIService("User");
 
+        int _currentUserPage;
+
+        int _currentDonationPage;
+
         public frmUser()
         {
             InitializeComponent();
             getUsers();
         }
 
-        private async void getUsers()
+        private async void getUsers(int pageNumber = 1)
         {
-            dgvUsers.DataSource = await _apiService.Get<List<UserDTO>>(new UserSearchRequest() { UserName = txtSearch.Text.Trim() });
+            _currentUserPage = pageNumber;
+            _currentDonationPage = 1;
+
+            var response = await _apiService.Get<PagedResult<UserDTO>>(new UserSearchRequest() { UserName = txtSearch.Text.Trim(), Page = pageNumber });
+
+            dgvUsers.DataSource = response.Results;
             txtSearch.Text = "";
+
+            lblUserPrevious.Enabled = _currentUserPage != 1;
+            lblUserNext.Enabled = response.CurrentPage < response.PageCount;
         }
 
-        private async void getDonations(string userId)
+        private async void getDonations(string userId, int pageNumber = 1)
         {
-            dgvUserDonations.DataSource = await _apiService.GetByID<object>(userId + "/donations");
+            _currentDonationPage = pageNumber;
+
+            var queryString = new DonationSearchRequest() { Page = pageNumber }.ToQueryString();
+
+            var response = await _apiService.GetByID<PagedResult<DonationDTO>>(userId + $"/donations?{queryString}");
+
+            dgvUserDonations.DataSource = response.Results;
+
+            lblDonationPrevious.Enabled = _currentDonationPage != 1;
+            lblDonationNext.Enabled = response.CurrentPage < response.PageCount;
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -50,6 +74,28 @@ namespace Vivel.Desktop.Resources.User
                 lbUserDonations.Text = user.UserName + "'s Donations";
                 getDonations(user.UserId);
             }
+        }
+
+        private void lblUserNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            getUsers(_currentUserPage + 1);
+        }
+
+        private void lblUserPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            getUsers(_currentUserPage - 1);
+        }
+
+        private void lblDonationNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var user = dgvUsers.SelectedRows[0].DataBoundItem as UserDTO;
+            getDonations(user.UserId, _currentDonationPage + 1);
+        }
+
+        private void lblDonationPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            var user = dgvUsers.SelectedRows[0].DataBoundItem as UserDTO;
+            getDonations(user.UserId, _currentDonationPage - 1);
         }
     }
 }
