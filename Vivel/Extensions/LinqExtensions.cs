@@ -19,6 +19,8 @@ namespace Vivel.Extensions
                 TotalItems = await query.CountAsync()
             };
 
+            List<T> list;
+
             if (page > 0)
             {
                 var pageCount = (double)result.TotalItems / pageSize;
@@ -26,18 +28,16 @@ namespace Vivel.Extensions
 
                 var skip = (page - 1) * pageSize;
 
-                var list = await query.Skip(skip).Take(pageSize).ToListAsync();
-
-                result.Results = _mapper.Map<List<Dto>>(list);
+                list = await query.Skip(skip).Take(pageSize).ToListAsync();
             }
             else
             {
                 result.PageCount = 1;
 
-                var list = await query.ToListAsync();
-
-                result.Results = _mapper.Map<List<Dto>>(list);
+                list = await query.ToListAsync();
             }
+
+            result.Results = _mapper.Map<List<Dto>>(list);
 
             return result;
         }
