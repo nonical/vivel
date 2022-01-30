@@ -4,9 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Hospital;
 
@@ -16,7 +18,7 @@ namespace Vivel.Services
     {
         public HospitalService(VivelContext context, IMapper mapper) : base(context, mapper) { }
 
-        public async override Task<List<HospitalDTO>> Get(HospitalSearchRequest request = null)
+        public async override Task<PagedResult<HospitalDTO>> Get(HospitalSearchRequest request = null)
         {
             var entity = _context.Set<Hospital>().AsQueryable();
 
@@ -35,12 +37,10 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Longitude == request.Longitude);
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<HospitalDTO>>(list);
+            return await entity.GetPagedAsync<Hospital, HospitalDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<List<DriveDTO>> Drives(string id, DriveSearchRequest request)
+        public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
         {
             var entity = _context.Drives.Where(x => x.HospitalId == id).AsQueryable();
 
@@ -70,9 +70,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<DriveDTO>>(list);
+            return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
     }
 }

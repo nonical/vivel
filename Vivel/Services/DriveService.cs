@@ -6,9 +6,12 @@ using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
+using Vivel.Model.Pagination;
+using Vivel.Model.Requests;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 
@@ -20,7 +23,7 @@ namespace Vivel.Services
         {
         }
 
-        public async override Task<List<DriveDTO>> Get(DriveSearchRequest request = null)
+        public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
             var entity = _context.Set<Drive>().AsQueryable();
 
@@ -50,9 +53,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<DriveDTO>>(list);
+            return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
@@ -90,7 +91,7 @@ namespace Vivel.Services
             return _mapper.Map<DriveDTO>(entity);
         }
 
-        public async Task<List<DonationDTO>> Donations(string id, DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations.Where(x => x.DriveId == id).AsQueryable();
 
@@ -104,9 +105,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<DonationDTO>>(list);
+            return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
     }

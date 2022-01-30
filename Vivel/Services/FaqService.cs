@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Services
@@ -18,7 +20,7 @@ namespace Vivel.Services
 
         }
 
-        public async override Task<List<FaqDTO>> Get(FaqSearchRequest request = null)
+        public async override Task<PagedResult<FaqDTO>> Get(FaqSearchRequest request = null)
         {
             var entity = _context.Set<Faq>().AsQueryable();
 
@@ -27,9 +29,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Answered == request.Answered);
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<FaqDTO>>(list);
+            return await entity.GetPagedAsync<Faq, FaqDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
     }
 }

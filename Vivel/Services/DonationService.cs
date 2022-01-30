@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 
 namespace Vivel.Services
@@ -18,7 +20,7 @@ namespace Vivel.Services
         {
         }
 
-        public async override Task<List<DonationDTO>> Get(DonationSearchRequest request = null)
+        public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
             var entity = _context.Set<Donation>().AsQueryable();
 
@@ -32,9 +34,7 @@ namespace Vivel.Services
                 entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
             }
 
-            var list = await entity.ToListAsync();
-
-            return _mapper.Map<List<DonationDTO>>(list);
+            return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
     }
 }

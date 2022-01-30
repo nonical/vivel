@@ -5,7 +5,7 @@ using Vivel.Model.Dto;
 
 namespace Vivel.Model.Requests.Drive
 {
-    public class DriveSearchRequest
+    public class DriveSearchRequest : BaseSearchObject
     {
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }

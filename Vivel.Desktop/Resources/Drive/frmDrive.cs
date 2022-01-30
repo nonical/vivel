@@ -11,56 +11,70 @@ using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Extensions;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 
 namespace Vivel.Desktop.Resources.Drive
 {
     public partial class frmDrive : Form
     {
-        APIService _driveService = new APIService("Drive");
-        APIService _hospitalService = new APIService("Hospital");
+        private readonly APIService _service = new APIService("Hospital");
+
+        private int _currentPage;
+
         public frmDrive()
         {
             InitializeComponent();
         }
 
+        private async void GetDrives(int pageNumber = 1)
+        {
+            _currentPage = pageNumber;
+
+            var hospitalId = cmbHospitalSelect.SelectedValue.ToString();
+
+            var statuses = new List<string>();
+
+            if (cbDriveOpen.Checked) statuses.Add("Open");
+            if (cbDriveClosed.Checked) statuses.Add("Closed");
+
+            var queryString = await new DriveSearchRequest { Status = statuses, Page = pageNumber }.ToQueryString();
+
+            var response = await _service.GetByID<PagedResult<DriveDTO>>(hospitalId + $"/drives?{queryString}");
+
+            dgvDrive.DataSource = response.Results;
+
+            lblDrivePrevious.Enabled = _currentPage != 1;
+            lblDriveNext.Enabled = response.CurrentPage < response.PageCount;
+        }
+
         private async void frmDrive_Load(object sender, EventArgs e)
         {
-            dgvDrive.DataSource = await _driveService.Get<List<DriveDTO>>(null);
+            var response = await _service.Get<PagedResult<HospitalDTO>>(null);
 
-            cmbHospitalSelect.DataSource = await _hospitalService.Get<List<HospitalDTO>>(null);
+            cmbHospitalSelect.DataSource = response.Results;
             cmbHospitalSelect.DisplayMember = "Name";
             cmbHospitalSelect.ValueMember = "HospitalId";
+            cmbHospitalSelect.SelectedIndex = 0;
+
+            GetDrives();
+
+            btnSearchDrive.Enabled = true;
         }
 
-        private async void btnSearchDrive_Click(object sender, EventArgs e)
+        private void btnSearchDrive_Click(object sender, EventArgs e)
         {
-            var hospitalId = cmbHospitalSelect.SelectedValue.ToString();
-
-            dgvDrive.DataSource = await _hospitalService.GetByID<List<DriveDTO>>(hospitalId + "/drives");
+            GetDrives();
         }
 
-        private void btnOpen_Click(object sender, EventArgs e)
+        private void lblDriveNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            StatusSearch("Open");
+            GetDrives(_currentPage + 1);
         }
 
-        private void btnClosed_Click(object sender, EventArgs e)
+        private void lblDrivePrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            StatusSearch("Closed");
-        }
-
-        private async void StatusSearch(string status)
-        {
-            var hospitalId = cmbHospitalSelect.SelectedValue.ToString();
-
-            var request = new DriveSearchRequest
-            {
-                Status = new List<string> { status }
-            };
-
-            var queryString = await request?.ToQueryString();
-            dgvDrive.DataSource = await _hospitalService.GetByID<List<DriveDTO>>(hospitalId + $"/drives?{queryString}");
+            GetDrives(_currentPage - 1);
         }
     }
 }

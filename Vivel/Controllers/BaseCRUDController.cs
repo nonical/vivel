@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
+using Vivel.Model.Pagination;
 using Vivel.Services;
 
 namespace Vivel.Controllers
@@ -22,7 +23,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet]
-        public async virtual Task<List<T>> Get([FromQuery] SearchRequest request)
+        public async virtual Task<PagedResult<T>> Get([FromQuery] SearchRequest request)
         {
             return await _service.Get(request);
         }

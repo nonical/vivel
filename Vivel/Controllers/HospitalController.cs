@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.Hospital;
@@ -19,7 +20,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/drives")]
-        public Task<List<DriveDTO>> Drives(string id, [FromQuery] DriveSearchRequest request)
+        public Task<PagedResult<DriveDTO>> Drives(string id, [FromQuery] DriveSearchRequest request)
         {
             return _hospitalService.Drives(id, request);
         }

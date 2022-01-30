@@ -7,33 +7,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vivel;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Hospital;
 
 namespace Vivel.Desktop.Hospital
 {
     public partial class frmHospital : Form
     {
-        APIService _service = new APIService("Hospital");
+        private readonly APIService _service = new APIService("Hospital");
+
+        private int _currentPage;
+
         public frmHospital()
         {
             InitializeComponent();
         }
 
-        private async void btnSearchHospital_Click(object sender, EventArgs e)
+        private async void GetHospitals(int pageNumber = 1)
         {
-            var request = new HospitalSearchRequest
-            {
-                Name = txtHospitalNameSearch.Text
-            };
+            _currentPage = pageNumber;
 
-            dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(request);
+            var request = new HospitalSearchRequest { Name = txtHospitalNameSearch.Text, Page = pageNumber };
+
+            var response = await _service.Get<PagedResult<HospitalDTO>>(request);
+
+            dgvHospital.DataSource = response.Results;
+
+            lblHospitalPrevious.Enabled = _currentPage != 1;
+            lblHospitalNext.Enabled = response.CurrentPage < response.PageCount;
         }
 
-        private async void frmHospital_Load(object sender, EventArgs e)
+        private void btnSearchHospital_Click(object sender, EventArgs e)
         {
-            dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(null);
+            GetHospitals();
+        }
+
+        private void frmHospital_Load(object sender, EventArgs e)
+        {
+            GetHospitals();
         }
 
         private void dgvHospital_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -79,6 +93,16 @@ namespace Vivel.Desktop.Hospital
                 txtHospitalLatitudeUpsert.Text = "";
                 txtHospitalLongitudeUpsert.Text = "";
             }
+        }
+
+        private void lblHospitalNext_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetHospitals(_currentPage + 1);
+        }
+
+        private void lblHospitalPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            GetHospitals(_currentPage - 1);
         }
     }
 }

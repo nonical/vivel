@@ -5,14 +5,17 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
+using Vivel.Extensions;
 using Vivel.Interfaces;
+using Vivel.Model.Pagination;
+using Vivel.Model.Requests;
 
 namespace Vivel.Services
 {
     public class BaseCRUDService<Dto, TDb, SearchRequest, InsertRequest, UpdateRequest> : IBaseCRUDService<Dto, SearchRequest, InsertRequest, UpdateRequest>
         where Dto : class
         where TDb : class
-        where SearchRequest : class
+        where SearchRequest : BaseSearchObject
         where InsertRequest : class
         where UpdateRequest : class
     {
@@ -25,11 +28,9 @@ namespace Vivel.Services
             _mapper = mapper;
         }
 
-        public async virtual Task<List<Dto>> Get(SearchRequest request = null)
+        public async virtual Task<PagedResult<Dto>> Get(SearchRequest request = null)
         {
-            var list = await _context.Set<TDb>().ToListAsync();
-
-            return _mapper.Map<List<Dto>>(list);
+            return await _context.Set<TDb>().GetPagedAsync<TDb, Dto>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async virtual Task<Dto> GetById(string id)
