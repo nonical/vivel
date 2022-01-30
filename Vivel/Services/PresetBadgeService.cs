@@ -29,7 +29,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Name.Contains(request.Name));
             }
 
-            return await entity.GetPagedAsync<PresetBadge, PresetBadgeDTO>(_mapper, request.Page, request.PageSize);
+            return await entity.GetPagedAsync<PresetBadge, PresetBadgeDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
     }
 }

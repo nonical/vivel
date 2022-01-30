@@ -11,7 +11,7 @@ namespace Vivel.Extensions
 {
     public static class LinqExtensions
     {
-        public static async Task<PagedResult<Dto>> GetPagedAsync<T, Dto>(this IQueryable<T> query, IMapper _mapper, int page, int pageSize) where T : class where Dto : class
+        public static async Task<PagedResult<Dto>> GetPagedAsync<T, Dto>(this IQueryable<T> query, IMapper _mapper, int page, int pageSize, bool paginate) where T : class where Dto : class
         {
             var result = new PagedResult<Dto>
             {
@@ -21,7 +21,7 @@ namespace Vivel.Extensions
 
             List<T> list;
 
-            if (page > 0)
+            if (page > 0 && paginate)
             {
                 var pageCount = (double)result.TotalItems / pageSize;
                 result.PageCount = (int)Math.Ceiling(pageCount);

@@ -30,7 +30,7 @@ namespace Vivel.Services
 
         public async virtual Task<PagedResult<Dto>> Get(SearchRequest request = null)
         {
-            return await _context.Set<TDb>().GetPagedAsync<TDb, Dto>(_mapper, request.Page, request.PageSize);
+            return await _context.Set<TDb>().GetPagedAsync<TDb, Dto>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async virtual Task<Dto> GetById(string id)

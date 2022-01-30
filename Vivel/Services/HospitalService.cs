@@ -37,7 +37,7 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Longitude == request.Longitude);
             }
 
-            return await entity.GetPagedAsync<Hospital, HospitalDTO>(_mapper, request.Page, request.PageSize);
+            return await entity.GetPagedAsync<Hospital, HospitalDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
@@ -70,7 +70,7 @@ namespace Vivel.Services
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
             }
 
-            return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize);
+            return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
     }
 }
