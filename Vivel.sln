@@ -19,22 +19,30 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Desktop", "Vivel.Desk
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Backend Release|Any CPU = Backend Release|Any CPU
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Backend Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Backend Release|Any CPU.Build.0 = Release|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90181DEC-2B3B-4948-B2F6-5CAD1CCF14B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Backend Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Backend Release|Any CPU.Build.0 = Release|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4BD4DA0E-A9A4-4F39-BF85-05E6ED4F5C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Backend Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50DFA335-A8B7-4E94-8635-623A9970451D}.Backend Release|Any CPU.Build.0 = Release|Any CPU
 		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50DFA335-A8B7-4E94-8635-623A9970451D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{50DFA335-A8B7-4E94-8635-623A9970451D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{363F4FAE-36F4-48D0-B9F5-983402391F89}.Backend Release|Any CPU.ActiveCfg = Release|Any CPU
 		{363F4FAE-36F4-48D0-B9F5-983402391F89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{363F4FAE-36F4-48D0-B9F5-983402391F89}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{363F4FAE-36F4-48D0-B9F5-983402391F89}.Release|Any CPU.ActiveCfg = Release|Any CPU
