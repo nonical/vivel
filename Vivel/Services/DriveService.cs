@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
@@ -11,7 +9,6 @@ using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
-using Vivel.Model.Requests;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 
@@ -106,6 +103,13 @@ namespace Vivel.Services
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
+        }
+
+        public async Task<DriveDetailsDTO> Details(string id)
+        {
+            var entity = await _context.Drives.Include(x => x.Donations).Where(x => x.DriveId == id).FirstAsync();
+
+            return _mapper.Map<DriveDetailsDTO>(entity);
         }
 
     }

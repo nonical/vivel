@@ -50,6 +50,10 @@ namespace Vivel.Profiles
             CreateMap<Database.User, UserUpdateRequest>().ReverseMap();
 
             CreateMap<Database.Drive, DriveDTO>().ReverseMap();
+            CreateMap<Database.Drive, DriveDetailsDTO>()
+                .ForMember(destination => destination.AmountLeft, o => o.MapFrom(source => source.Amount - source.Donations.Where(x => x.Status == DonationStatus.Approved).Sum(x => x.Amount)))
+                .ForMember(destination => destination.PendingCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Pending).Count()))
+                .ForMember(destination => destination.ScheduledCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Scheduled).Count()));
             CreateMap<Database.Drive, DriveInsertRequest>().ReverseMap();
             CreateMap<Database.Drive, DriveUpdateRequest>().ReverseMap();
 
