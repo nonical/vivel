@@ -57,7 +57,9 @@ namespace Vivel.Profiles
             CreateMap<Database.Drive, DriveInsertRequest>().ReverseMap();
             CreateMap<Database.Drive, DriveUpdateRequest>().ReverseMap();
 
-            CreateMap<Database.Donation, DonationDTO>().ReverseMap();
+            CreateMap<Database.Donation, DonationDTO>()
+                .ForMember(destination => destination.UserName, o => o.MapFrom(source => source.User.UserName))
+                .ReverseMap();
             CreateMap<Database.Donation, DonationInsertRequest>().ReverseMap();
             CreateMap<Database.Donation, DonationUpdateRequest>().ReverseMap();
 

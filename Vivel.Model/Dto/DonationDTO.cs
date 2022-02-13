@@ -8,6 +8,7 @@ namespace Vivel.Model.Dto
     {
         public string DonationId { get; set; }
         public string UserId { get; set; }
+        public string UserName { get; set; }
         public string DriveId { get; set; }
         public DateTime? ScheduledAt { get; set; }
         public int? Amount { get; set; }
