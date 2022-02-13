@@ -90,7 +90,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.DriveId == id).AsQueryable();
+            var entity = _context.Donations.Where(x => x.DriveId == id).Include(x => x.User).AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
