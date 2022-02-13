@@ -1,13 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
-using Vivel.Model.Requests.Faq;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
@@ -23,6 +20,12 @@ namespace Vivel.Controllers
         public Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             return _driveService.Donations(id, request);
+        }
+
+        [HttpGet("{id}/details")]
+        public Task<DriveDetailsDTO> Details(string id)
+        {
+            return _driveService.Details(id);
         }
     }
 }
