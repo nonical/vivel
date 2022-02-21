@@ -22,7 +22,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
-            var entity = _context.Set<Donation>().Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Donation>().Include(x => x.User).AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
@@ -35,6 +35,13 @@ namespace Vivel.Services
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
+        }
+
+        public async override Task<DonationDTO> GetById(string id)
+        {
+            var entity = await _context.Donations.Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).FirstOrDefaultAsync(x => x.DonationId == id);
+
+            return _mapper.Map<DonationDTO>(entity);
         }
     }
 }
