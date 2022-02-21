@@ -22,7 +22,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Drive>().AsQueryable();
 
             if (request?.FromDate != null)
             {
@@ -51,6 +51,13 @@ namespace Vivel.Services
             }
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
+        }
+
+        public async override Task<DriveDTO> GetById(string id)
+        {
+            var entity = await _context.Drives.Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
+
+            return _mapper.Map<DriveDTO>(entity);
         }
 
         public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
