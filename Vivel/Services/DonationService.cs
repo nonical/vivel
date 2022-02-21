@@ -22,7 +22,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
-            var entity = _context.Set<Donation>().Include(x => x.User).AsQueryable();
+            var entity = _context.Set<Donation>().Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).AsQueryable();
 
             if (request?.ScheduledAt != null)
             {

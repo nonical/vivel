@@ -59,6 +59,8 @@ namespace Vivel.Profiles
 
             CreateMap<Database.Donation, DonationDTO>()
                 .ForMember(destination => destination.UserName, o => o.MapFrom(source => source.User.UserName))
+                .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.Drive.BloodType.Name))
+                .ForMember(destination => destination.HospitalName, o => o.MapFrom(source => source.Drive.Hospital.Name))
                 .ReverseMap();
             CreateMap<Database.Donation, DonationInsertRequest>().ReverseMap();
             CreateMap<Database.Donation, DonationUpdateRequest>().ReverseMap();

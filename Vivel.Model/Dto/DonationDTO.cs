@@ -10,6 +10,8 @@ namespace Vivel.Model.Dto
         public string UserId { get; set; }
         public string UserName { get; set; }
         public string DriveId { get; set; }
+        public string HospitalName { get; set; }
+        public string BloodType { get; set; }
         public DateTime? ScheduledAt { get; set; }
         public int? Amount { get; set; }
         public string Status { get; set; }
