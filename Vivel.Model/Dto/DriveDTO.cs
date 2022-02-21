@@ -15,5 +15,6 @@ namespace Vivel.Model.Dto
         public bool? Urgency { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; }
+        public HospitalDTO Hospital { get; set; }
     }
 }

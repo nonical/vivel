@@ -22,7 +22,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().AsQueryable();
+            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
 
             if (request?.FromDate != null)
             {
