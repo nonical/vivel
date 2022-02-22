@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NetTopologySuite.Geometries;
 
 #nullable disable
 
@@ -16,6 +17,7 @@ namespace Vivel.Database
         public string Name { get; set; }
         public decimal? Latitude { get; set; }
         public decimal? Longitude { get; set; }
+        public Point Location { get; set; }
 
         public virtual ICollection<Drive> Drives { get; set; }
     }
