@@ -54,7 +54,7 @@ namespace Vivel.Services
 
             entity = entity.OrderByDescending(drive => drive.Urgency);
 
-            if (request.Latitude != null & request.Longitude != null)
+            if (request.Latitude != null && request.Longitude != null)
             {
                 var location = GeographyHelper.CreatePoint(request.Longitude, request.Latitude);
 
