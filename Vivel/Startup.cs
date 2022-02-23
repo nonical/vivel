@@ -37,7 +37,7 @@ namespace Vivel
             services.AddDbContext<VivelContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), options => options.UseNetTopologySuite());
-            });
+            }, ServiceLifetime.Transient);
 
             services.AddScoped<IFaqService, FaqService>();
             services.AddScoped<IPresetBadgeService, PresetBadgeService>();
