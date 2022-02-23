@@ -2,6 +2,7 @@
 using Ardalis.SmartEnum;
 using AutoMapper;
 using NetTopologySuite.Geometries;
+using Vivel.Helpers;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Requests.Donation;
@@ -43,7 +44,7 @@ namespace Vivel.Profiles
                 .ReverseMap();
 
             CreateMap<HospitalUpsertRequest, Database.Hospital>()
-                .ForMember(destination => destination.Location, o => o.MapFrom(source => new Point((double)source.Longitude, (double)source.Latitude) { SRID = 4326 }));
+                .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
 
             CreateMap<Database.Notification, NotificationDTO>().ReverseMap();
             CreateMap<Database.Notification, NotificationInsertRequest>().ReverseMap();
@@ -57,7 +58,7 @@ namespace Vivel.Profiles
                 .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Approved).OrderBy(x => x.UpdatedAt).Last().UpdatedAt))
                 .ForMember(destination => destination.LitresDonated, o => o.MapFrom(source => source.Donations.Sum(x => x.Amount) * 0.001));
             CreateMap<UserUpdateRequest, Database.User>()
-                .ForMember(destination => destination.Location, o => o.MapFrom(source => new Point((double)source.Longitude, (double)source.Latitude) { SRID = 4326 }));
+                .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
 
             CreateMap<Database.Drive, DriveDTO>().ReverseMap();
             CreateMap<Database.Drive, DriveDetailsDTO>()
