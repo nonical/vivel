@@ -13,5 +13,7 @@ namespace Vivel.Model.Requests.Drive
         public int? Amount { get; set; }
         public List<string> Status { get; set; }
         public bool? Urgency { get; set; }
+        public decimal? Latitude { get; set; }
+        public decimal? Longitude { get; set; }
     }
 }

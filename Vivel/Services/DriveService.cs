@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using NetTopologySuite.Geometries;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Interfaces;
@@ -22,7 +23,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().AsQueryable();
+            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
 
             if (request?.FromDate != null)
             {
@@ -48,6 +49,13 @@ namespace Vivel.Services
             if (request?.Status?.Count > 0)
             {
                 entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
+            }
+
+            if (request.Latitude != null & request.Longitude != null)
+            {
+                var location = new Point((double)request.Longitude, (double)request.Latitude) { SRID = 4326 };
+
+                entity = entity.Where(drive => drive.Hospital.Location.Distance(location) <= 30000);
             }
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
