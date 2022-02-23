@@ -1,0 +1,21 @@
+name: Run dotnet-format
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+    - name: Install dotnet-format
+      run: dotnet tool install --global dotnet-format
+    - name: Run dotnet-format
+      run: dotnet-format --check
