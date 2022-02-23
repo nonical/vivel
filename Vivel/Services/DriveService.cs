@@ -58,6 +58,8 @@ namespace Vivel.Services
                 entity = entity.Where(drive => drive.Hospital.Location.Distance(location) <= 30000);
             }
 
+            entity = entity.OrderByDescending(x => x.Urgency);
+
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
