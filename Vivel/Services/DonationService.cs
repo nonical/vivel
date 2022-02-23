@@ -51,27 +51,23 @@ namespace Vivel.Services
         {
             var entity = await _context.Donations.FindAsync(id);
 
-            var statusChanged = false;
-
-            if (request.Status != entity.Status.Name)
-                statusChanged = true;
+            entity.PropertyChanged += NotifyUser;
 
             _mapper.Map(request, entity);
 
             await _context.SaveChangesAsync();
 
-            if (statusChanged)
-                await NotifyUser(request.Status, entity);
-
             return _mapper.Map<DonationDTO>(entity);
         }
 
-        public async Task NotifyUser(string status, Donation donation)
+        public async void NotifyUser(object sender, EventArgs e)
         {
+            var donation = (Donation)sender;
+
             var title = "";
             var content = "";
 
-            switch (status)
+            switch (donation.Status.Name)
             {
                 case "Pending":
                     title = "Successfully applied to donation.";
