@@ -36,7 +36,7 @@ namespace Vivel
 
             services.AddDbContext<VivelContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), options => options.UseNetTopologySuite());
             });
 
             services.AddScoped<IFaqService, FaqService>();

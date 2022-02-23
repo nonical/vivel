@@ -180,6 +180,8 @@ namespace Vivel.Database
 
                 entity.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
 
+                entity.Property(e => e.Location).HasColumnType("geography");
+
                 entity.Property(e => e.Name).HasMaxLength(100);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
@@ -253,6 +255,12 @@ namespace Vivel.Database
                         x => BloodType.FromName(x, false))
                     .HasMaxLength(3)
                     .IsUnicode(false);
+
+                entity.Property(e => e.Latitude).HasColumnType("decimal(9, 6)");
+
+                entity.Property(e => e.Longitude).HasColumnType("decimal(9, 6)");
+
+                entity.Property(e => e.Location).HasColumnType("geography");
 
                 entity.Property(e => e.CreatedAt).HasColumnType("datetime");
 

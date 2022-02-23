@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Ardalis.SmartEnum;
 using AutoMapper;
+using NetTopologySuite.Geometries;
+using Vivel.Helpers;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Requests.Donation;
@@ -36,18 +38,27 @@ namespace Vivel.Profiles
             CreateMap<Database.PresetBadge, PresetBadgeDTO>().ReverseMap();
             CreateMap<Database.PresetBadge, PresetBadgeUpsertRequest>().ReverseMap();
 
-            CreateMap<Database.Hospital, HospitalDTO>().ReverseMap();
-            CreateMap<Database.Hospital, HospitalUpsertRequest>().ReverseMap();
+            CreateMap<Database.Hospital, HospitalDTO>()
+                .ForMember(destination => destination.Latitude, o => o.MapFrom(source => source.Location.Y))
+                .ForMember(destination => destination.Longitude, o => o.MapFrom(source => source.Location.X))
+                .ReverseMap();
+
+            CreateMap<HospitalUpsertRequest, Database.Hospital>()
+                .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
 
             CreateMap<Database.Notification, NotificationDTO>().ReverseMap();
             CreateMap<Database.Notification, NotificationInsertRequest>().ReverseMap();
 
-            CreateMap<Database.User, UserDTO>().ReverseMap();
+            CreateMap<Database.User, UserDTO>()
+                .ForMember(destination => destination.Latitude, o => o.MapFrom(source => source.Location.Y))
+                .ForMember(destination => destination.Longitude, o => o.MapFrom(source => source.Location.X))
+                .ReverseMap();
             CreateMap<Database.User, UserDetailsDTO>()
                 .ForMember(destination => destination.DonationCount, o => o.MapFrom(source => source.Donations.Count))
                 .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Approved).OrderBy(x => x.UpdatedAt).Last().UpdatedAt))
                 .ForMember(destination => destination.LitresDonated, o => o.MapFrom(source => source.Donations.Sum(x => x.Amount) * 0.001));
-            CreateMap<Database.User, UserUpdateRequest>().ReverseMap();
+            CreateMap<UserUpdateRequest, Database.User>()
+                .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
 
             CreateMap<Database.Drive, DriveDTO>().ReverseMap();
             CreateMap<Database.Drive, DriveDetailsDTO>()
