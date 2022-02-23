@@ -16,8 +16,11 @@ namespace Vivel.Services
 {
     public class DonationService : BaseCRUDService<DonationDTO, Donation, DonationSearchRequest, DonationInsertRequest, DonationUpdateRequest>, IDonationService
     {
-        public DonationService(VivelContext context, IMapper mapper) : base(context, mapper)
+        private readonly INotificationService _notificationService;
+
+        public DonationService(VivelContext context, IMapper mapper, INotificationService notificationService) : base(context, mapper)
         {
+            _notificationService = notificationService;
         }
 
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
@@ -42,6 +45,55 @@ namespace Vivel.Services
             var entity = await _context.Donations.Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).FirstOrDefaultAsync(x => x.DonationId == id);
 
             return _mapper.Map<DonationDTO>(entity);
+        }
+
+        public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
+        {
+            var entity = await _context.Donations.FindAsync(id);
+
+            var statusChanged = false;
+
+            if (request.Status != entity.Status.Name)
+                statusChanged = true;
+
+            _mapper.Map(request, entity);
+
+            await _context.SaveChangesAsync();
+
+            if (statusChanged)
+                await NotifyUser(request.Status, entity);
+
+            return _mapper.Map<DonationDTO>(entity);
+        }
+
+        public async Task NotifyUser(string status, Donation donation)
+        {
+            var title = "";
+            var content = "";
+
+            switch (status)
+            {
+                case "Pending":
+                    title = "Successfully applied to donation.";
+                    content = "Your donation is waiting to be scheduled.";
+                    break;
+                case "Scheduled":
+                    title = "Your donation has been scheduled.";
+                    content = "Tap to see details";
+                    break;
+                case "Approved":
+                    title = "Your donation has been approved.";
+                    content = "Congratulations on your donation!";
+                    break;
+                case "Rejected":
+                    title = "Your donation has been rejected";
+                    content = "Tap to see details";
+                    break;
+                default:
+                    break;
+            }
+
+            await _notificationService.PostNotifications<Donation>(new List<string> { donation.UserId }, donation.DonationId, title, content);
         }
     }
 }

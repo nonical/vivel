@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
@@ -18,8 +19,11 @@ namespace Vivel.Services
 {
     public class DriveService : BaseCRUDService<DriveDTO, Drive, DriveSearchRequest, DriveInsertRequest, DriveUpdateRequest>, IDriveService
     {
-        public DriveService(VivelContext context, IMapper mapper) : base(context, mapper)
+        private readonly INotificationService _notificationService;
+
+        public DriveService(VivelContext context, IMapper mapper, INotificationService notificationService) : base(context, mapper)
         {
+            _notificationService = notificationService;
         }
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
@@ -72,6 +76,36 @@ namespace Vivel.Services
             var entity = await _context.Drives.Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
 
             return _mapper.Map<DriveDTO>(entity);
+        }
+
+        public async override Task<DriveDTO> Insert(DriveInsertRequest request)
+        {
+            var entity = _mapper.Map<Drive>(request);
+
+            await _context.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
+
+            _context.Entry(entity).Reference(x => x.Hospital).Load();
+
+
+            var userIds = await _context.Users
+                                  .Where(x => x.BloodType == entity.BloodType && entity.Hospital.Location.Distance(x.Location) <= 30000)
+                                  .Select(x => x.UserId)
+                                  .ToListAsync();
+
+
+            await NotifyUsers(userIds, entity);
+
+
+            return _mapper.Map<DriveDTO>(entity);
+        }
+
+        public async Task NotifyUsers(List<string> userIds, Drive drive)
+        {
+            var title = drive.Urgency ? "Urgent drive in your area" : "New drive in your area";
+
+            await _notificationService.PostNotifications<Drive>(userIds, drive.DriveId, title, "A drive just opened for your blood type!");
         }
 
         public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
