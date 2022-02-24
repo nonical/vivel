@@ -64,6 +64,11 @@ namespace Vivel.Desktop.Resources.FAQ
                 Answered = !string.IsNullOrWhiteSpace(txtAnswer.Text),
                 Question = txtQuestion.Text
             });
+            getFAQs();
+
+            txtQuestionId.Text = "";
+            txtQuestion.Text = "";
+            txtAnswer.Text = "";
         }
 
         private void btnFAQSearch_Click(object sender, System.EventArgs e)

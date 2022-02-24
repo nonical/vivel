@@ -86,6 +86,7 @@
             this.presetBadgesToolStripMenuItem.Name = "presetBadgesToolStripMenuItem";
             this.presetBadgesToolStripMenuItem.Size = new System.Drawing.Size(92, 20);
             this.presetBadgesToolStripMenuItem.Text = "Preset Badges";
+            this.presetBadgesToolStripMenuItem.Click += new System.EventHandler(this.presetBadgesToolStripMenuItem_Click);
             //
             // reportsToolStripMenuItem
             //

@@ -80,13 +80,13 @@ namespace Vivel.Desktop.Hospital
             if (string.IsNullOrWhiteSpace(txtHospitalIdUpsert.Text))
             {
                 await _service.Insert<HospitalDTO>(request);
-                dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(null);
+                GetHospitals();
             }
             else
             {
                 var id = txtHospitalIdUpsert.Text;
                 await _service.Update<HospitalDTO>(id, request);
-                dgvHospital.DataSource = await _service.Get<List<HospitalDTO>>(null);
+                GetHospitals();
 
                 txtHospitalIdUpsert.Text = "";
                 txtHospitalNameUpsert.Text = "";

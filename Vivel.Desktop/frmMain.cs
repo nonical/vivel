@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
+using Vivel.Desktop.Resources.PresetBadge;
 using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
@@ -93,6 +94,8 @@ namespace Vivel.Desktop
 
         private void hospitalsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmHospital
             {
                 MdiParent = this,
@@ -104,6 +107,8 @@ namespace Vivel.Desktop
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmUser
             {
                 MdiParent = this,
@@ -115,6 +120,8 @@ namespace Vivel.Desktop
 
         private void drivesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmDrive
             {
                 MdiParent = this,
@@ -126,7 +133,28 @@ namespace Vivel.Desktop
 
         private void fAQToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmFAQ()
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
+        }
+
+        private void cleanMdiParent()
+        {
+            if (Application.OpenForms.Count > 1)
+                Application.OpenForms[1]?.Close();
+        }
+
+        private void presetBadgesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cleanMdiParent();
+
+            var form = new frmPresetBadge()
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
