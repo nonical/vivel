@@ -19,13 +19,28 @@ namespace Vivel.Identity
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                new ApiScope("scope1", "API - full access")
             };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
+                // swagger
+                new Client
+                {
+                    ClientId = "api_swagger",
+                    ClientName = "Swagger UI",
+                    ClientSecrets = {new Secret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73".Sha256())}, // change me!
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
+                    RequireClientSecret = false,
+
+                    RedirectUris = {"https://localhost:5001/swagger/oauth2-redirect.html"},
+                    AllowedCorsOrigins = {"https://localhost:5001"},
+                    AllowedScopes = { "scope1" }
+                },
+
                 // m2m client credentials flow client
                 new Client
                 {
@@ -51,7 +66,7 @@ namespace Vivel.Identity
                     PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
 
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
+                    AllowedScopes = { "openid", "profile", "scope1" }
                 },
             };
     }

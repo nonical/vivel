@@ -1,18 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Vivel.Database;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Services;
 
@@ -32,7 +28,28 @@ namespace Vivel
         {
             services.AddControllers();
 
-            services.AddSwaggerGen();
+            services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        AuthorizationCode = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:5000/connect/authorize"), // TODO: Move this to environment
+                            TokenUrl = new Uri("https://localhost:5000/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                {"scope1", "API - full access"}
+                            }
+                        }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
+            });
+
             services.AddAutoMapper(typeof(Startup));
 
             services.AddDbContext<VivelContext>(options =>
@@ -74,7 +91,14 @@ namespace Vivel
                 app.UseDeveloperExceptionPage();
 
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.OAuthClientId("api_swagger");
+                    options.OAuthClientSecret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73"); // TODO: Move this to environment
+                    options.OAuthScopes(new string[] { "scope1" });
+                    options.OAuthAppName("Swagger UI");
+                    options.OAuthUsePkce();
+                });
 
                 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             }
