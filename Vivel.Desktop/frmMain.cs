@@ -93,6 +93,8 @@ namespace Vivel.Desktop
 
         private void hospitalsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmHospital
             {
                 MdiParent = this,
@@ -104,6 +106,8 @@ namespace Vivel.Desktop
 
         private void usersToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmUser
             {
                 MdiParent = this,
@@ -115,6 +119,8 @@ namespace Vivel.Desktop
 
         private void drivesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmDrive
             {
                 MdiParent = this,
@@ -126,6 +132,8 @@ namespace Vivel.Desktop
 
         private void fAQToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            cleanMdiParent();
+
             var form = new frmFAQ()
             {
                 MdiParent = this,
@@ -133,6 +141,12 @@ namespace Vivel.Desktop
             };
 
             form.Show();
+        }
+
+        private void cleanMdiParent()
+        {
+            if (Application.OpenForms.Count > 1)
+                Application.OpenForms[1]?.Close();
         }
     }
 }
