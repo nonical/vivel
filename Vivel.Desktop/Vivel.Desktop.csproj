@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -118,6 +118,7 @@
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.DriveDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">

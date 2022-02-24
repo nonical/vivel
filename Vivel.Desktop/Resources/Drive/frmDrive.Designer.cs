@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnSearchDrive = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -37,8 +38,19 @@
             this.cbDriveClosed = new System.Windows.Forms.CheckBox();
             this.lblDrivePrevious = new System.Windows.Forms.LinkLabel();
             this.lblDriveNext = new System.Windows.Forms.LinkLabel();
+            this.driveDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.driveIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.hospitalIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bloodTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.urgencyDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.driveDTOBindingSource)).BeginInit();
             this.SuspendLayout();
             //
             // btnSearchDrive
@@ -75,7 +87,19 @@
             //
             this.dgvDrive.AllowUserToAddRows = false;
             this.dgvDrive.AllowUserToDeleteRows = false;
+            this.dgvDrive.AutoGenerateColumns = false;
             this.dgvDrive.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvDrive.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.driveIdDataGridViewTextBoxColumn,
+            this.hospitalIdDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn,
+            this.bloodTypeDataGridViewTextBoxColumn,
+            this.amountDataGridViewTextBoxColumn,
+            this.statusDataGridViewTextBoxColumn,
+            this.urgencyDataGridViewTextBoxColumn,
+            this.createdAtDataGridViewTextBoxColumn,
+            this.updatedAtDataGridViewTextBoxColumn});
+            this.dgvDrive.DataSource = this.driveDTOBindingSource;
             this.dgvDrive.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvDrive.Location = new System.Drawing.Point(3, 16);
             this.dgvDrive.Name = "dgvDrive";
@@ -140,6 +164,73 @@
             this.lblDriveNext.Text = "next";
             this.lblDriveNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDriveNext_LinkClicked);
             //
+            // driveDTOBindingSource
+            //
+            this.driveDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.DriveDTO);
+            //
+            // driveIdDataGridViewTextBoxColumn
+            //
+            this.driveIdDataGridViewTextBoxColumn.DataPropertyName = "DriveId";
+            this.driveIdDataGridViewTextBoxColumn.HeaderText = "DriveId";
+            this.driveIdDataGridViewTextBoxColumn.Name = "driveIdDataGridViewTextBoxColumn";
+            this.driveIdDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // hospitalIdDataGridViewTextBoxColumn
+            //
+            this.hospitalIdDataGridViewTextBoxColumn.DataPropertyName = "HospitalId";
+            this.hospitalIdDataGridViewTextBoxColumn.HeaderText = "HospitalId";
+            this.hospitalIdDataGridViewTextBoxColumn.Name = "hospitalIdDataGridViewTextBoxColumn";
+            this.hospitalIdDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // dateDataGridViewTextBoxColumn
+            //
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // bloodTypeDataGridViewTextBoxColumn
+            //
+            this.bloodTypeDataGridViewTextBoxColumn.DataPropertyName = "BloodType";
+            this.bloodTypeDataGridViewTextBoxColumn.HeaderText = "BloodType";
+            this.bloodTypeDataGridViewTextBoxColumn.Name = "bloodTypeDataGridViewTextBoxColumn";
+            this.bloodTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // amountDataGridViewTextBoxColumn
+            //
+            this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
+            this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
+            this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
+            this.amountDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // statusDataGridViewTextBoxColumn
+            //
+            this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
+            this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
+            this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
+            this.statusDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // urgencyDataGridViewTextBoxColumn
+            //
+            this.urgencyDataGridViewTextBoxColumn.DataPropertyName = "Urgency";
+            this.urgencyDataGridViewTextBoxColumn.HeaderText = "Urgency";
+            this.urgencyDataGridViewTextBoxColumn.Name = "urgencyDataGridViewTextBoxColumn";
+            this.urgencyDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // createdAtDataGridViewTextBoxColumn
+            //
+            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
+            //
+            // updatedAtDataGridViewTextBoxColumn
+            //
+            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
+            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            //
             // frmDrive
             //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -159,6 +250,7 @@
             this.Load += new System.EventHandler(this.frmDrive_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.driveDTOBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,5 +267,15 @@
         private System.Windows.Forms.CheckBox cbDriveClosed;
         private System.Windows.Forms.LinkLabel lblDrivePrevious;
         private System.Windows.Forms.LinkLabel lblDriveNext;
+        private System.Windows.Forms.DataGridViewTextBoxColumn driveIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hospitalIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn bloodTypeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn amountDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn statusDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn urgencyDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.BindingSource driveDTOBindingSource;
     }
 }
