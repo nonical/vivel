@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
+using Vivel.Desktop.Resources.PresetBadge;
 using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
@@ -147,6 +148,19 @@ namespace Vivel.Desktop
         {
             if (Application.OpenForms.Count > 1)
                 Application.OpenForms[1]?.Close();
+        }
+
+        private void presetBadgesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cleanMdiParent();
+
+            var form = new frmPresetBadge()
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
         }
     }
 }
