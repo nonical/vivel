@@ -10,6 +10,7 @@ namespace Vivel.Database
         public string BadgeId { get; set; } = new Guid().ToString();
         public string UserId { get; set; }
         public string PresetBadgeId { get; set; }
+        public string Name { get; set; }
 
         public virtual PresetBadge PresetBadge { get; set; }
         public virtual User User { get; set; }
