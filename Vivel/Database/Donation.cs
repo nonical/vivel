@@ -21,7 +21,7 @@ namespace Vivel.Database
         public DateTime? ScheduledAt { get; set; }
         public int? Amount { get; set; }
 
-        private DonationStatus status;
+        private DonationStatus status = DonationStatus.Pending;
         public DonationStatus Status {
             get { return status; }
             set {
