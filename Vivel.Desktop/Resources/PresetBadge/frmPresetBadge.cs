@@ -52,11 +52,11 @@ namespace Vivel.Desktop.Resources.PresetBadge
                 await _service.Update<PresetBadgeDTO>(id, request);
                 GetPresetBadges();
 
-                txtPresetBadgeIdUpsert.Text = "";
-                txtPresetBadgeNameUpsert.Text = "";
-                txtPresetBadgeDescriptionUpsert.Text = "";
-                txtPresetBadgeImageUpsert.Text = "";
             }
+            txtPresetBadgeIdUpsert.Text = "";
+            txtPresetBadgeNameUpsert.Text = "";
+            txtPresetBadgeDescriptionUpsert.Text = "";
+            txtPresetBadgeImageUpsert.Text = "";
         }
 
         private void lblPresetBadgeClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
