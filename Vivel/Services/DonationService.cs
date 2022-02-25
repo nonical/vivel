@@ -47,26 +47,54 @@ namespace Vivel.Services
             return _mapper.Map<DonationDTO>(entity);
         }
 
+        public async override Task<DonationDTO> Insert(DonationInsertRequest request)
+        {
+            var pendingDonationCount = await _context.Donations.Where(x => x.UserId == request.UserId && x.Status.Name == DonationStatus.Pending.Name).CountAsync();
+
+            if (pendingDonationCount != 0)
+                return null;
+
+            var entity = _mapper.Map<Donation>(request);
+
+            await _context.Donations.AddAsync(entity);
+
+            await _context.SaveChangesAsync();
+
+            return _mapper.Map<DonationDTO>(entity);
+
+
+        }
+
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
         {
-            var entity = await _context.Donations.Include(x => x.Drive).FirstAsync(x => x.DonationId == id);
+            var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
 
-            entity.PropertyChanged += NotifyUser;
+            if (entity != null)
+                entity.PropertyChanged += StatusChanged;
 
             _mapper.Map(request, entity);
 
             await _context.SaveChangesAsync();
 
-            if (entity.Status.Name == DonationStatus.Approved.Name)
-                await AddBadges(entity.UserId, entity.Drive.Urgency);
-
             return _mapper.Map<DonationDTO>(entity);
         }
 
-        public async void NotifyUser(object sender, EventArgs e)
+        public async void StatusChanged(object sender, EventArgs e)
         {
             var donation = (Donation)sender;
 
+            await NotifyUser(donation);
+
+            if (donation.Status.Name == DonationStatus.Approved.Name)
+            {
+                await VerifyUser(donation.UserId);
+                await AddBadges(donation.UserId, donation.DriveId);
+            }
+
+        }
+
+        public async Task NotifyUser(Donation donation)
+        {
             var title = "";
             var content = "";
 
@@ -95,13 +123,15 @@ namespace Vivel.Services
             await _notificationService.PostNotifications<Donation>(new List<string> { donation.UserId }, donation.DonationId, title, content);
         }
 
-        public async Task AddBadges(string userId, bool urgency)
+        public async Task AddBadges(string userId, string driveId)
         {
             var user = await _context.Users.Include(x => x.Donations).FirstAsync(x => x.UserId == userId);
+            var drive = await _context.Drives.FindAsync(driveId);
+
             var donationCount = user.Donations.Count();
             var presetBadges = await _context.PresetBadges.ToListAsync();
 
-            if (urgency == true)
+            if (drive.Urgency == true)
             {
                 user.Badges.Add(new Badge
                 {
@@ -119,6 +149,14 @@ namespace Vivel.Services
                 });
             }
 
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task VerifyUser(string userId)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            user.Verified = true;
             await _context.SaveChangesAsync();
         }
     }

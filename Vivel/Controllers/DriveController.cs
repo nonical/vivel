@@ -17,15 +17,19 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
-        public Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
-            return _driveService.Donations(id, request);
+            return await _driveService.Donations(id, request);
         }
 
         [HttpGet("{id}/details")]
-        public Task<DriveDetailsDTO> Details(string id)
+        public async Task<ActionResult<DriveDetailsDTO>> Details(string id)
         {
-            return _driveService.Details(id);
+            var entity = await _driveService.Details(id);
+            if (entity != null)
+                return new OkObjectResult(entity);
+            else
+                return new NotFoundResult();
         }
     }
 }

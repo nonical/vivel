@@ -23,7 +23,7 @@ namespace Vivel.Controllers
         }
 
         [NonAction]
-        public override Task<NotificationDTO> Update(string id, [FromBody] object request)
+        public override Task<ActionResult<NotificationDTO>> Update(string id, [FromBody] object request)
         {
             return base.Update(id, request);
         }
