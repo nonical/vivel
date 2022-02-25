@@ -47,9 +47,27 @@ namespace Vivel.Services
             return _mapper.Map<DonationDTO>(entity);
         }
 
+        public async override Task<DonationDTO> Insert(DonationInsertRequest request)
+        {
+            var pendingDonationCount = await _context.Donations.Where(x => x.UserId == request.UserId && x.Status.Name == DonationStatus.Pending.Name).CountAsync();
+
+            if (pendingDonationCount == 0)
+            {
+                var entity = _mapper.Map<Donation>(request);
+
+                await _context.Donations.AddAsync(entity);
+
+                await _context.SaveChangesAsync();
+
+                return _mapper.Map<DonationDTO>(entity);
+            }
+
+            return null;
+        }
+
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
         {
-            var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstAsync(x => x.DonationId == id);
+            var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
 
             entity.PropertyChanged += StatusChanged;
 
