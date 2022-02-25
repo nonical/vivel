@@ -27,13 +27,9 @@ namespace Vivel.Controllers
         {
             var entity = await _driveService.Details(id);
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
     }
 }

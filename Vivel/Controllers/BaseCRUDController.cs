@@ -34,13 +34,9 @@ namespace Vivel.Controllers
         {
             var entity = await _service.GetById(id);
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
 
         }
 
@@ -50,13 +46,9 @@ namespace Vivel.Controllers
             var entity = await _service.Insert(request);
 
             if (entity != null)
-            {
                 return new ObjectResult(entity) { StatusCode = StatusCodes.Status201Created };
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
 
         [HttpPut("{id}")]
@@ -65,13 +57,9 @@ namespace Vivel.Controllers
             var entity = await _service.Update(id, request);
 
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
 
         [HttpDelete]
@@ -80,13 +68,9 @@ namespace Vivel.Controllers
             var entity = await _service.Delete(id);
 
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
     }
 }

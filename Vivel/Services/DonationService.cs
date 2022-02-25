@@ -51,18 +51,18 @@ namespace Vivel.Services
         {
             var pendingDonationCount = await _context.Donations.Where(x => x.UserId == request.UserId && x.Status.Name == DonationStatus.Pending.Name).CountAsync();
 
-            if (pendingDonationCount == 0)
-            {
-                var entity = _mapper.Map<Donation>(request);
+            if (pendingDonationCount != 0)
+                return null;
 
-                await _context.Donations.AddAsync(entity);
+            var entity = _mapper.Map<Donation>(request);
 
-                await _context.SaveChangesAsync();
+            await _context.Donations.AddAsync(entity);
 
-                return _mapper.Map<DonationDTO>(entity);
-            }
+            await _context.SaveChangesAsync();
 
-            return null;
+            return _mapper.Map<DonationDTO>(entity);
+
+
         }
 
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)

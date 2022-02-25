@@ -32,13 +32,9 @@ namespace Vivel.Controllers
             var entity = await _userService.Details(id);
 
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
 
         [HttpGet("{id}/donations")]
@@ -52,13 +48,9 @@ namespace Vivel.Controllers
         {
             var entity = await _userService.Donation(userId, donationId);
             if (entity != null)
-            {
                 return new OkObjectResult(entity);
-            }
             else
-            {
                 return new NotFoundResult();
-            }
         }
 
         [HttpGet("{id}/notifications")]
