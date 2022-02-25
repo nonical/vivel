@@ -21,39 +21,56 @@ namespace Vivel.Controllers
         }
 
         [NonAction]
-        public override Task<UserDTO> Insert([FromBody] object request)
+        public override Task<ActionResult<UserDTO>> Insert([FromBody] object request)
         {
             return base.Insert(request);
         }
 
         [HttpGet("{id}/details")]
-        public Task<UserDetailsDTO> Details(string id)
+        public async Task<ActionResult<UserDetailsDTO>> Details(string id)
         {
-            return _userService.Details(id);
+            var entity = await _userService.Details(id);
+
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
 
         [HttpGet("{id}/donations")]
-        public Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
-            return _userService.Donations(id, request);
+            return await _userService.Donations(id, request);
         }
 
         [HttpGet("{userId}/donation/{donationId}")]
-        public Task<DonationDTO> Donations(string userId, string donationId)
+        public async Task<ActionResult<DonationDTO>> Donations(string userId, string donationId)
         {
-            return _userService.Donation(userId, donationId);
+            var entity = await _userService.Donation(userId, donationId);
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
 
         [HttpGet("{id}/notifications")]
-        public Task<PagedResult<NotificationDTO>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
+        public async Task<PagedResult<NotificationDTO>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
         {
-            return _userService.Notifications(id, request);
+            return await _userService.Notifications(id, request);
         }
 
         [HttpGet("{id}/badges")]
-        public Task<PagedResult<BadgeDTO>> Badges(string id, [FromQuery] BadgeSearchRequest request)
+        public async Task<PagedResult<BadgeDTO>> Badges(string id, [FromQuery] BadgeSearchRequest request)
         {
-            return _userService.Badges(id, request);
+            return await _userService.Badges(id, request);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Pagination;
@@ -29,27 +30,63 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}")]
-        public async virtual Task<T> GetById(string id)
+        public async virtual Task<ActionResult<T>> GetById(string id)
         {
-            return await _service.GetById(id);
+            var entity = await _service.GetById(id);
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
+
         }
 
         [HttpPost]
-        public async virtual Task<T> Insert([FromBody] InsertRequest request)
+        public async virtual Task<ActionResult<T>> Insert([FromBody] InsertRequest request)
         {
-            return await _service.Insert(request);
+            var entity = await _service.Insert(request);
+
+            if (entity != null)
+            {
+                return new ObjectResult(entity) { StatusCode = StatusCodes.Status201Created };
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
 
         [HttpPut("{id}")]
-        public async virtual Task<T> Update(string id, [FromBody] UpdateRequest request)
+        public async virtual Task<ActionResult<T>> Update(string id, [FromBody] UpdateRequest request)
         {
-            return await _service.Update(id, request);
+            var entity = await _service.Update(id, request);
+
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
 
         [HttpDelete]
-        public async virtual Task<T> Delete(string id)
+        public async virtual Task<ActionResult<T>> Delete(string id)
         {
-            return await _service.Delete(id);
+            var entity = await _service.Delete(id);
+
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
     }
 }

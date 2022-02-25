@@ -44,7 +44,7 @@ namespace Vivel.Services
 
         public async Task<UserDetailsDTO> Details(string id)
         {
-            var entity = await _context.Users.Include(x => x.Donations).Where(x => x.UserId == id).FirstAsync();
+            var entity = await _context.Users.Include(x => x.Donations).FirstOrDefaultAsync(x => x.UserId == id);
 
             return _mapper.Map<UserDetailsDTO>(entity);
         }

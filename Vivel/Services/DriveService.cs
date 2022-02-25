@@ -162,7 +162,7 @@ namespace Vivel.Services
 
         public async Task<DriveDetailsDTO> Details(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Donations).Where(x => x.DriveId == id).FirstAsync();
+            var entity = await _context.Drives.Include(x => x.Donations).Where(x => x.DriveId == id).FirstOrDefaultAsync();
 
             return _mapper.Map<DriveDetailsDTO>(entity);
         }

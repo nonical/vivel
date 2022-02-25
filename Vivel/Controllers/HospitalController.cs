@@ -20,9 +20,9 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/drives")]
-        public Task<PagedResult<DriveDTO>> Drives(string id, [FromQuery] DriveSearchRequest request)
+        public async Task<PagedResult<DriveDTO>> Drives(string id, [FromQuery] DriveSearchRequest request)
         {
-            return _hospitalService.Drives(id, request);
+            return await _hospitalService.Drives(id, request);
         }
     }
 }
