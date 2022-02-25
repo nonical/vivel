@@ -69,7 +69,8 @@ namespace Vivel.Services
         {
             var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
 
-            entity.PropertyChanged += StatusChanged;
+            if (entity != null)
+                entity.PropertyChanged += StatusChanged;
 
             _mapper.Map(request, entity);
 

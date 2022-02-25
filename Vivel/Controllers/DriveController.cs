@@ -23,9 +23,17 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/details")]
-        public async Task<DriveDetailsDTO> Details(string id)
+        public async Task<ActionResult<DriveDetailsDTO>> Details(string id)
         {
-            return await _driveService.Details(id);
+            var entity = await _driveService.Details(id);
+            if (entity != null)
+            {
+                return new OkObjectResult(entity);
+            }
+            else
+            {
+                return new NotFoundResult();
+            }
         }
     }
 }
