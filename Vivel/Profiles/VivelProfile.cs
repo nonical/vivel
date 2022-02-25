@@ -77,7 +77,7 @@ namespace Vivel.Profiles
             CreateMap<Database.Donation, DonationUpdateRequest>().ReverseMap();
 
             CreateMap<Database.Badge, BadgeDTO>()
-                .ForMember(destination => destination.Name, o => o.MapFrom(source => source.PresetBadge.Name))
+                .ForMember(destination => destination.Name, o => o.MapFrom(source => source.Name))
                 .ForMember(destination => destination.Description, o => o.MapFrom(source => source.PresetBadge.Description))
                 .ForMember(destination => destination.Picture, o => o.MapFrom(source => source.PresetBadge.Picture))
                 .ForMember(destination => destination.CreatedAt, o => o.MapFrom(source => source.CreatedAt));
