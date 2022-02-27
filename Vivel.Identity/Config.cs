@@ -3,6 +3,7 @@
 
 
 using System.Collections.Generic;
+using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
 namespace Vivel.Identity
@@ -28,46 +29,32 @@ namespace Vivel.Identity
                 // swagger
                 new Client
                 {
-                    ClientId = "api_swagger",
-                    ClientName = "Swagger UI",
-                    ClientSecrets = {new Secret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73".Sha256())}, // change me!
+                    ClientId = "vivel.swagger",
+                    ClientSecrets = {new Secret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73".Sha256())},
 
                     AllowedGrantTypes = GrantTypes.Code,
                     RequirePkce = true,
-                    RequireClientSecret = false,
 
-                    RedirectUris = {"https://localhost:5001/swagger/oauth2-redirect.html"},
-                    AllowedCorsOrigins = {"https://localhost:5001"},
+                    RedirectUris = {"http://localhost:5001/swagger/oauth2-redirect.html"},
+                    AllowedCorsOrigins = {"http://localhost:5001"},
                     AllowedScopes = { "scope1" }
                 },
 
-                // m2m client credentials flow client
                 new Client
                 {
-                    ClientId = "m2m.client",
-                    ClientName = "Client Credentials Client",
-
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
-
-                    AllowedScopes = { "scope1" }
-                },
-
-                // interactive client using code flow + pkce
-                new Client
-                {
-                    ClientId = "interactive",
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
-
+                    ClientId = "vivel.mobile",
                     AllowedGrantTypes = GrantTypes.Code,
-
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
-
                     AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope1" }
-                },
+                    ClientSecrets = { new Secret("2bc63e15-a44a-42e9-8597-2fcdee8350e0".Sha256()) },
+                    RedirectUris = { "com.nonical.vivel:/callback" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
+                }
             };
     }
 }

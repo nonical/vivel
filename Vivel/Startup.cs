@@ -37,12 +37,12 @@ namespace Vivel
                     {
                         AuthorizationCode = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri("https://localhost:5000/connect/authorize"), // TODO: Move this to environment
-                            TokenUrl = new Uri("https://localhost:5000/connect/token"),
+                            AuthorizationUrl = new Uri("http://localhost:5000/connect/authorize"), // TODO: Move this to environment
+                            TokenUrl = new Uri("http://localhost:5000/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
-                                {"scope1", "API - full access"}
-                            }
+                                {"scope1", "scope1"}
+                            },
                         }
                     }
                 });
@@ -68,9 +68,10 @@ namespace Vivel
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
             {
-                options.Authority = "https://localhost:5000"; // TODO: Move this to environment
+                options.Authority = "http://localhost:5000"; // TODO: Move this to environment
                 options.TokenValidationParameters.ValidateAudience = false;
-                options.TokenValidationParameters.ValidTypes = new[] { "at+jwt" };
+                options.TokenValidationParameters.ValidateIssuer = false;
+                options.RequireHttpsMetadata = false;
             });
 
             services.AddAuthorization(options =>
@@ -93,17 +94,14 @@ namespace Vivel
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
-                    options.OAuthClientId("api_swagger");
+                    options.OAuthClientId("vivel.swagger");
                     options.OAuthClientSecret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73"); // TODO: Move this to environment
                     options.OAuthScopes(new string[] { "scope1" });
-                    options.OAuthAppName("Swagger UI");
                     options.OAuthUsePkce();
                 });
 
                 app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             }
-
-            app.UseHttpsRedirection();
 
             app.UseRouting();
 
