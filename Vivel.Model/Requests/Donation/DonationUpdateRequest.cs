@@ -12,5 +12,6 @@ namespace Vivel.Model.Requests.Donation
         public int? LeukocyteCount { get; set; }
         public int? ErythrocyteCount { get; set; }
         public int? PlateletCount { get; set; }
+        public string BloodType { get; set; }
     }
 }
