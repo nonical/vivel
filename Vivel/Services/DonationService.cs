@@ -70,7 +70,7 @@ namespace Vivel.Services
             var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
 
             if (entity != null)
-                entity.PropertyChanged += StatusChanged;
+                entity.PropertyChanged += (sender, e) => StatusChanged(sender, e, request);
 
             _mapper.Map(request, entity);
 
@@ -79,7 +79,7 @@ namespace Vivel.Services
             return _mapper.Map<DonationDTO>(entity);
         }
 
-        public async void StatusChanged(object sender, EventArgs e)
+        public async void StatusChanged(object sender, EventArgs e, DonationUpdateRequest request)
         {
             var donation = (Donation)sender;
 
@@ -89,6 +89,10 @@ namespace Vivel.Services
             {
                 await VerifyUser(donation.UserId);
                 await AddBadges(donation.UserId, donation.DriveId);
+            }
+            else if (donation.Status.Name == DonationStatus.Rejected.Name)
+            {
+                await ChangeUserBloodtype(donation.UserId, request);
             }
 
         }
@@ -157,6 +161,15 @@ namespace Vivel.Services
             var user = await _context.Users.FindAsync(userId);
 
             user.Verified = true;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ChangeUserBloodtype(string userId, DonationUpdateRequest request)
+        {
+            var user = await _context.Users.FindAsync(userId);
+
+            user.BloodType = BloodType.FromName(request.BloodType);
+
             await _context.SaveChangesAsync();
         }
     }
