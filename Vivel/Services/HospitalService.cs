@@ -1,16 +1,22 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SelectPdf;
 using Vivel.Database;
 using Vivel.Extensions;
+using Vivel.Helpers;
+using Vivel.Helpers.Reports;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Hospital;
+using Vivel.Model.Requests.Hospital.Reports;
 
 namespace Vivel.Services
 {
@@ -71,6 +77,70 @@ namespace Vivel.Services
             }
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
+        }
+
+        public async Task<byte[]> DrivesReport(string id, HospitalReportDrivesRequest request)
+        {
+            var hospital = await _context.Hospitals.FindAsync(id);
+
+            var drives = _context.Drives.Include(x => x.Donations).AsQueryable();
+
+            if (request.Urgency != null)
+            {
+                drives = drives.Where(x => x.Urgency == request.Urgency);
+            }
+
+            if (request.Status != null)
+            {
+                var status = DriveStatus.FromName(request.Status, true);
+
+                drives = drives.Where(x => x.Status == status);
+            }
+
+            drives = drives.Where(x => x.HospitalId == id && request.From <= x.Date && x.Date <= request.To)
+                            .OrderBy(x => x.Date);
+
+            var entities = await drives.ToListAsync();
+
+            var html = new DrivesReportHelper
+            {
+                HospitalName = hospital.Name,
+                drives = entities,
+                Description = $"Drives report for period {request.From:MMM dd yyyy} - {request.To:MMM dd yyyy}"
+            }.GetHtml();
+
+            return HtmlToByteArrayHelper.GetBytes(html);
+        }
+
+        public async Task<byte[]> LitresByBloodTypeReport(string id, HospitalReportLitresRequest request)
+        {
+            var hospital = await _context.Hospitals.FindAsync(id);
+
+            var drives = _context.Drives.AsQueryable();
+
+            if (request.Urgency != null)
+            {
+                drives = drives.Where(x => x.Urgency == request.Urgency);
+            }
+
+            drives = drives.Where(x => x.HospitalId == id && x.Status == DriveStatus.Closed);
+
+            var stats = await drives.GroupBy(x => x.BloodType)
+                                    .Select(x => new LitresByBloodTypeDTO
+                                    {
+                                        BloodType = x.Key.Name,
+                                        Amount = x.Sum(z => (int)z.Amount) / 1000.00
+                                    })
+                                    .ToListAsync();
+
+            var html = new LitresByBloodTypeHelper
+            {
+                HospitalName = hospital.Name,
+                Stats = stats,
+                Description = $"Litres by blood type report for period {request.From:MMM dd yyyy} - {request.To:MMM dd yyyy}"
+            }.GetHtml();
+
+            return HtmlToByteArrayHelper.GetBytes(html);
         }
     }
 }
