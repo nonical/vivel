@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Flurl.Http;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
+using Vivel.Model.Extensions;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Hospital.Reports;
-using Vivel.Model.Extensions;
-using Flurl.Http;
 
 namespace Vivel.Desktop.Resources.Report
 {
