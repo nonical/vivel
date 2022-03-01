@@ -100,9 +100,9 @@ namespace Vivel
                     options.OAuthUsePkce();
                 });
 
-                app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             }
 
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
 
             app.UseAuthentication();
