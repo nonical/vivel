@@ -59,8 +59,14 @@ namespace Vivel.Identity
                 app.UseDatabaseErrorPage();
             }
 
+            app.UseCookiePolicy(new CookiePolicyOptions()
+            {
+                MinimumSameSitePolicy = Microsoft.AspNetCore.Http.SameSiteMode.Lax
+            });
+
             app.UseStaticFiles();
 
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();

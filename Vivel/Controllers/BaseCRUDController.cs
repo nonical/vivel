@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Pagination;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class BaseCRUDController<T, SearchRequest, InsertRequest, UpdateRequest> : ControllerBase
         where T : class
         where SearchRequest : class

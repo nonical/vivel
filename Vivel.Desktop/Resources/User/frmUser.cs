@@ -12,15 +12,16 @@ namespace Vivel.Desktop.Resources.User
 {
     public partial class frmUser : Form
     {
-        private readonly APIService _apiService = new APIService("User");
+        private readonly APIService _apiService;
 
         private int _currentUserPage;
 
         private int _currentDonationPage;
 
-        public frmUser()
+        public frmUser(string accessToken)
         {
             InitializeComponent();
+            _apiService = new APIService("User", accessToken);
             getUsers();
         }
 

@@ -1,16 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Flurl.Http;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
-using Vivel.Model.Extensions;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Hospital.Reports;
 
@@ -18,10 +11,11 @@ namespace Vivel.Desktop.Resources.Report
 {
     public partial class frmReport : Form
     {
-        private readonly APIService _service = new APIService("Hospital");
-        public frmReport()
+        private readonly APIService _service;
+        public frmReport(string accessToken)
         {
             InitializeComponent();
+            _service = new APIService("Hospital", accessToken);
         }
 
         private class Report

@@ -3,6 +3,7 @@
 
 
 using System.Collections.Generic;
+using Duende.IdentityServer;
 using Duende.IdentityServer.Models;
 
 namespace Vivel.Identity
@@ -19,40 +20,78 @@ namespace Vivel.Identity
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1"),
-                new ApiScope("scope2"),
+                new ApiScope("scope1", "API - full access")
             };
 
         public static IEnumerable<Client> Clients =>
             new Client[]
             {
-                // m2m client credentials flow client
+                // swagger
                 new Client
                 {
-                    ClientId = "m2m.client",
-                    ClientName = "Client Credentials Client",
+                    ClientId = "vivel.swagger",
+                    ClientSecrets = {new Secret("88d7eaf8-08a0-48a5-ae3b-02d46db9cc73".Sha256())},
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                    ClientSecrets = { new Secret("511536EF-F270-4058-80CA-1C89C192F69A".Sha256()) },
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RequirePkce = true,
 
+                    RedirectUris = {"http://localhost:5001/swagger/oauth2-redirect.html"},
+                    AllowedCorsOrigins = {"http://localhost:5001"},
                     AllowedScopes = { "scope1" }
                 },
 
-                // interactive client using code flow + pkce
                 new Client
                 {
-                    ClientId = "interactive",
-                    ClientSecrets = { new Secret("49C1A7E1-0C79-4A89-A3D6-A37998FB86B0".Sha256()) },
+                    ClientId = "vivel.mobile",
+                    ClientSecrets = { new Secret("2bc63e15-a44a-42e9-8597-2fcdee8350e0".Sha256()) },
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,
+
+                    RedirectUris = { "com.nonical.vivel:/callback" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
+                },
+
+                new Client
+                {
+                    ClientId = "vivel.web",
+                    RequireClientSecret = false,
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,
+
+                    RedirectUris = { "http://localhost:3000/redirect" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
+                },
+
+                new Client
+                {
+                    ClientId = "vivel.desktop",
+                    RequireClientSecret = false,
 
                     AllowedGrantTypes = GrantTypes.Code,
 
-                    RedirectUris = { "https://localhost:44300/signin-oidc" },
-                    FrontChannelLogoutUri = "https://localhost:44300/signout-oidc",
-                    PostLogoutRedirectUris = { "https://localhost:44300/signout-callback-oidc" },
-
-                    AllowOfflineAccess = true,
-                    AllowedScopes = { "openid", "profile", "scope2" }
-                },
+                    RedirectUris = { "http://localhost/winforms.client" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
+                }
             };
     }
 }

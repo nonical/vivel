@@ -1,21 +1,54 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
+using IdentityModel.OidcClient;
 using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
 using Vivel.Desktop.Resources.PresetBadge;
 using Vivel.Desktop.Resources.Report;
 using Vivel.Desktop.Resources.User;
+using Vivel.Desktop.Services;
 
 namespace Vivel.Desktop
 {
     public partial class frmMain : Form
     {
         private int childFormNumber = 0;
+        private OidcClient _oidcClient;
+        private string _accessToken;
 
         public frmMain()
         {
             InitializeComponent();
+
+            var options = new OidcClientOptions
+            {
+                Authority = "http://localhost:5000",
+                ClientId = "vivel.desktop",
+                Scope = "openid scope1",
+                RedirectUri = "http://localhost/winforms.client",
+                Browser = new WinFormsWebView(),
+            };
+
+            _oidcClient = new OidcClient(options);
+
+            Login().ContinueWith((_) => menuStrip.Enabled = true);
+        }
+
+        private async Task Login()
+        {
+            var result = await _oidcClient.LoginAsync();
+
+            if (result.IsError)
+            {
+                MessageBox.Show(this, result.Error, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+            else
+            {
+                _accessToken = result.AccessToken;
+            }
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -97,7 +130,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmHospital
+            var form = new frmHospital(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -110,7 +143,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmUser
+            var form = new frmUser(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -123,7 +156,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmDrive
+            var form = new frmDrive(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -136,7 +169,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmFAQ()
+            var form = new frmFAQ(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -155,7 +188,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmPresetBadge()
+            var form = new frmPresetBadge(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -168,7 +201,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmReport()
+            var form = new frmReport(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
