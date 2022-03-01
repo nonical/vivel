@@ -91,6 +91,12 @@
     <Compile Include="Resources\PresetBadge\frmPresetBadge.Designer.cs">
       <DependentUpon>frmPresetBadge.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Report\frmReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\Report\frmReport.Designer.cs">
+      <DependentUpon>frmReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\User\frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -121,6 +127,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PresetBadge\frmPresetBadge.resx">
       <DependentUpon>frmPresetBadge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Report\frmReport.resx">
+      <DependentUpon>frmReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\User\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>

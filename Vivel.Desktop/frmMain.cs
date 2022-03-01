@@ -4,6 +4,7 @@ using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
 using Vivel.Desktop.Resources.PresetBadge;
+using Vivel.Desktop.Resources.Report;
 using Vivel.Desktop.Resources.User;
 
 namespace Vivel.Desktop
@@ -155,6 +156,19 @@ namespace Vivel.Desktop
             cleanMdiParent();
 
             var form = new frmPresetBadge()
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
+        }
+
+        private void reportsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cleanMdiParent();
+
+            var form = new frmReport()
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
