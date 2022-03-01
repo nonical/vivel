@@ -52,5 +52,11 @@ namespace Vivel.Desktop.Services
 
             return result;
         }
+
+        public async Task DownloadFile(string path, object request, string filename)
+        {
+            var queryString = await request.ToQueryString();
+            await $"{_apiUrl}/{path}?{queryString}".DownloadFileAsync("c:\\downloads", filename);
+        }
     }
 }
