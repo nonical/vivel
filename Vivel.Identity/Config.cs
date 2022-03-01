@@ -43,10 +43,30 @@ namespace Vivel.Identity
                 new Client
                 {
                     ClientId = "vivel.mobile",
+                    ClientSecrets = { new Secret("2bc63e15-a44a-42e9-8597-2fcdee8350e0".Sha256()) },
+
                     AllowedGrantTypes = GrantTypes.Code,
                     AllowOfflineAccess = true,
-                    ClientSecrets = { new Secret("2bc63e15-a44a-42e9-8597-2fcdee8350e0".Sha256()) },
+
                     RedirectUris = { "com.nonical.vivel:/callback" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
+                },
+
+                new Client
+                {
+                    ClientId = "vivel.web",
+                    RequireClientSecret = false,
+
+                    AllowedGrantTypes = GrantTypes.Code,
+                    AllowOfflineAccess = true,
+
+                    RedirectUris = { "http://localhost:3000/redirect" },
                     AllowedScopes =
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
