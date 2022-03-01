@@ -18,13 +18,13 @@ namespace Vivel.Desktop.Resources.Drive
 {
     public partial class frmDrive : Form
     {
-        private readonly APIService _service = new APIService("Hospital");
-
+        private readonly APIService _service;
         private int _currentPage;
 
-        public frmDrive()
+        public frmDrive(string accessToken)
         {
             InitializeComponent();
+            _service = new APIService("Hospital", accessToken);
         }
 
         private async void GetDrives(int pageNumber = 1)

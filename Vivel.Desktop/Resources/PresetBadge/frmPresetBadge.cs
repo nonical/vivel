@@ -16,11 +16,12 @@ namespace Vivel.Desktop.Resources.PresetBadge
 {
     public partial class frmPresetBadge : Form
     {
-        private readonly APIService _service = new APIService("PresetBadge");
+        private readonly APIService _service;
 
-        public frmPresetBadge()
+        public frmPresetBadge(string accessToken)
         {
             InitializeComponent();
+            _service = new APIService("PresetBadge", accessToken);
         }
 
         private async void GetPresetBadges()

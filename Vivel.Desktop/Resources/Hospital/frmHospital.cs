@@ -17,13 +17,14 @@ namespace Vivel.Desktop.Hospital
 {
     public partial class frmHospital : Form
     {
-        private readonly APIService _service = new APIService("Hospital");
+        private readonly APIService _service;
 
         private int _currentPage;
 
-        public frmHospital()
+        public frmHospital(string accessToken)
         {
             InitializeComponent();
+            _service = new APIService("Hospital", accessToken);
         }
 
         private async void GetHospitals(int pageNumber = 1)

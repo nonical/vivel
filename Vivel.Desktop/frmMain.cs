@@ -129,7 +129,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmHospital
+            var form = new frmHospital(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -142,7 +142,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmUser
+            var form = new frmUser(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -155,7 +155,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmDrive
+            var form = new frmDrive(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -168,7 +168,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmFAQ()
+            var form = new frmFAQ(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -187,7 +187,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmPresetBadge()
+            var form = new frmPresetBadge(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill
@@ -200,7 +200,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmReport()
+            var form = new frmReport(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill

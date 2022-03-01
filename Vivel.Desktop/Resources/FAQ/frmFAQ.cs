@@ -9,13 +9,14 @@ namespace Vivel.Desktop.Resources.FAQ
 {
     public partial class frmFAQ : Form
     {
-        private readonly APIService _apiService = new APIService("Faq");
+        private readonly APIService _apiService;
 
         private int _currentPage;
 
-        public frmFAQ()
+        public frmFAQ(string accessToken)
         {
             InitializeComponent();
+            _apiService = new APIService("Faq", accessToken);
             getFAQs();
         }
 
