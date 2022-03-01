@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using IdentityModel.OidcClient;
 using Vivel.Desktop.Hospital;
@@ -32,10 +33,10 @@ namespace Vivel.Desktop
 
             _oidcClient = new OidcClient(options);
 
-            Login();
+            Login().ContinueWith((_) => menuStrip.Enabled = true);
         }
 
-        private async void Login()
+        private async Task Login()
         {
             var result = await _oidcClient.LoginAsync();
 
