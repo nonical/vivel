@@ -74,6 +74,23 @@ namespace Vivel.Identity
                         IdentityServerConstants.StandardScopes.Email,
                         "scope1"
                     },
+                },
+
+                new Client
+                {
+                    ClientId = "vivel.desktop",
+                    RequireClientSecret = false,
+
+                    AllowedGrantTypes = GrantTypes.Code,
+
+                    RedirectUris = { "http://localhost/winforms.client" },
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.Email,
+                        "scope1"
+                    },
                 }
             };
     }
