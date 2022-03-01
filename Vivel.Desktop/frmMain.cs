@@ -1,21 +1,53 @@
 ﻿using System;
 using System.Windows.Forms;
+using IdentityModel.OidcClient;
 using Vivel.Desktop.Hospital;
 using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
 using Vivel.Desktop.Resources.PresetBadge;
 using Vivel.Desktop.Resources.Report;
 using Vivel.Desktop.Resources.User;
+using Vivel.Desktop.Services;
 
 namespace Vivel.Desktop
 {
     public partial class frmMain : Form
     {
         private int childFormNumber = 0;
+        private OidcClient _oidcClient;
+        private string _accessToken;
 
         public frmMain()
         {
             InitializeComponent();
+
+            var options = new OidcClientOptions
+            {
+                Authority = "http://localhost:5000",
+                ClientId = "vivel.desktop",
+                Scope = "openid scope1",
+                RedirectUri = "http://localhost/winforms.client",
+                Browser = new WinFormsWebView(),
+            };
+
+            _oidcClient = new OidcClient(options);
+
+            Login();
+        }
+
+        private async void Login()
+        {
+            var result = await _oidcClient.LoginAsync();
+
+            if (result.IsError)
+            {
+                MessageBox.Show(this, result.Error, "Login", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
+            else
+            {
+                _accessToken = result.AccessToken;
+            }
         }
 
         private void ShowNewForm(object sender, EventArgs e)
