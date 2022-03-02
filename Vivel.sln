@@ -15,7 +15,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Desktop", "Vivel.Desktop\Vivel.Desktop.csproj", "{363F4FAE-36F4-48D0-B9F5-983402391F89}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{30CD2722-E38E-4E22-A1DA-A4D0BEF54175}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Vivel.Identity", "Vivel.Identity\Vivel.Identity.csproj", "{30CD2722-E38E-4E22-A1DA-A4D0BEF54175}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{8CAAFDCA-1830-4374-A700-7523C3C583E3}"
+	ProjectSection(SolutionItems) = preProject
+		Scripts\db_user.sql = Scripts\db_user.sql
+		Scripts\init_db.sql = Scripts\init_db.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +56,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8CAAFDCA-1830-4374-A700-7523C3C583E3} = {ACAFED86-98B3-4649-8893-DFDD49CCC01B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {486EE63B-38F9-43CB-8AF4-D900C6F8C08B}
