@@ -33,16 +33,6 @@ namespace Vivel.Services
                 entity = entity.Where(x => x.Name.Contains(request.Name));
             }
 
-            if (request?.Latitude != null)
-            {
-                entity = entity.Where(x => x.Latitude == request.Latitude);
-            }
-
-            if (request?.Longitude != null)
-            {
-                entity = entity.Where(x => x.Longitude == request.Longitude);
-            }
-
             return await entity.GetPagedAsync<Hospital, HospitalDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
