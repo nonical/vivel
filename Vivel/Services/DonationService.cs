@@ -49,14 +49,21 @@ namespace Vivel.Services
 
         public async override Task<DonationDTO> Insert(DonationInsertRequest request)
         {
-            var userDonations = await _context.Donations.Where(x => x.UserId == request.UserId).ToListAsync();
+            var user = await _context.Users.Include(x => x.Donations).FirstOrDefaultAsync(x => x.UserId == request.UserId);
+            var drive = await _context.Drives.FirstOrDefaultAsync(x => x.DriveId == request.DriveId);
 
-            var pendingDonationCount = userDonations.Where(x => x.Status == DonationStatus.Pending).Count();
+            if (user == null || drive == null)
+                return null;
+
+            if (user.Verified == true && (user.BloodType != drive.BloodType))
+                return null;
+
+            var pendingDonationCount = user.Donations.Where(x => x.Status == DonationStatus.Pending).Count();
 
             if (pendingDonationCount != 0)
                 return null;
 
-            var lastDonationDate = userDonations.Where(x => x.Status == DonationStatus.Approved)
+            var lastDonationDate = user.Donations.Where(x => x.Status == DonationStatus.Approved)
                                                 .OrderByDescending(x => x.UpdatedAt)
                                                 .Select(x => x.UpdatedAt)
                                                 .FirstOrDefault();
