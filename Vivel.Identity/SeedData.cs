@@ -175,6 +175,79 @@ namespace Vivel.Identity
                     {
                         Log.Debug("bob already exists");
                     }
+
+                    var admin = userMgr.FindByNameAsync("admin").Result;
+                    if (admin == null)
+                    {
+                        admin = new ApplicationUser
+                        {
+                            Id = "fb2900e3-cb86-44c4-b1c7-7293a14fa09c",
+                            UserName = "admin",
+                            Email = "admin@email.com",
+                            EmailConfirmed = true
+                        };
+
+                        var result = userMgr.CreateAsync(admin, "Pass123$").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddToRoleAsync(admin, "admin").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("admin created");
+                    }
+                    else
+                    {
+                        Log.Debug("admin already exists");
+                    }
+
+                    var staffMember1 = userMgr.FindByNameAsync("staffMember1").Result;
+                    if (staffMember1 == null)
+                    {
+                        staffMember1 = new ApplicationUser
+                        {
+                            Id = "97aae33e-5a6f-44fb-81eb-0bdbbb40773a",
+                            UserName = "staffMember1",
+                            Email = "staffMember1@email.com",
+                            EmailConfirmed = true
+                        };
+
+                        var result = userMgr.CreateAsync(staffMember1, "Pass123$").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddClaimsAsync(staffMember1, new Claim[]{
+                            new Claim("hospital", "c1f280c8-f8c7-4a50-9ee6-3acb906922d6")
+                        }).Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddToRoleAsync(staffMember1, "staff").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("staffMember1 created");
+                    }
+                    else
+                    {
+                        Log.Debug("staffMember1 already exists");
+                    }
                 }
             }
         }
