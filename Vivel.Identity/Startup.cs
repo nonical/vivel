@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Vivel.Identity.Data;
+using Vivel.Identity.Extensions;
 
 namespace Vivel.Identity
 {
@@ -46,7 +47,8 @@ namespace Vivel.Identity
                 .AddInMemoryIdentityResources(Config.IdentityResources)
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
-                .AddAspNetIdentity<ApplicationUser>();
+                .AddAspNetIdentity<ApplicationUser>()
+                .AddProfileService<VivelProfileService>();
 
             services.AddAuthentication();
         }
