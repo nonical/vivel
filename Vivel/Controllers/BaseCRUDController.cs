@@ -63,6 +63,7 @@ namespace Vivel.Controllers
         }
 
         [HttpDelete]
+        [Authorize(Roles = "admin")]
         public async virtual Task<ActionResult<T>> Delete(string id)
         {
             var entity = await _service.Delete(id);
