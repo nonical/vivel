@@ -23,6 +23,24 @@ namespace Vivel.Controllers
             _hospitalService = service;
         }
 
+        [Authorize(Roles = "admin")]
+        public async override Task<PagedResult<HospitalDTO>> Get([FromQuery] HospitalSearchRequest request)
+        {
+            return await base.Get(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<ActionResult<HospitalDTO>> Insert([FromBody] HospitalUpsertRequest request)
+        {
+            return await base.Insert(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<ActionResult<HospitalDTO>> Update(string id, [FromBody] HospitalUpsertRequest request)
+        {
+            return await base.Update(id, request);
+        }
+
         [HttpGet("{id}/drives")]
         [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<PagedResult<DriveDTO>>> Drives(string id, [FromQuery] DriveSearchRequest request)

@@ -33,12 +33,14 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             return await _driveService.Donations(id, request);
         }
 
         [HttpGet("{id}/details")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<DriveDetailsDTO>> Details(string id)
         {
             var entity = await _driveService.Details(id);
