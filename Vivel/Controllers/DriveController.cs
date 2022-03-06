@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -14,6 +15,18 @@ namespace Vivel.Controllers
         public DriveController(IDriveService service) : base(service)
         {
             _driveService = service;
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "staff")]
+        public async override Task<ActionResult<DriveDTO>> Insert([FromBody] DriveInsertRequest request)
+        {
+            var hospitalClaimValue = HttpContext.User.FindFirst("hospital").Value;
+
+            if (hospitalClaimValue == request.HospitalId)
+                return await base.Insert(request);
+
+            return Unauthorized();
         }
 
         [HttpGet("{id}/donations")]
