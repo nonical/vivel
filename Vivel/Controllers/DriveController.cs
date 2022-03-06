@@ -18,12 +18,15 @@ namespace Vivel.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "staff")]
+        [Authorize(Roles = "admin,staff")]
         public async override Task<ActionResult<DriveDTO>> Insert([FromBody] DriveInsertRequest request)
         {
-            var hospitalClaimValue = HttpContext.User.FindFirst("hospital").Value;
+            var user = HttpContext.User;
 
-            if (hospitalClaimValue == request.HospitalId)
+            var hospitalClaimValue = user.FindFirst("hospital")?.Value;
+            var isAdmin = user.IsInRole("admin");
+
+            if (isAdmin || hospitalClaimValue == request.HospitalId)
                 return await base.Insert(request);
 
             return Unauthorized();

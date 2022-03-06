@@ -17,22 +17,23 @@ namespace Vivel.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "admin,user")]
         public async override Task<ActionResult<DonationDTO>> Insert([FromBody] DonationInsertRequest request)
         {
             var user = HttpContext.User;
 
             var userClaimValue = user.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var isAdmin = user.IsInRole("admin");
             var isUser = user.IsInRole("user");
 
-            if (isUser && userClaimValue == request.UserId)
+            if (isAdmin || (isUser && userClaimValue == request.UserId))
                 return await base.Insert(request);
 
             return Unauthorized();
         }
 
         [HttpPut("{id}")]
-        [Authorize(Roles = "staff")]
+        [Authorize(Roles = "admin,staff")]
         public async override Task<ActionResult<DonationDTO>> Update(string id, [FromBody] DonationUpdateRequest request)
         {
             return await base.Update(id, request);

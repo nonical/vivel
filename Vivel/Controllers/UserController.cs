@@ -29,7 +29,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/details")]
-        [Authorize(Roles = "user,admin")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<UserDetailsDTO>> Details(string id)
         {
             var userClaimValue = getUserClaim();
@@ -48,7 +48,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
-        [Authorize(Roles = "user,admin")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             var userClaimValue = getUserClaim();
@@ -60,7 +60,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{userId}/donation/{donationId}")]
-        [Authorize(Roles = "user,admin")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<DonationDTO>> Donations(string userId, string donationId)
         {
             var userClaimValue = getUserClaim();
@@ -80,7 +80,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/notifications")]
-        [Authorize(Roles = "user,admin")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<PagedResult<NotificationDTO>>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
         {
             var userClaimValue = getUserClaim();
@@ -92,7 +92,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/badges")]
-        [Authorize(Roles = "user,admin")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<PagedResult<BadgeDTO>>> Badges(string id, [FromQuery] BadgeSearchRequest request)
         {
             var userClaimValue = getUserClaim();

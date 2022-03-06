@@ -24,7 +24,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/drives")]
-        [Authorize(Roles = "staff,admin")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<PagedResult<DriveDTO>>> Drives(string id, [FromQuery] DriveSearchRequest request)
         {
             var hospitalClaimValue = getHospitalClaim();
@@ -36,7 +36,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/report/drives")]
-        [Authorize(Roles = "staff,admin")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult> DrivesReport(string id, [FromQuery] HospitalReportDrivesRequest request)
         {
             var hospitalClaimValue = getHospitalClaim();
@@ -52,7 +52,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/report/litresbybloodtype")]
-        [Authorize(Roles = "staff,admin")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult> LitresByBloodTypeReport(string id, [FromQuery] HospitalReportLitresRequest request)
         {
             var hospitalClaimValue = getHospitalClaim();
