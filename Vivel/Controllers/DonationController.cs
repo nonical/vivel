@@ -29,7 +29,6 @@ namespace Vivel.Controllers
             return await base.GetById(id);
         }
 
-        [HttpPost]
         [Authorize(Roles = "admin,user")]
         public async override Task<ActionResult<DonationDTO>> Insert([FromBody] DonationInsertRequest request)
         {
@@ -45,7 +44,6 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
-        [HttpPut("{id}")]
         [Authorize(Roles = "admin,staff")]
         public async override Task<ActionResult<DonationDTO>> Update(string id, [FromBody] DonationUpdateRequest request)
         {

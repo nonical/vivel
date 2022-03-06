@@ -17,7 +17,6 @@ namespace Vivel.Controllers
             _driveService = service;
         }
 
-        [HttpPost]
         [Authorize(Roles = "admin,staff")]
         public async override Task<ActionResult<DriveDTO>> Insert([FromBody] DriveInsertRequest request)
         {

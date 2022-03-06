@@ -14,8 +14,8 @@ namespace Vivel.Controllers
         public FaqController(IFaqService service) : base(service)
         {
         }
-        [Authorize(Roles = "admin,user")]
 
+        [Authorize(Roles = "admin,user")]
         public async override Task<PagedResult<FaqDTO>> Get([FromQuery] FaqSearchRequest request)
         {
             return await base.Get(request);
