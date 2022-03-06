@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -26,43 +28,107 @@ namespace Vivel.Controllers
             return base.Insert(request);
         }
 
+        [Authorize(Roles = "admin")]
+        public async override Task<PagedResult<UserDTO>> Get([FromQuery] UserSearchRequest request)
+        {
+            return await base.Get(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<ActionResult<UserDTO>> GetById(string id)
+        {
+            return await base.GetById(id);
+        }
+
+        [Authorize(Roles = "admin,user")]
+        public async override Task<ActionResult<UserDTO>> Update(string id, [FromBody] UserUpdateRequest request)
+        {
+            return await base.Update(id, request);
+        }
+
         [HttpGet("{id}/details")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<UserDetailsDTO>> Details(string id)
         {
-            var entity = await _userService.Details(id);
+            var userClaimValue = getUserClaim();
 
-            if (entity != null)
-                return new OkObjectResult(entity);
-            else
-                return new NotFoundResult();
+            if (userIsAdmin() || (userClaimValue == id))
+            {
+                var entity = await _userService.Details(id);
+
+                if (entity != null)
+                    return new OkObjectResult(entity);
+                else
+                    return new NotFoundResult();
+            }
+
+            return Unauthorized();
         }
 
         [HttpGet("{id}/donations")]
-        public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
+        [Authorize(Roles = "admin,user")]
+        public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
-            return await _userService.Donations(id, request);
+            var userClaimValue = getUserClaim();
+
+            if (userIsAdmin() || userClaimValue == id)
+                return await _userService.Donations(id, request);
+
+            return Unauthorized();
         }
 
         [HttpGet("{userId}/donation/{donationId}")]
+        [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<DonationDTO>> Donations(string userId, string donationId)
         {
-            var entity = await _userService.Donation(userId, donationId);
-            if (entity != null)
-                return new OkObjectResult(entity);
-            else
-                return new NotFoundResult();
+            var userClaimValue = getUserClaim();
+
+            if (userIsAdmin() || userClaimValue == userId)
+            {
+                var entity = await _userService.Donation(userId, donationId);
+
+                if (entity != null)
+                    return new OkObjectResult(entity);
+                else
+                    return new NotFoundResult();
+            }
+
+            return Unauthorized();
+
         }
 
         [HttpGet("{id}/notifications")]
-        public async Task<PagedResult<NotificationDTO>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
+        [Authorize(Roles = "admin,user")]
+        public async Task<ActionResult<PagedResult<NotificationDTO>>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
         {
-            return await _userService.Notifications(id, request);
+            var userClaimValue = getUserClaim();
+
+            if (userIsAdmin() || userClaimValue == id)
+                return await _userService.Notifications(id, request);
+
+            return Unauthorized();
         }
 
         [HttpGet("{id}/badges")]
-        public async Task<PagedResult<BadgeDTO>> Badges(string id, [FromQuery] BadgeSearchRequest request)
+        [Authorize(Roles = "admin,user")]
+        public async Task<ActionResult<PagedResult<BadgeDTO>>> Badges(string id, [FromQuery] BadgeSearchRequest request)
         {
-            return await _userService.Badges(id, request);
+            var userClaimValue = getUserClaim();
+
+            if (userIsAdmin() || userClaimValue == id)
+                return await _userService.Badges(id, request);
+
+            return Unauthorized();
+        }
+
+        private string getUserClaim()
+        {
+            return HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        private bool userIsAdmin()
+        {
+            return HttpContext.User.IsInRole("admin");
         }
     }
 }

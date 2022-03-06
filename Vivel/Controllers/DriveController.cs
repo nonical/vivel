@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -16,13 +17,35 @@ namespace Vivel.Controllers
             _driveService = service;
         }
 
+        [Authorize(Roles = "admin,staff")]
+        public async override Task<ActionResult<DriveDTO>> Insert([FromBody] DriveInsertRequest request)
+        {
+            var user = HttpContext.User;
+
+            var hospitalClaimValue = user.FindFirst("hospital")?.Value;
+            var isAdmin = user.IsInRole("admin");
+
+            if (isAdmin || hospitalClaimValue == request.HospitalId)
+                return await base.Insert(request);
+
+            return Unauthorized();
+        }
+
+        [Authorize(Roles = "admin,staff")]
+        public async override Task<ActionResult<DriveDTO>> Update(string id, [FromBody] DriveUpdateRequest request)
+        {
+            return await base.Update(id, request);
+        }
+
         [HttpGet("{id}/donations")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             return await _driveService.Donations(id, request);
         }
 
         [HttpGet("{id}/details")]
+        [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<DriveDetailsDTO>> Details(string id)
         {
             var entity = await _driveService.Details(id);
