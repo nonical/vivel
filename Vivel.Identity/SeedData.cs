@@ -1,8 +1,4 @@
-﻿// Copyright (c) Duende Software. All rights reserved.
-// See LICENSE in the project root for license information.
-
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using IdentityModel;
@@ -36,11 +32,71 @@ namespace Vivel.Identity
                     context.Database.Migrate();
 
                     var userMgr = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleMgr = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+                    var adminRole = roleMgr.FindByNameAsync("admin").Result;
+                    if (adminRole == null)
+                    {
+                        adminRole = new IdentityRole
+                        {
+                            Id = "ccb43d5d-9fab-446f-9567-461976d3ff64",
+                            Name = "admin"
+                        };
+
+                        var result = roleMgr.CreateAsync(adminRole).Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("admin role created");
+                    }
+
+                    var userRole = roleMgr.FindByNameAsync("user").Result;
+                    if (userRole == null)
+                    {
+                        userRole = new IdentityRole
+                        {
+                            Id = "45cb0615-1045-4631-b6ad-83b3545f7cc1",
+                            Name = "user"
+                        };
+
+                        var result = roleMgr.CreateAsync(userRole).Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("user role created");
+                    }
+
+                    var staffRole = roleMgr.FindByNameAsync("staff").Result;
+                    if (staffRole == null)
+                    {
+                        staffRole = new IdentityRole
+                        {
+                            Id = "6416fa15-6409-4dbe-90bd-df8e486de212",
+                            Name = "staff"
+                        };
+
+                        var result = roleMgr.CreateAsync(staffRole).Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("staff role created");
+                    }
+
                     var alice = userMgr.FindByNameAsync("alice").Result;
                     if (alice == null)
                     {
                         alice = new ApplicationUser
                         {
+                            Id = "e093aaec-8cf0-4359-972a-0a62f0191083",
                             UserName = "alice",
                             Email = "AliceSmith@email.com",
                             EmailConfirmed = true,
@@ -57,10 +113,19 @@ namespace Vivel.Identity
                             new Claim(JwtClaimTypes.FamilyName, "Smith"),
                             new Claim(JwtClaimTypes.WebSite, "http://alice.com"),
                         }).Result;
+
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
                         }
+
+                        result = userMgr.AddToRoleAsync(alice, "user").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
                         Log.Debug("alice created");
                     }
                     else
@@ -73,6 +138,7 @@ namespace Vivel.Identity
                     {
                         bob = new ApplicationUser
                         {
+                            Id = "6e0884d7-c18f-4c8f-bce7-968e2cc33571",
                             UserName = "bob",
                             Email = "BobSmith@email.com",
                             EmailConfirmed = true
@@ -90,15 +156,97 @@ namespace Vivel.Identity
                             new Claim(JwtClaimTypes.WebSite, "http://bob.com"),
                             new Claim("location", "somewhere")
                         }).Result;
+
                         if (!result.Succeeded)
                         {
                             throw new Exception(result.Errors.First().Description);
                         }
+
+                        result = userMgr.AddToRoleAsync(bob, "user").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
                         Log.Debug("bob created");
                     }
                     else
                     {
                         Log.Debug("bob already exists");
+                    }
+
+                    var admin = userMgr.FindByNameAsync("admin").Result;
+                    if (admin == null)
+                    {
+                        admin = new ApplicationUser
+                        {
+                            Id = "fb2900e3-cb86-44c4-b1c7-7293a14fa09c",
+                            UserName = "admin",
+                            Email = "admin@email.com",
+                            EmailConfirmed = true
+                        };
+
+                        var result = userMgr.CreateAsync(admin, "Pass123$").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddToRoleAsync(admin, "admin").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("admin created");
+                    }
+                    else
+                    {
+                        Log.Debug("admin already exists");
+                    }
+
+                    var staffMember1 = userMgr.FindByNameAsync("staffMember1").Result;
+                    if (staffMember1 == null)
+                    {
+                        staffMember1 = new ApplicationUser
+                        {
+                            Id = "97aae33e-5a6f-44fb-81eb-0bdbbb40773a",
+                            UserName = "staffMember1",
+                            Email = "staffMember1@email.com",
+                            EmailConfirmed = true
+                        };
+
+                        var result = userMgr.CreateAsync(staffMember1, "Pass123$").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddClaimsAsync(staffMember1, new Claim[]{
+                            new Claim("hospital", "c1f280c8-f8c7-4a50-9ee6-3acb906922d6")
+                        }).Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        result = userMgr.AddToRoleAsync(staffMember1, "staff").Result;
+
+                        if (!result.Succeeded)
+                        {
+                            throw new Exception(result.Errors.First().Description);
+                        }
+
+                        Log.Debug("staffMember1 created");
+                    }
+                    else
+                    {
+                        Log.Debug("staffMember1 already exists");
                     }
                 }
             }
