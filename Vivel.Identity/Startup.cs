@@ -48,7 +48,8 @@ namespace Vivel.Identity
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>()
-                .AddProfileService<VivelProfileService>();
+                .AddProfileService<VivelProfileService>()
+                .AddAuthorizeInteractionResponseGenerator<VivelAuthorizeInteractionResponseGenerator>();
 
             services.AddAuthentication();
         }
