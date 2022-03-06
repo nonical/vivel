@@ -32,6 +32,12 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
+        [Authorize(Roles = "admin,staff")]
+        public async override Task<ActionResult<DriveDTO>> Update(string id, [FromBody] DriveUpdateRequest request)
+        {
+            return await base.Update(id, request);
+        }
+
         [HttpGet("{id}/donations")]
         [Authorize(Roles = "admin,staff")]
         public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)

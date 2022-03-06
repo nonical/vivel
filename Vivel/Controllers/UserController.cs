@@ -28,6 +28,24 @@ namespace Vivel.Controllers
             return base.Insert(request);
         }
 
+        [Authorize(Roles = "admin")]
+        public async override Task<PagedResult<UserDTO>> Get([FromQuery] UserSearchRequest request)
+        {
+            return await base.Get(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<ActionResult<UserDTO>> GetById(string id)
+        {
+            return await base.GetById(id);
+        }
+
+        [Authorize(Roles = "admin,user")]
+        public async override Task<ActionResult<UserDTO>> Update(string id, [FromBody] UserUpdateRequest request)
+        {
+            return await base.Update(id, request);
+        }
+
         [HttpGet("{id}/details")]
         [Authorize(Roles = "admin,user")]
         public async Task<ActionResult<UserDetailsDTO>> Details(string id)

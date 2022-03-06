@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
+using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Faq;
 using Vivel.Services;
@@ -14,6 +15,18 @@ namespace Vivel.Controllers
     {
         public DonationController(IDonationService service) : base(service)
         {
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<PagedResult<DonationDTO>> Get([FromQuery] DonationSearchRequest request)
+        {
+            return await base.Get(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        public async override Task<ActionResult<DonationDTO>> GetById(string id)
+        {
+            return await base.GetById(id);
         }
 
         [HttpPost]

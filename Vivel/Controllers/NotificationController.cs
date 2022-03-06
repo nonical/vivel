@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -10,6 +11,7 @@ using Vivel.Services;
 
 namespace Vivel.Controllers
 {
+    [Authorize(Roles = "admin")]
     public class NotificationController : BaseCRUDController<NotificationDTO, NotificationSearchRequest, NotificationInsertRequest, object>
     {
         public NotificationController(INotificationService service) : base(service)
