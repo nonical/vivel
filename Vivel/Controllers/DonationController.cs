@@ -30,5 +30,12 @@ namespace Vivel.Controllers
 
             return Unauthorized();
         }
+
+        [HttpPut("{id}")]
+        [Authorize(Roles = "staff")]
+        public async override Task<ActionResult<DonationDTO>> Update(string id, [FromBody] DonationUpdateRequest request)
+        {
+            return await base.Update(id, request);
+        }
     }
 }
