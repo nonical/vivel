@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
@@ -38,14 +38,14 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/donations")]
-        [Authorize(Roles = "admin,staff")]
+        [Authorize(Roles = "admin")]
         public async Task<PagedResult<DonationDTO>> Donations(string id, [FromQuery] DonationSearchRequest request)
         {
             return await _driveService.Donations(id, request);
         }
 
         [HttpGet("{id}/details")]
-        [Authorize(Roles = "admin,staff")]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult<DriveDetailsDTO>> Details(string id)
         {
             var entity = await _driveService.Details(id);
