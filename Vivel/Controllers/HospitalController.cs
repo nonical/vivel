@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -22,25 +24,61 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}/drives")]
-        public async Task<PagedResult<DriveDTO>> Drives(string id, [FromQuery] DriveSearchRequest request)
+        [Authorize(Roles = "staff,admin")]
+        public async Task<ActionResult<PagedResult<DriveDTO>>> Drives(string id, [FromQuery] DriveSearchRequest request)
         {
-            return await _hospitalService.Drives(id, request);
+            var hospitalClaimValue = getHospitalClaim();
+
+            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+                return new OkObjectResult(await _hospitalService.Drives(id, request));
+
+            return Unauthorized();
         }
 
         [HttpGet("{id}/report/drives")]
-        public async Task<FileResult> DrivesReport(string id, [FromQuery] HospitalReportDrivesRequest request)
+        [Authorize(Roles = "staff,admin")]
+        public async Task<ActionResult> DrivesReport(string id, [FromQuery] HospitalReportDrivesRequest request)
         {
-            var pdf = await _hospitalService.DrivesReport(id, request);
+            var hospitalClaimValue = getHospitalClaim();
 
-            return File(pdf, "application/pdf", "drives_report");
+            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+            {
+                var pdf = await _hospitalService.DrivesReport(id, request);
+
+                return File(pdf, "application/pdf", "drives_report");
+            }
+
+            return Unauthorized();
         }
 
         [HttpGet("{id}/report/litresbybloodtype")]
-        public async Task<FileResult> LitresByBloodTypeReport(string id, [FromQuery] HospitalReportLitresRequest request)
+        [Authorize(Roles = "staff,admin")]
+        public async Task<ActionResult> LitresByBloodTypeReport(string id, [FromQuery] HospitalReportLitresRequest request)
         {
-            var pdf = await _hospitalService.LitresByBloodTypeReport(id, request);
+            var hospitalClaimValue = getHospitalClaim();
 
-            return File(pdf, "application/pdf", "litres_by_bloodtype_report");
+            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+            {
+                var pdf = await _hospitalService.LitresByBloodTypeReport(id, request);
+
+                return File(pdf, "application/pdf", "litres_by_bloodtype_report");
+            }
+
+            return Unauthorized();
+        }
+
+        private string getHospitalClaim()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            var hospitalClaimValue = identity.FindFirst("hospital")?.Value;
+
+            return hospitalClaimValue;
+        }
+
+        private bool userIsAdmin()
+        {
+            return HttpContext.User.IsInRole("admin");
         }
     }
 }
