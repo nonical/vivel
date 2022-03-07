@@ -93,7 +93,7 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
-        [HttpGet("{hospitalId}/donation/{donationId}")]
+        [HttpPut("{hospitalId}/donation/{donationId}")]
         [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<DonationDTO>> Update(string hospitalId, string donationId, [FromBody] DonationUpdateRequest request)
         {
