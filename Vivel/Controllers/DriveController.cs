@@ -31,7 +31,7 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
-        [Authorize(Roles = "admin,staff")]
+        [Authorize(Roles = "admin")]
         public async override Task<ActionResult<DriveDTO>> Update(string id, [FromBody] DriveUpdateRequest request)
         {
             return await base.Update(id, request);
