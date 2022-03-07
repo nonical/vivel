@@ -63,54 +63,6 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
-        [HttpPut("{hospitalId}/drive/{driveId}")]
-        [Authorize(Roles = "admin,staff")]
-        public async Task<ActionResult<DriveDTO>> Update(string hospitalId, string driveId, [FromBody] DriveUpdateRequest request)
-        {
-            var hospitalClaimValue = getHospitalClaim();
-
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
-                return new OkObjectResult(await _driveService.Update(driveId, request));
-
-            return Unauthorized();
-        }
-
-        [HttpGet("{hospitalId}/drive/{driveId}/donations")]
-        [Authorize(Roles = "admin,staff")]
-        public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(string hospitalId, string driveId, [FromQuery] DonationSearchRequest request)
-        {
-            var hospitalClaimValue = getHospitalClaim();
-
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
-                return new OkObjectResult(await _driveService.Donations(driveId, request));
-
-            return Unauthorized();
-        }
-
-        [HttpPut("{hospitalId}/donation/{donationId}")]
-        [Authorize(Roles = "admin,staff")]
-        public async Task<ActionResult<DonationDTO>> Update(string hospitalId, string donationId, [FromBody] DonationUpdateRequest request)
-        {
-            var hospitalClaimValue = getHospitalClaim();
-
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
-                return new OkObjectResult(await _donationService.Update(donationId, request));
-
-            return Unauthorized();
-        }
-
-        [HttpGet("{hospitalId}/drive/{driveId}/details")]
-        [Authorize(Roles = "admin,staff")]
-        public async Task<ActionResult<DriveDetailsDTO>> Details(string hospitalId, string driveId)
-        {
-            var hospitalClaimValue = getHospitalClaim();
-
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
-                return new OkObjectResult(await _driveService.Details(driveId));
-
-            return Unauthorized();
-        }
-
         [HttpGet("{id}/report/drives")]
         [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult> DrivesReport(string id, [FromQuery] HospitalReportDrivesRequest request)
