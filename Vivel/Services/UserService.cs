@@ -52,7 +52,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.UserId == id);
+            var entity = _context.Donations.Include(x => x.Drive).ThenInclude(x => x.Hospital).Where(x => x.UserId == id);
 
             if (request?.ScheduledAt != null)
             {
