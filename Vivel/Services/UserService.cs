@@ -88,6 +88,8 @@ namespace Vivel.Services
                 entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
             }
 
+            entities = entities.OrderByDescending(x => x.CreatedAt);
+
             return await entities.GetPagedAsync<Notification, NotificationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
