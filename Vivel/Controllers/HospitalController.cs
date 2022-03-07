@@ -18,14 +18,9 @@ namespace Vivel.Controllers
 {
     public class HospitalController : BaseCRUDController<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
-        private readonly IHospitalService _hospitalService;
-        private readonly IDriveService _driveService;
-        private readonly IDonationService _donationService;
-        public HospitalController(IHospitalService hospitalService, IDriveService driveService, IDonationService donationService) : base(hospitalService)
+        private readonly IHospitalService service;
+        public HospitalController(IHospitalService service) : base(service)
         {
-            _hospitalService = hospitalService;
-            _driveService = driveService;
-            _donationService = donationService;
         }
 
         [Authorize(Roles = "admin")]
