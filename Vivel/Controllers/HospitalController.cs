@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
-using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.Hospital;
@@ -18,9 +17,10 @@ namespace Vivel.Controllers
 {
     public class HospitalController : BaseCRUDController<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
-        private readonly IHospitalService service;
+        private readonly IHospitalService _hospitalService;
         public HospitalController(IHospitalService service) : base(service)
         {
+            _hospitalService = service;
         }
 
         [Authorize(Roles = "admin")]
