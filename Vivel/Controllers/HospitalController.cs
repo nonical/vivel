@@ -20,10 +20,12 @@ namespace Vivel.Controllers
     {
         private readonly IHospitalService _hospitalService;
         private readonly IDriveService _driveService;
-        public HospitalController(IHospitalService hospitalService, IDriveService driveService) : base(hospitalService)
+        private readonly IDonationService _donationService;
+        public HospitalController(IHospitalService hospitalService, IDriveService driveService, IDonationService donationService) : base(hospitalService)
         {
             _hospitalService = hospitalService;
             _driveService = driveService;
+            _donationService = donationService;
         }
 
         [Authorize(Roles = "admin")]
@@ -67,6 +69,18 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
+        [HttpPut("{hospitalId}/drive/{driveId}")]
+        [Authorize(Roles = "admin,staff")]
+        public async Task<ActionResult<DriveDTO>> Update(string hospitalId, string driveId, [FromBody] DriveUpdateRequest request)
+        {
+            var hospitalClaimValue = getHospitalClaim();
+
+            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
+                return new OkObjectResult(await _driveService.Update(driveId, request));
+
+            return Unauthorized();
+        }
+
         [HttpGet("{hospitalId}/drive/{driveId}/donations")]
         [Authorize(Roles = "admin,staff")]
         public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(string hospitalId, string driveId, [FromQuery] DonationSearchRequest request)
@@ -75,6 +89,18 @@ namespace Vivel.Controllers
 
             if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
                 return new OkObjectResult(await _driveService.Donations(driveId, request));
+
+            return Unauthorized();
+        }
+
+        [HttpGet("{hospitalId}/donation/{donationId}")]
+        [Authorize(Roles = "admin,staff")]
+        public async Task<ActionResult<DonationDTO>> Update(string hospitalId, string donationId, [FromBody] DonationUpdateRequest request)
+        {
+            var hospitalClaimValue = getHospitalClaim();
+
+            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == hospitalId))
+                return new OkObjectResult(await _donationService.Update(donationId, request));
 
             return Unauthorized();
         }
