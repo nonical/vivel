@@ -52,7 +52,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.UserId == id);
+            var entity = _context.Donations.Include(x => x.Drive).ThenInclude(x => x.Hospital).Where(x => x.UserId == id);
 
             if (request?.ScheduledAt != null)
             {
@@ -87,6 +87,8 @@ namespace Vivel.Services
             {
                 entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
             }
+
+            entities = entities.OrderByDescending(x => x.CreatedAt);
 
             return await entities.GetPagedAsync<Notification, NotificationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }

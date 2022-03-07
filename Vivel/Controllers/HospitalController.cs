@@ -35,7 +35,6 @@ namespace Vivel.Controllers
             return await base.Insert(request);
         }
 
-        [Authorize(Roles = "admin,staff")]
         public async override Task<ActionResult<HospitalDTO>> GetById(string id)
         {
             return await base.GetById(id);
