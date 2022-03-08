@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
@@ -66,9 +66,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserDonations)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.donationDTOBindingSource)).BeginInit();
             this.SuspendLayout();
-            //
+            // 
             // txtSearch
-            //
+            // 
             this.txtSearch.Location = new System.Drawing.Point(12, 25);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
@@ -76,9 +76,9 @@
             this.txtSearch.TabIndex = 0;
             this.txtSearch.WordWrap = false;
             this.txtSearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtSearch_KeyUp);
-            //
+            // 
             // btnSearch
-            //
+            // 
             this.btnSearch.Location = new System.Drawing.Point(442, 25);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
@@ -86,23 +86,23 @@
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            //
+            // 
             // dgvUsers
-            //
+            // 
             this.dgvUsers.AllowUserToAddRows = false;
             this.dgvUsers.AllowUserToDeleteRows = false;
             this.dgvUsers.AllowUserToResizeColumns = false;
             this.dgvUsers.AllowUserToResizeRows = false;
             this.dgvUsers.AutoGenerateColumns = false;
             this.dgvUsers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle19.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.userIdDataGridViewTextBoxColumn,
@@ -110,14 +110,14 @@
             this.bloodTypeDataGridViewTextBoxColumn,
             this.verifiedDataGridViewTextBoxColumn});
             this.dgvUsers.DataSource = this.userDTOBindingSource;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Consolas", 8.25F);
-            dataGridViewCellStyle20.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle20.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.25F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgvUsers.Location = new System.Drawing.Point(12, 67);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
@@ -127,46 +127,46 @@
             this.dgvUsers.Size = new System.Drawing.Size(424, 371);
             this.dgvUsers.TabIndex = 2;
             this.dgvUsers.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvUsers_RowStateChanged);
-            //
+            // 
             // userIdDataGridViewTextBoxColumn
-            //
+            // 
             this.userIdDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.DisplayedCells;
             this.userIdDataGridViewTextBoxColumn.DataPropertyName = "UserId";
             this.userIdDataGridViewTextBoxColumn.HeaderText = "UserId";
             this.userIdDataGridViewTextBoxColumn.Name = "userIdDataGridViewTextBoxColumn";
             this.userIdDataGridViewTextBoxColumn.ReadOnly = true;
             this.userIdDataGridViewTextBoxColumn.Width = 63;
-            //
+            // 
             // userNameDataGridViewTextBoxColumn
-            //
+            // 
             this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
             this.userNameDataGridViewTextBoxColumn.HeaderText = "UserName";
             this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
             this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
-            //
+            // 
             // bloodTypeDataGridViewTextBoxColumn
-            //
+            // 
             this.bloodTypeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.bloodTypeDataGridViewTextBoxColumn.DataPropertyName = "BloodType";
             this.bloodTypeDataGridViewTextBoxColumn.HeaderText = "BloodType";
             this.bloodTypeDataGridViewTextBoxColumn.Name = "bloodTypeDataGridViewTextBoxColumn";
             this.bloodTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            //
+            // 
             // verifiedDataGridViewTextBoxColumn
-            //
+            // 
             this.verifiedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.verifiedDataGridViewTextBoxColumn.DataPropertyName = "Verified";
             this.verifiedDataGridViewTextBoxColumn.HeaderText = "Verified";
             this.verifiedDataGridViewTextBoxColumn.Name = "verifiedDataGridViewTextBoxColumn";
             this.verifiedDataGridViewTextBoxColumn.ReadOnly = true;
-            //
+            // 
             // userDTOBindingSource
-            //
+            // 
             this.userDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.UserDTO);
-            //
+            // 
             // dgvUserDonations
-            //
+            // 
             this.dgvUserDonations.AllowUserToAddRows = false;
             this.dgvUserDonations.AllowUserToDeleteRows = false;
             this.dgvUserDonations.AllowUserToResizeColumns = false;
@@ -189,14 +189,14 @@
             this.createdAtDataGridViewTextBoxColumn,
             this.updatedAtDataGridViewTextBoxColumn});
             this.dgvUserDonations.DataSource = this.donationDTOBindingSource;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Consolas", 8.25F);
-            dataGridViewCellStyle21.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUserDonations.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 8.25F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUserDonations.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvUserDonations.Location = new System.Drawing.Point(442, 67);
             this.dgvUserDonations.Name = "dgvUserDonations";
             this.dgvUserDonations.ReadOnly = true;
@@ -205,137 +205,137 @@
             this.dgvUserDonations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvUserDonations.Size = new System.Drawing.Size(346, 371);
             this.dgvUserDonations.TabIndex = 3;
-            //
+            // 
             // donationIdDataGridViewTextBoxColumn
-            //
+            // 
             this.donationIdDataGridViewTextBoxColumn.DataPropertyName = "DonationId";
             this.donationIdDataGridViewTextBoxColumn.HeaderText = "DonationId";
             this.donationIdDataGridViewTextBoxColumn.Name = "donationIdDataGridViewTextBoxColumn";
             this.donationIdDataGridViewTextBoxColumn.ReadOnly = true;
             this.donationIdDataGridViewTextBoxColumn.Width = 84;
-            //
+            // 
             // userIdDataGridViewTextBoxColumn1
-            //
+            // 
             this.userIdDataGridViewTextBoxColumn1.DataPropertyName = "UserId";
             this.userIdDataGridViewTextBoxColumn1.HeaderText = "UserId";
             this.userIdDataGridViewTextBoxColumn1.Name = "userIdDataGridViewTextBoxColumn1";
             this.userIdDataGridViewTextBoxColumn1.ReadOnly = true;
             this.userIdDataGridViewTextBoxColumn1.Visible = false;
             this.userIdDataGridViewTextBoxColumn1.Width = 63;
-            //
+            // 
             // driveIdDataGridViewTextBoxColumn
-            //
+            // 
             this.driveIdDataGridViewTextBoxColumn.DataPropertyName = "DriveId";
             this.driveIdDataGridViewTextBoxColumn.HeaderText = "DriveId";
             this.driveIdDataGridViewTextBoxColumn.Name = "driveIdDataGridViewTextBoxColumn";
             this.driveIdDataGridViewTextBoxColumn.ReadOnly = true;
             this.driveIdDataGridViewTextBoxColumn.Width = 66;
-            //
+            // 
             // amountDataGridViewTextBoxColumn
-            //
+            // 
             this.amountDataGridViewTextBoxColumn.DataPropertyName = "Amount";
             this.amountDataGridViewTextBoxColumn.HeaderText = "Amount";
             this.amountDataGridViewTextBoxColumn.Name = "amountDataGridViewTextBoxColumn";
             this.amountDataGridViewTextBoxColumn.ReadOnly = true;
             this.amountDataGridViewTextBoxColumn.Width = 68;
-            //
+            // 
             // statusDataGridViewTextBoxColumn
-            //
+            // 
             this.statusDataGridViewTextBoxColumn.DataPropertyName = "Status";
             this.statusDataGridViewTextBoxColumn.HeaderText = "Status";
             this.statusDataGridViewTextBoxColumn.Name = "statusDataGridViewTextBoxColumn";
             this.statusDataGridViewTextBoxColumn.ReadOnly = true;
             this.statusDataGridViewTextBoxColumn.Width = 62;
-            //
+            // 
             // noteDataGridViewTextBoxColumn
-            //
+            // 
             this.noteDataGridViewTextBoxColumn.DataPropertyName = "Note";
             this.noteDataGridViewTextBoxColumn.HeaderText = "Note";
             this.noteDataGridViewTextBoxColumn.Name = "noteDataGridViewTextBoxColumn";
             this.noteDataGridViewTextBoxColumn.ReadOnly = true;
             this.noteDataGridViewTextBoxColumn.Width = 55;
-            //
+            // 
             // leukocyteCountDataGridViewTextBoxColumn
-            //
+            // 
             this.leukocyteCountDataGridViewTextBoxColumn.DataPropertyName = "LeukocyteCount";
             this.leukocyteCountDataGridViewTextBoxColumn.HeaderText = "LeukocyteCount";
             this.leukocyteCountDataGridViewTextBoxColumn.Name = "leukocyteCountDataGridViewTextBoxColumn";
             this.leukocyteCountDataGridViewTextBoxColumn.ReadOnly = true;
             this.leukocyteCountDataGridViewTextBoxColumn.Width = 110;
-            //
+            // 
             // erythrocyteCountDataGridViewTextBoxColumn
-            //
+            // 
             this.erythrocyteCountDataGridViewTextBoxColumn.DataPropertyName = "ErythrocyteCount";
             this.erythrocyteCountDataGridViewTextBoxColumn.HeaderText = "ErythrocyteCount";
             this.erythrocyteCountDataGridViewTextBoxColumn.Name = "erythrocyteCountDataGridViewTextBoxColumn";
             this.erythrocyteCountDataGridViewTextBoxColumn.ReadOnly = true;
             this.erythrocyteCountDataGridViewTextBoxColumn.Width = 113;
-            //
+            // 
             // plateletCountDataGridViewTextBoxColumn
-            //
+            // 
             this.plateletCountDataGridViewTextBoxColumn.DataPropertyName = "PlateletCount";
             this.plateletCountDataGridViewTextBoxColumn.HeaderText = "PlateletCount";
             this.plateletCountDataGridViewTextBoxColumn.Name = "plateletCountDataGridViewTextBoxColumn";
             this.plateletCountDataGridViewTextBoxColumn.ReadOnly = true;
             this.plateletCountDataGridViewTextBoxColumn.Width = 95;
-            //
+            // 
             // scheduledAtDataGridViewTextBoxColumn
-            //
+            // 
             this.scheduledAtDataGridViewTextBoxColumn.DataPropertyName = "ScheduledAt";
             this.scheduledAtDataGridViewTextBoxColumn.HeaderText = "ScheduledAt";
             this.scheduledAtDataGridViewTextBoxColumn.Name = "scheduledAtDataGridViewTextBoxColumn";
             this.scheduledAtDataGridViewTextBoxColumn.ReadOnly = true;
             this.scheduledAtDataGridViewTextBoxColumn.Width = 93;
-            //
+            // 
             // createdAtDataGridViewTextBoxColumn
-            //
+            // 
             this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
             this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
             this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
             this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
             this.createdAtDataGridViewTextBoxColumn.Width = 79;
-            //
+            // 
             // updatedAtDataGridViewTextBoxColumn
-            //
+            // 
             this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
             this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
             this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
             this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
             this.updatedAtDataGridViewTextBoxColumn.Width = 83;
-            //
+            // 
             // donationDTOBindingSource
-            //
+            // 
             this.donationDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.DonationDTO);
-            //
+            // 
             // lbSearch
-            //
+            // 
             this.lbSearch.AutoSize = true;
             this.lbSearch.Location = new System.Drawing.Point(12, 9);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.Size = new System.Drawing.Size(112, 13);
             this.lbSearch.TabIndex = 4;
             this.lbSearch.Text = "Search users by name";
-            //
+            // 
             // lbUsers
-            //
+            // 
             this.lbUsers.AutoSize = true;
             this.lbUsers.Location = new System.Drawing.Point(12, 51);
             this.lbUsers.Name = "lbUsers";
             this.lbUsers.Size = new System.Drawing.Size(34, 13);
             this.lbUsers.TabIndex = 5;
             this.lbUsers.Text = "Users";
-            //
+            // 
             // lbUserDonations
-            //
+            // 
             this.lbUserDonations.AutoSize = true;
             this.lbUserDonations.Location = new System.Drawing.Point(442, 51);
             this.lbUserDonations.Name = "lbUserDonations";
             this.lbUserDonations.Size = new System.Drawing.Size(87, 13);
             this.lbUserDonations.TabIndex = 6;
             this.lbUserDonations.Text = "User\'s Donations";
-            //
+            // 
             // lblUserPrevious
-            //
+            // 
             this.lblUserPrevious.AutoSize = true;
             this.lblUserPrevious.Enabled = false;
             this.lblUserPrevious.Location = new System.Drawing.Point(315, 51);
@@ -345,9 +345,9 @@
             this.lblUserPrevious.TabStop = true;
             this.lblUserPrevious.Text = "previous";
             this.lblUserPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserPrevious_LinkClicked);
-            //
+            // 
             // lblUserNext
-            //
+            // 
             this.lblUserNext.AutoSize = true;
             this.lblUserNext.Enabled = false;
             this.lblUserNext.Location = new System.Drawing.Point(395, 51);
@@ -357,9 +357,9 @@
             this.lblUserNext.TabStop = true;
             this.lblUserNext.Text = "next";
             this.lblUserNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserNext_LinkClicked);
-            //
+            // 
             // lblDonationPrevious
-            //
+            // 
             this.lblDonationPrevious.AutoSize = true;
             this.lblDonationPrevious.Enabled = false;
             this.lblDonationPrevious.Location = new System.Drawing.Point(682, 51);
@@ -369,9 +369,9 @@
             this.lblDonationPrevious.TabStop = true;
             this.lblDonationPrevious.Text = "previous";
             this.lblDonationPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationPrevious_LinkClicked);
-            //
+            // 
             // lblDonationNext
-            //
+            // 
             this.lblDonationNext.AutoSize = true;
             this.lblDonationNext.Enabled = false;
             this.lblDonationNext.Location = new System.Drawing.Point(762, 51);
@@ -381,9 +381,9 @@
             this.lblDonationNext.TabStop = true;
             this.lblDonationNext.Text = "next";
             this.lblDonationNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationNext_LinkClicked);
-            //
+            // 
             // frmUser
-            //
+            // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
@@ -401,7 +401,6 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmUser";
             this.Text = "frmUser";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserDonations)).EndInit();

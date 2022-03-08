@@ -60,6 +60,7 @@ namespace Vivel.Desktop.Resources.Report
 
         private async void btnPrint_Click(object sender, EventArgs e)
         {
+            btnPrint.Enabled = false;
             var hospitalId = cmbHospitals.SelectedValue as string;
             var reportUrl = cmbReports.SelectedValue as string;
             var from = dtpFrom.Value.Date;
@@ -92,6 +93,8 @@ namespace Vivel.Desktop.Resources.Report
             }
 
             MessageBox.Show("Check your c:\\downloads folder");
+
+            btnPrint.Enabled = true;
         }
 
         private async Task DownloadFile(object request, string hospitalId, string reportUrl)
