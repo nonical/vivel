@@ -1,4 +1,4 @@
-name: Run dotnet-format
+name: CI
 
 on:
   push:
@@ -7,6 +7,16 @@ on:
     branches: [ main ]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+      - name: Build Vivel
+        run: dotnet build -c Release.Vivel
   format:
     runs-on: ubuntu-latest
     steps:
