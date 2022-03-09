@@ -37,8 +37,8 @@ namespace Vivel
                     {
                         AuthorizationCode = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri("http://localhost:5000/connect/authorize"), // TODO: Move this to environment
-                            TokenUrl = new Uri("http://localhost:5000/connect/token"),
+                            AuthorizationUrl = new Uri($"{Configuration["Authority"]}/connect/authorize"),
+                            TokenUrl = new Uri($"{Configuration["Authority"]}/connect/token"),
                             Scopes = new Dictionary<string, string>
                             {
                                 {"scope1", "scope1"}
@@ -68,7 +68,7 @@ namespace Vivel
             services.AddAuthentication("Bearer")
             .AddJwtBearer("Bearer", options =>
             {
-                options.Authority = "http://localhost:5000"; // TODO: Move this to environment
+                options.Authority = Configuration["Authority"];
                 options.TokenValidationParameters.ValidateAudience = false;
                 options.TokenValidationParameters.ValidateIssuer = false;
                 options.RequireHttpsMetadata = false;
