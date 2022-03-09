@@ -33,7 +33,7 @@ namespace Vivel.Desktop
 
             _oidcClient = new OidcClient(options);
 
-            Login().ContinueWith((_) => menuStrip.Enabled = true);
+            Login().GetAwaiter().OnCompleted(() => menuStrip.Enabled = true);
         }
 
         private async Task Login()
