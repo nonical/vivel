@@ -1,0 +1,52 @@
+services:
+  db-core:
+    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass1234
+    ports:
+      - 1433:1433
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "Pass1234" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  db-identity:
+    image: mcr.microsoft.com/mssql/server:2019-CU15-ubuntu-20.04
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Pass1234
+    ports:
+      - 1434:1433
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "Pass1234" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+
+  identity:
+    build:
+      context: .
+      dockerfile: ./Vivel.Identity/Dockerfile
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=db-identity;User ID=sa;Password=Pass1234;
+    ports:
+      - 5000:80
+    depends_on:
+      - db-identity
+
+  core:
+    build:
+      context: .
+      dockerfile: ./Vivel/Dockerfile
+    environment:
+      - ConnectionStrings:DefaultConnection=Server=db-core;User ID=sa;Password=Pass1234;
+      - Authority=http://identity
+    ports:
+      - 5001:80
+    depends_on:
+      - db-core
+      - identity
