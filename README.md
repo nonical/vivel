@@ -1,5 +1,49 @@
 # Vivel core
 
+## Docker
+
+Ensure that you have the latest builds by running:
+
+`docker compose build`
+
+To apply the seed these two commands should be run after running docker compose up:
+
+`docker compose exec identity dotnet Vivel.Identity.dll /seed`
+
+`docker compose exec core dotnet Vivel.dll /seed`
+
+## Login credentials
+
+admin user (desktop):
+
+username: `admin`
+
+password: `Pass123$`
+
+---
+
+staff user (web):
+
+username: `staffMember1`
+
+password: `Pass123$`
+
+---
+
+bob user (mobile):
+
+username: `bob`
+
+password: `Pass123$`
+
+---
+
+alice user (mobile):
+
+username: `alice`
+
+password: `Pass123$`
+
 ## Useful information
 
 - active drives are displayed based on users current location (30 km radius)
