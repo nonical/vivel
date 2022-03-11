@@ -111,7 +111,7 @@ namespace Vivel
             var donationBobUrgent = new Donation
             {
                 Drive = driveBobUrgent,
-                Amount = 500,
+                Amount = 350,
                 CreatedAt = System.DateTime.Today.AddMonths(-4).AddDays(-2),
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
@@ -141,7 +141,7 @@ namespace Vivel
             var donationBobRejected = new Donation
             {
                 Drive = driveBobRejected,
-                Amount = 500,
+                Amount = 350,
                 CreatedAt = System.DateTime.Today.AddMonths(-6).AddDays(-2),
                 ScheduledAt = System.DateTime.Today.AddMonths(-6).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-6),
@@ -205,7 +205,7 @@ namespace Vivel
             var donationAliceApproved = new Donation
             {
                 Drive = driveAliceApproved,
-                Amount = 500,
+                Amount = 350,
                 CreatedAt = System.DateTime.Today.AddMonths(-4).AddDays(-2),
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
