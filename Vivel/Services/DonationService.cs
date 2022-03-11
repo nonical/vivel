@@ -89,6 +89,11 @@ namespace Vivel.Services
 
             var donationStatus = entity.Status.Name;
 
+            if (request.Status == DonationStatus.Approved.Name)
+            {
+                entity.Amount = 350;
+            }
+
             _mapper.Map(request, entity);
 
             await _context.SaveChangesAsync();
