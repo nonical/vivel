@@ -121,6 +121,8 @@ namespace Vivel
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
             };
+            context.Add(donationBobUrgent);
+            context.SaveChanges();
 
             // bob rejected donation
             var driveBobRejected = new Drive
