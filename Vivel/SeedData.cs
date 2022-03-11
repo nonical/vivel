@@ -44,8 +44,8 @@ namespace Vivel
             var hospital = new Hospital
             {
                 HospitalId = "c1f280c8-f8c7-4a50-9ee6-3acb906922d6",
-                Name = "Sveučilišna klinička bolnica Mostar",
-                Location = GeographyHelper.CreatePoint((decimal)43.344881230491005, (decimal)17.789455765426556),
+                Name = "Bijeli Brijeg",
+                Location = GeographyHelper.CreatePoint((decimal)17.789455765426556, (decimal)43.344881230491005)
             };
             context.Add(hospital);
             context.SaveChanges();
