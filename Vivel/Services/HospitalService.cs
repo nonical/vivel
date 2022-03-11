@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using DinkToPdf;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SelectPdf;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Helpers;
@@ -69,7 +69,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<byte[]> DrivesReport(string id, HospitalReportDrivesRequest request)
+        public async Task<HtmlToPdfDocument> DrivesReport(string id, HospitalReportDrivesRequest request)
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
@@ -99,10 +99,10 @@ namespace Vivel.Services
                 Description = $"Drives report for period {request.From:MMM dd yyyy} - {request.To:MMM dd yyyy}"
             }.GetHtml();
 
-            return HtmlToByteArrayHelper.GetBytes(html);
+            return HtmlToPdfHelper.GetPdfDocument(html);
         }
 
-        public async Task<byte[]> LitresByBloodTypeReport(string id, HospitalReportLitresRequest request)
+        public async Task<HtmlToPdfDocument> LitresByBloodTypeReport(string id, HospitalReportLitresRequest request)
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
@@ -130,7 +130,7 @@ namespace Vivel.Services
                 Description = $"Litres by blood type report for period {request.From:MMM dd yyyy} - {request.To:MMM dd yyyy}"
             }.GetHtml();
 
-            return HtmlToByteArrayHelper.GetBytes(html);
+            return HtmlToPdfHelper.GetPdfDocument(html);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
@@ -18,9 +19,11 @@ namespace Vivel.Controllers
     public class HospitalController : BaseCRUDController<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
         private readonly IHospitalService _hospitalService;
-        public HospitalController(IHospitalService service) : base(service)
+        private readonly IConverter _converter;
+        public HospitalController(IHospitalService service, IConverter converter) : base(service)
         {
             _hospitalService = service;
+            _converter = converter;
         }
 
         [Authorize(Roles = "admin")]
@@ -68,7 +71,9 @@ namespace Vivel.Controllers
             {
                 var pdf = await _hospitalService.DrivesReport(id, request);
 
-                return File(pdf, "application/pdf", "drives_report");
+                var file = _converter.Convert(pdf);
+
+                return File(file, "application/pdf", "drives_report");
             }
 
             return Unauthorized();
@@ -84,7 +89,9 @@ namespace Vivel.Controllers
             {
                 var pdf = await _hospitalService.LitresByBloodTypeReport(id, request);
 
-                return File(pdf, "application/pdf", "litres_by_bloodtype_report");
+                var file = _converter.Convert(pdf);
+
+                return File(file, "application/pdf", "litres_by_bloodtype_report");
             }
 
             return Unauthorized();
