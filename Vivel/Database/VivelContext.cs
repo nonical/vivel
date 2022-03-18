@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +13,7 @@ namespace Vivel.Database
     {
         public virtual DbSet<Badge> Badges { get; set; }
         public virtual DbSet<Donation> Donations { get; set; }
+        public virtual DbSet<DonationReport> DonationReports { get; set; }
         public virtual DbSet<Drive> Drives { get; set; }
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
@@ -108,6 +109,10 @@ namespace Vivel.Database
                     .WithMany(p => p.Donations)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("FK__Donation__UserID__367C1819");
+
+                entity.HasOne(d => d.DonationReport)
+                      .WithOne(d => d.Donation)
+                      .HasForeignKey<DonationReport>(d => d.DonationId);
             });
 
             modelBuilder.Entity<Drive>(entity =>

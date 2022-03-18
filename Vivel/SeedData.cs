@@ -116,12 +116,21 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = bob,
-                Status = DonationStatus.Approved,
+                Status = DonationStatus.Approved
+            };
+
+            context.Add(donationBobUrgent);
+            context.SaveChanges();
+
+            var donationBobUrgentReport = new DonationReport
+            {
+                Donation = donationBobUrgent,
                 LeukocyteCount = 4_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
             };
-            context.Add(donationBobUrgent);
+
+            context.Add(donationBobUrgentReport);
             context.SaveChanges();
 
             // bob rejected donation
@@ -146,13 +155,21 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-6).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-6),
                 User = bob,
-                Status = DonationStatus.Rejected,
+                Status = DonationStatus.Rejected
+            };
+            context.Add(donationBobRejected);
+            context.SaveChanges();
+
+            var donationBobRejectedReport = new DonationReport
+            {
+                Donation = donationBobRejected,
                 LeukocyteCount = 2_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
                 Note = "Low Leukocyte count!"
             };
-            context.Add(donationBobRejected);
+
+            context.Add(donationBobRejectedReport);
             context.SaveChanges();
 
             var donationBobNotification1 = new Notification
@@ -210,12 +227,20 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = alice,
-                Status = DonationStatus.Approved,
+                Status = DonationStatus.Approved
+            };
+            context.Add(donationAliceApproved);
+            context.SaveChanges();
+
+            var donationAliceApprovedReport = new DonationReport
+            {
+                Donation = donationAliceApproved,
                 LeukocyteCount = 7_500,
                 ErythrocyteCount = 4_250_000,
                 PlateletCount = 17_000,
             };
-            context.Add(donationAliceApproved);
+
+            context.Add(donationAliceApprovedReport);
             context.SaveChanges();
 
             var donationAliceNotification1 = new Notification

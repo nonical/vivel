@@ -72,9 +72,16 @@ namespace Vivel.Profiles
                 .ForMember(destination => destination.UserName, o => o.MapFrom(source => source.User.UserName))
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.Drive.BloodType.Name))
                 .ForMember(destination => destination.HospitalName, o => o.MapFrom(source => source.Drive.Hospital.Name))
+                .ForMember(destination => destination.ErythrocyteCount, o => o.MapFrom(source => source.DonationReport.ErythrocyteCount))
+                .ForMember(destination => destination.LeukocyteCount, o => o.MapFrom(source => source.DonationReport.LeukocyteCount))
+                .ForMember(destination => destination.PlateletCount, o => o.MapFrom(source => source.DonationReport.PlateletCount))
+                .ForMember(destination => destination.Note, o => o.MapFrom(source => source.DonationReport.Note))
                 .ReverseMap();
             CreateMap<Database.Donation, DonationInsertRequest>().ReverseMap();
             CreateMap<Database.Donation, DonationUpdateRequest>().ReverseMap();
+
+            CreateMap<Database.DonationReport, DonationUpdateRequest>().ReverseMap();
+            CreateMap<Database.DonationReport, DonationInsertRequest>().ReverseMap();
 
             CreateMap<Database.Badge, BadgeDTO>()
                 .ForMember(destination => destination.Name, o => o.MapFrom(source => source.Name))

@@ -25,7 +25,7 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
-            var entity = _context.Set<Donation>().Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Donation>().Include(x => x.DonationReport).Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
@@ -42,7 +42,7 @@ namespace Vivel.Services
 
         public async override Task<DonationDTO> GetById(string id)
         {
-            var entity = await _context.Donations.Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).FirstOrDefaultAsync(x => x.DonationId == id);
+            var entity = await _context.Donations.Include(x => x.DonationReport).Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).FirstOrDefaultAsync(x => x.DonationId == id);
 
             return _mapper.Map<DonationDTO>(entity);
         }
@@ -74,18 +74,18 @@ namespace Vivel.Services
 
             var entity = _mapper.Map<Donation>(request);
 
+            entity.DonationReport = _mapper.Map<DonationReport>(request);
+
             await _context.Donations.AddAsync(entity);
 
             await _context.SaveChangesAsync();
 
             return _mapper.Map<DonationDTO>(entity);
-
-
         }
 
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
         {
-            var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
+            var entity = await _context.Donations.Include(x => x.DonationReport).Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
 
             var donationStatus = entity.Status.Name;
 
@@ -95,6 +95,8 @@ namespace Vivel.Services
             }
 
             _mapper.Map(request, entity);
+
+            _mapper.Map(request, entity.DonationReport);
 
             await _context.SaveChangesAsync();
 

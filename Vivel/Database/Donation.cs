@@ -15,12 +15,8 @@ namespace Vivel.Database
         public int? Amount { get; set; }
         public DonationStatus Status { get; set; } = DonationStatus.Pending;
 
-        public string Note { get; set; }
-        public int? LeukocyteCount { get; set; }
-        public int? ErythrocyteCount { get; set; }
-        public int? PlateletCount { get; set; }
-
         public virtual Drive Drive { get; set; }
         public virtual User User { get; set; }
+        public virtual DonationReport DonationReport { get; set; }
     }
 }
