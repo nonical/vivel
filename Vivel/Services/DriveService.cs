@@ -28,6 +28,7 @@ namespace Vivel.Services
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
             var entity = _context.Set<Drive>()
+                .Include(x => x.Status)
                 .Include(x => x.BloodType)
                 .Include(x => x.Hospital)
                 .AsQueryable();
@@ -54,7 +55,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
+                entity = entity.Where(drive => request.Status.Contains(drive.Status.Name));
             }
 
             entity = entity.OrderByDescending(drive => drive.Urgency);
@@ -75,6 +76,7 @@ namespace Vivel.Services
         public async override Task<DriveDTO> GetById(string id)
         {
             var entity = await _context.Drives
+                .Include(x => x.Status)
                 .Include(x => x.Hospital)
                 .Include(x => x.BloodType)
                 .Where(x => x.DriveId == id)
@@ -86,6 +88,8 @@ namespace Vivel.Services
         public async override Task<DriveDTO> Insert(DriveInsertRequest request)
         {
             var entity = _mapper.Map<Drive>(request);
+
+            entity.Status = await _context.DriveStatuses.FirstAsync(x => x.Name == "Open");
 
             await _context.AddAsync(entity);
 
@@ -125,7 +129,7 @@ namespace Vivel.Services
             _mapper.Map(request, entity);
             await _context.SaveChangesAsync();
 
-            if (request.Status == DriveStatus.Closed.Name)
+            if (request.Status == "Closed")
             {
                 var rawSql = @"UPDATE Donation
                                SET Status = 'Rejected', Note = @Note
@@ -151,6 +155,7 @@ namespace Vivel.Services
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)

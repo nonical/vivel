@@ -25,6 +25,7 @@ namespace Vivel.Services
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
             var entity = _context.Set<Donation>()
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.User)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
@@ -47,6 +48,7 @@ namespace Vivel.Services
         public async override Task<DonationDTO> GetById(string id)
         {
             var entity = await _context.Donations
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.User)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
@@ -96,6 +98,7 @@ namespace Vivel.Services
             var entity = _mapper.Map<Donation>(request);
 
             entity.Status = await _context.DonationStatuses.Where(x => x.Name == "Pending").FirstAsync();
+            entity.DonationReport = _mapper.Map<DonationReport>(request);
 
             await _context.Donations.AddAsync(entity);
 
@@ -107,6 +110,7 @@ namespace Vivel.Services
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
         {
             var entity = await _context.Donations
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.Drive)
                 .Include(x => x.User)
@@ -121,6 +125,8 @@ namespace Vivel.Services
             entity.Status = await _context.DonationStatuses.Where(x => x.Name == request.Status).FirstAsync();
 
             _mapper.Map(request, entity);
+
+            _mapper.Map(request, entity.DonationReport);
 
             await _context.SaveChangesAsync();
 

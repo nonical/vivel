@@ -75,6 +75,18 @@ create table vivel.Donation
 	UpdatedAt datetime,
 );
 
+create table vivel.DonationReport
+(
+	DonationReportID char(36) not null primary key,
+	DonationID char(36) foreign key references vivel.Donation(DonationID),
+	Note nvarchar(max),
+	LeukocyteCount int,
+	ErythrocyteCount int,
+	PlateletCount int,
+	CreatedAt datetime,
+	UpdatedAt datetime,
+);
+
 create table vivel.Notification
 (
 	NotificationID char(36) not null primary key,

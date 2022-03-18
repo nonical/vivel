@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using Vivel.Model.Enums;
 
 #nullable disable
 
@@ -13,31 +12,19 @@ namespace Vivel.Database
     {
         public virtual DbSet<Badge> Badges { get; set; }
         public virtual DbSet<Donation> Donations { get; set; }
+        public virtual DbSet<DonationStatus> DonationStatuses { get; set; }
+        public virtual DbSet<DonationReport> DonationReports { get; set; }
         public virtual DbSet<Drive> Drives { get; set; }
+        public virtual DbSet<DriveStatus> DriveStatuses { get; set; }
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<PresetBadge> PresetBadges { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<BloodType> BloodTypes { get; set; }
-        public virtual DbSet<DonationStatus> DonationStatuses { get; set; }
 
         public VivelContext() { }
         public VivelContext(DbContextOptions<VivelContext> options) : base(options) { }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Drive>(entity =>
-            {
-                entity.Property(e => e.Status)
-                    .HasConversion(
-                        x => x.Name,
-                        x => DriveStatus.FromName(x, false))
-                    .HasMaxLength(50);
-            });
-        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

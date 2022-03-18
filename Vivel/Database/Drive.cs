@@ -13,9 +13,9 @@ namespace Vivel.Database
         public DateTime? Date { get; set; }
         public BloodType BloodType { get; set; }
         public int? Amount { get; set; }
-        public DriveStatus Status { get; set; } = DriveStatus.Open;
         public bool Urgency { get; set; }
 
+        public virtual DriveStatus Status { get; set; }
         public virtual Hospital Hospital { get; set; }
         public virtual ICollection<Donation> Donations { get; set; }
     }

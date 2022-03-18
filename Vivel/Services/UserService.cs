@@ -68,6 +68,7 @@ namespace Vivel.Services
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)
@@ -89,6 +90,7 @@ namespace Vivel.Services
         public async Task<DonationDTO> Donation(string userId, string donationId)
         {
             var entities = await _context.Donations
+                .Include(x => x.DonationReport)
                 .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)

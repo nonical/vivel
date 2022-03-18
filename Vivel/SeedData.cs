@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Vivel.Database;
 using Vivel.Helpers;
-using Vivel.Model.Enums;
 
 namespace Vivel
 {
@@ -36,6 +35,11 @@ namespace Vivel
             var donationStatus_Rejected = new DonationStatus { Name = "Rejected" };
             var donationStatus_Approved = new DonationStatus { Name = "Approved" };
             context.AddRange(new[] { donationStatus_Pending, donationStatus_Scheduled, donationStatus_Rejected, donationStatus_Approved });
+            context.SaveChanges();
+
+            var driveStatus_Open = new DriveStatus { Name = "Open" };
+            var driveStatus_Closed = new DriveStatus { Name = "Closed" };
+            context.AddRange(new[] { driveStatus_Open, driveStatus_Closed });
             context.SaveChanges();
 
             var bob = new User
@@ -74,6 +78,7 @@ namespace Vivel
                 BloodType = bloodType_ABPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = driveStatus_Open
             };
             context.Add(drive1);
             context.SaveChanges();
@@ -85,6 +90,7 @@ namespace Vivel
                 BloodType = bloodType_BPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = driveStatus_Open
             };
             context.Add(drive2);
             context.SaveChanges();
@@ -96,6 +102,7 @@ namespace Vivel
                 BloodType = bloodType_APositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = driveStatus_Open
             };
             context.Add(drive3);
             context.SaveChanges();
@@ -107,6 +114,7 @@ namespace Vivel
                 BloodType = bloodType_ONegative,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = driveStatus_Open
             };
             context.Add(drive4);
             context.SaveChanges();
@@ -120,7 +128,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = driveStatus_Closed
             };
             context.Add(driveBobUrgent);
             context.SaveChanges();
@@ -134,11 +142,18 @@ namespace Vivel
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = bob,
                 Status = donationStatus_Approved,
+            };
+            context.Add(donationBobUrgent);
+            context.SaveChanges();
+
+            var donationBobUrgentReport = new DonationReport
+            {
+                Donation = donationBobUrgent,
                 LeukocyteCount = 4_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
             };
-            context.Add(donationBobUrgent);
+            context.Add(donationBobUrgentReport);
             context.SaveChanges();
 
             // bob rejected donation
@@ -150,7 +165,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-7),
                 Date = System.DateTime.Today.AddMonths(-7),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = driveStatus_Closed
             };
             context.Add(driveBobRejected);
             context.SaveChanges();
@@ -164,12 +179,19 @@ namespace Vivel
                 UpdatedAt = System.DateTime.Today.AddMonths(-6),
                 User = bob,
                 Status = donationStatus_Rejected,
+            };
+            context.Add(donationBobRejected);
+            context.SaveChanges();
+
+            var donationBobRejectedReport = new DonationReport
+            {
+                Donation = donationBobRejected,
                 LeukocyteCount = 2_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
                 Note = "Low Leukocyte count!"
             };
-            context.Add(donationBobRejected);
+            context.Add(donationBobRejectedReport);
             context.SaveChanges();
 
             var donationBobNotification1 = new Notification
@@ -214,7 +236,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = driveStatus_Closed
             };
             context.Add(driveAliceApproved);
             context.SaveChanges();
@@ -228,11 +250,18 @@ namespace Vivel
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = alice,
                 Status = donationStatus_Approved,
+            };
+            context.Add(donationAliceApproved);
+            context.SaveChanges();
+
+            var donationAliceApprovedReport = new DonationReport
+            {
+                Donation = donationAliceApproved,
                 LeukocyteCount = 7_500,
                 ErythrocyteCount = 4_250_000,
                 PlateletCount = 17_000,
             };
-            context.Add(donationAliceApproved);
+            context.Add(donationAliceApprovedReport);
             context.SaveChanges();
 
             var donationAliceNotification1 = new Notification

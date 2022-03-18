@@ -1,9 +1,7 @@
 ﻿using System.Linq;
-using Ardalis.SmartEnum;
 using AutoMapper;
 using Vivel.Helpers;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Faq;
@@ -16,17 +14,8 @@ namespace Vivel.Profiles
 {
     public class VivelProfile : Profile
     {
-        private void EnumNameConverter<T>() where T : SmartEnum<T, int>
-        {
-            CreateMap<string, T>().ConvertUsing(s => SmartEnum<T>.FromName(s, false));
-            CreateMap<T, string>().ConvertUsing(s => s.Name);
-        }
-
         public VivelProfile()
         {
-            // Custom Type Converters
-            EnumNameConverter<DriveStatus>();
-
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
             CreateMap<Database.Faq, FaqInsertRequest>().ReverseMap();
             CreateMap<Database.Faq, FaqUpdateRequest>().ReverseMap();
@@ -59,12 +48,14 @@ namespace Vivel.Profiles
 
             CreateMap<Database.Drive, DriveDTO>()
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.BloodType.Name))
+                .ForMember(destination => destination.Status, o => o.MapFrom(source => source.Status.Name))
                 .ReverseMap();
             CreateMap<Database.Drive, DriveDetailsDTO>()
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.BloodType.Name))
                 .ForMember(destination => destination.AmountLeft, o => o.MapFrom(source => source.Amount - source.Donations.Where(x => x.Status.Name == "Approved").Sum(x => x.Amount)))
                 .ForMember(destination => destination.PendingCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status.Name == "Pending").Count()))
-                .ForMember(destination => destination.ScheduledCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status.Name == "Scheduled").Count()));
+                .ForMember(destination => destination.ScheduledCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status.Name == "Scheduled").Count()))
+                .ForMember(destination => destination.Status, o => o.MapFrom(source => source.Status.Name));
             CreateMap<Database.Drive, DriveInsertRequest>()
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.BloodType.Name))
                 .ReverseMap();
@@ -77,6 +68,10 @@ namespace Vivel.Profiles
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.Drive.BloodType.Name))
                 .ForMember(destination => destination.HospitalName, o => o.MapFrom(source => source.Drive.Hospital.Name))
                 .ForMember(destination => destination.Status, o => o.MapFrom(source => source.Status.Name))
+                .ForMember(destination => destination.ErythrocyteCount, o => o.MapFrom(source => source.DonationReport.ErythrocyteCount))
+                .ForMember(destination => destination.LeukocyteCount, o => o.MapFrom(source => source.DonationReport.LeukocyteCount))
+                .ForMember(destination => destination.PlateletCount, o => o.MapFrom(source => source.DonationReport.PlateletCount))
+                .ForMember(destination => destination.Note, o => o.MapFrom(source => source.DonationReport.Note))
                 .ReverseMap();
             CreateMap<Database.Donation, DonationInsertRequest>()
                 .ReverseMap();
@@ -85,6 +80,9 @@ namespace Vivel.Profiles
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.Drive.BloodType.Name))
                 .ReverseMap()
                 .ForPath(s => s.Status.Name, opt => opt.Ignore());
+
+            CreateMap<Database.DonationReport, DonationUpdateRequest>().ReverseMap();
+            CreateMap<Database.DonationReport, DonationInsertRequest>().ReverseMap();
 
             CreateMap<Database.Badge, BadgeDTO>()
                 .ForMember(destination => destination.Name, o => o.MapFrom(source => source.Name))
