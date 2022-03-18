@@ -11,17 +11,17 @@ namespace Vivel.Database
     public partial class VivelContext : DbContext
     {
         public virtual DbSet<Badge> Badges { get; set; }
-        public virtual DbSet<Donation> Donations { get; set; }
-        public virtual DbSet<DonationStatus> DonationStatuses { get; set; }
+        public virtual DbSet<BloodType> BloodTypes { get; set; }
         public virtual DbSet<DonationReport> DonationReports { get; set; }
-        public virtual DbSet<Drive> Drives { get; set; }
+        public virtual DbSet<DonationStatus> DonationStatuses { get; set; }
+        public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<DriveStatus> DriveStatuses { get; set; }
+        public virtual DbSet<Drive> Drives { get; set; }
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<PresetBadge> PresetBadges { get; set; }
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<BloodType> BloodTypes { get; set; }
 
         public VivelContext() { }
         public VivelContext(DbContextOptions<VivelContext> options) : base(options) { }
