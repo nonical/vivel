@@ -13,7 +13,7 @@ namespace Vivel.Database
         public string DriveId { get; set; }
         public DateTime? ScheduledAt { get; set; }
         public int? Amount { get; set; }
-        public DonationStatus Status { get; set; } = DonationStatus.Pending;
+        public DonationStatus Status { get; set; }
 
         public string Note { get; set; }
         public int? LeukocyteCount { get; set; }

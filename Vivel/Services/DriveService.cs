@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Helpers;
@@ -152,6 +151,7 @@ namespace Vivel.Services
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations
+                .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)
                 .Include(x => x.User)
@@ -165,7 +165,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
+                entity = entity.Where(donation => request.Status.Any(x => x == donation.Status.Name));
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
@@ -176,7 +176,7 @@ namespace Vivel.Services
             var entity = await _context.Drives
                 .Include(x => x.BloodType)
                 .Include(x => x.Hospital)
-                .Include(x => x.Donations)
+                .Include(x => x.Donations).ThenInclude(x => x.Status)
                 .Where(x => x.DriveId == id)
                 .FirstOrDefaultAsync();
 

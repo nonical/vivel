@@ -31,6 +31,13 @@ namespace Vivel
             context.AddRange(new[] { bloodType_APositive, bloodType_ANegative, bloodType_BPositive, bloodType_BNegative, bloodType_ABPositive, bloodType_ABNegative, bloodType_OPositive, bloodType_ONegative });
             context.SaveChanges();
 
+            var donationStatus_Pending = new DonationStatus { Name = "Pending" };
+            var donationStatus_Scheduled = new DonationStatus { Name = "Scheduled" };
+            var donationStatus_Rejected = new DonationStatus { Name = "Rejected" };
+            var donationStatus_Approved = new DonationStatus { Name = "Approved" };
+            context.AddRange(new[] { donationStatus_Pending, donationStatus_Scheduled, donationStatus_Rejected, donationStatus_Approved });
+            context.SaveChanges();
+
             var bob = new User
             {
                 UserId = "6e0884d7-c18f-4c8f-bce7-968e2cc33571",
@@ -126,7 +133,7 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = bob,
-                Status = DonationStatus.Approved,
+                Status = donationStatus_Approved,
                 LeukocyteCount = 4_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
@@ -156,7 +163,7 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-6).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-6),
                 User = bob,
-                Status = DonationStatus.Rejected,
+                Status = donationStatus_Rejected,
                 LeukocyteCount = 2_500,
                 ErythrocyteCount = 3_250_000,
                 PlateletCount = 27_000,
@@ -193,7 +200,7 @@ namespace Vivel
                 Drive = drive4,
                 CreatedAt = System.DateTime.Today,
                 User = alice,
-                Status = DonationStatus.Pending,
+                Status = donationStatus_Pending,
             };
             context.Add(donationAlicePending);
             context.SaveChanges();
@@ -220,7 +227,7 @@ namespace Vivel
                 ScheduledAt = System.DateTime.Today.AddMonths(-4).AddDays(-1),
                 UpdatedAt = System.DateTime.Today.AddMonths(-4),
                 User = alice,
-                Status = DonationStatus.Approved,
+                Status = donationStatus_Approved,
                 LeukocyteCount = 7_500,
                 ErythrocyteCount = 4_250_000,
                 PlateletCount = 17_000,

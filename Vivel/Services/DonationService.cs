@@ -8,7 +8,6 @@ using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 
@@ -26,6 +25,7 @@ namespace Vivel.Services
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
             var entity = _context.Set<Donation>()
+                .Include(x => x.Status)
                 .Include(x => x.User)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)
@@ -38,7 +38,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
+                entity = entity.Where(donation => request.Status.Any(x => x == donation.Status.Name));
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
@@ -47,6 +47,7 @@ namespace Vivel.Services
         public async override Task<DonationDTO> GetById(string id)
         {
             var entity = await _context.Donations
+                .Include(x => x.Status)
                 .Include(x => x.User)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)
@@ -58,8 +59,17 @@ namespace Vivel.Services
 
         public async override Task<DonationDTO> Insert(DonationInsertRequest request)
         {
-            var user = await _context.Users.Include(x => x.Donations).FirstOrDefaultAsync(x => x.UserId == request.UserId);
-            var drive = await _context.Drives.FirstOrDefaultAsync(x => x.DriveId == request.DriveId);
+            var user = await _context.Users
+                .Include(x => x.BloodType)
+                .Include(x => x.Donations)
+                .ThenInclude(x => x.Status)
+                .Where(x => x.UserId == request.UserId)
+                .FirstOrDefaultAsync();
+
+            var drive = await _context.Drives
+                .Include(x => x.BloodType)
+                .Where(x => x.DriveId == request.DriveId)
+                .FirstOrDefaultAsync();
 
             if (user == null || drive == null)
                 return null;
@@ -67,47 +77,54 @@ namespace Vivel.Services
             if (user.Verified == true && (user.BloodType != drive.BloodType))
                 return null;
 
-            var pendingDonationCount = user.Donations.Where(x => x.Status == DonationStatus.Pending).Count();
+            var pendingDonationCount = user.Donations
+                .Where(x => x.Status.Name == "Pending")
+                .Count();
 
             if (pendingDonationCount != 0)
                 return null;
 
-            var lastDonationDate = user.Donations.Where(x => x.Status == DonationStatus.Approved)
-                                                .OrderByDescending(x => x.UpdatedAt)
-                                                .Select(x => x.UpdatedAt)
-                                                .FirstOrDefault();
-
+            var lastDonationDate = user.Donations
+                .Where(x => x.Status.Name == "Approved")
+                .OrderByDescending(x => x.UpdatedAt)
+                .Select(x => x.UpdatedAt)
+                .FirstOrDefault();
 
             if (lastDonationDate.Value.AddMonths(3) > DateTime.Now)
                 return null;
 
             var entity = _mapper.Map<Donation>(request);
 
+            entity.Status = await _context.DonationStatuses.Where(x => x.Name == "Pending").FirstAsync();
+
             await _context.Donations.AddAsync(entity);
 
             await _context.SaveChangesAsync();
 
             return _mapper.Map<DonationDTO>(entity);
-
-
         }
 
         public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
         {
-            var entity = await _context.Donations.Include(x => x.Drive).Include(x => x.User).FirstOrDefaultAsync(x => x.DonationId == id);
+            var entity = await _context.Donations
+                .Include(x => x.Status)
+                .Include(x => x.Drive)
+                .Include(x => x.User)
+                .Where(x => x.DonationId == id)
+                .FirstOrDefaultAsync();
 
-            var donationStatus = entity.Status.Name;
-
-            if (request.Status == DonationStatus.Approved.Name)
+            if (request.Status == "Approved")
             {
                 entity.Amount = 350;
             }
+
+            entity.Status = await _context.DonationStatuses.Where(x => x.Name == request.Status).FirstAsync();
 
             _mapper.Map(request, entity);
 
             await _context.SaveChangesAsync();
 
-            if (donationStatus != request.Status)
+            if (entity.Status.Name != request.Status)
                 await StatusChanged(entity, request);
 
             return _mapper.Map<DonationDTO>(entity);
@@ -117,16 +134,15 @@ namespace Vivel.Services
         {
             await NotifyUser(donation);
 
-            if (donation.Status.Name == DonationStatus.Approved.Name)
+            if (donation.Status.Name == "Approved")
             {
                 await VerifyUser(donation.UserId);
                 await AddBadges(donation.UserId, donation.DriveId);
             }
-            else if (donation.Status.Name == DonationStatus.Rejected.Name)
+            else if (donation.Status.Name == "Rejected")
             {
                 await ChangeUserBloodtype(donation.UserId, request);
             }
-
         }
 
         public async Task NotifyUser(Donation donation)
@@ -177,6 +193,7 @@ namespace Vivel.Services
 
                 });
             }
+
             if (user.Donations.Count() % 5 == 0)
             {
                 user.Badges.Add(new Badge
@@ -185,8 +202,8 @@ namespace Vivel.Services
                     Name = $"{donationCount} donations"
                 });
             }
-            await _context.SaveChangesAsync();
 
+            await _context.SaveChangesAsync();
         }
 
         public async Task VerifyUser(string userId)

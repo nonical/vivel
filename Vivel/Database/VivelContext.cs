@@ -20,6 +20,7 @@ namespace Vivel.Database
         public virtual DbSet<PresetBadge> PresetBadges { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<BloodType> BloodTypes { get; set; }
+        public virtual DbSet<DonationStatus> DonationStatuses { get; set; }
 
         public VivelContext() { }
         public VivelContext(DbContextOptions<VivelContext> options) : base(options) { }
@@ -27,14 +28,6 @@ namespace Vivel.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Donation>(entity =>
-            {
-                entity.Property(e => e.Status)
-                    .HasConversion(
-                        e => e.Name,
-                        e => DonationStatus.FromName(e, false));
-            });
 
             modelBuilder.Entity<Drive>(entity =>
             {
@@ -44,11 +37,7 @@ namespace Vivel.Database
                         x => DriveStatus.FromName(x, false))
                     .HasMaxLength(50);
             });
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

@@ -56,7 +56,7 @@ namespace Vivel.Services
         public async Task<UserDetailsDTO> Details(string id)
         {
             var entity = await _context.Users
-                .Include(x => x.Donations)
+                .Include(x => x.Donations).ThenInclude(x => x.Status)
                 .Include(x => x.BloodType)
                 .Where(x => x.UserId == id)
                 .FirstOrDefaultAsync();
@@ -68,6 +68,7 @@ namespace Vivel.Services
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
             var entity = _context.Donations
+                .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
                 .Include(x => x.Drive).ThenInclude(x => x.Hospital)
                 .Where(x => x.UserId == id);
@@ -79,7 +80,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
+                entity = entity.Where(donation => request.Status.Any(x => x == donation.Status.Name));
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
@@ -88,7 +89,9 @@ namespace Vivel.Services
         public async Task<DonationDTO> Donation(string userId, string donationId)
         {
             var entities = await _context.Donations
+                .Include(x => x.Status)
                 .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
                 .Where(x => x.UserId == userId && x.DonationId == donationId)
                 .FirstOrDefaultAsync();
 
