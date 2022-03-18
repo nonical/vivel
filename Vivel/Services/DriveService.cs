@@ -28,12 +28,11 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Drive>().Include(x => x.Status).Include(x => x.Hospital).AsQueryable();
 
             if (request?.FromDate != null)
             {
                 entity = entity.Where(x => x.Date >= request.FromDate);
-
             }
 
             if (request?.ToDate != null)
@@ -53,7 +52,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
+                entity = entity.Where(drive => request.Status.Contains(drive.Status.Name));
             }
 
             entity = entity.OrderByDescending(drive => drive.Urgency);
@@ -73,7 +72,7 @@ namespace Vivel.Services
 
         public async override Task<DriveDTO> GetById(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
+            var entity = await _context.Drives.Include(x => x.Status).Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
 
             return _mapper.Map<DriveDTO>(entity);
         }
@@ -81,6 +80,8 @@ namespace Vivel.Services
         public async override Task<DriveDTO> Insert(DriveInsertRequest request)
         {
             var entity = _mapper.Map<Drive>(request);
+
+            entity.Status = await _context.DriveStatuses.FirstAsync(x => x.Name == "Open");
 
             await _context.AddAsync(entity);
 
@@ -120,7 +121,7 @@ namespace Vivel.Services
             _mapper.Map(request, entity);
             await _context.SaveChangesAsync();
 
-            if (request.Status == DriveStatus.Closed.Name)
+            if (request.Status == "Closed")
             {
                 var rawSql = @"UPDATE Donation
                                SET Status = 'Rejected', Note = @Note
@@ -145,7 +146,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.DriveId == id).Include(x => x.User).AsQueryable();
+            var entity = _context.Donations.Include(x => x.DonationReport).Where(x => x.DriveId == id).Include(x => x.User).AsQueryable();
 
             if (request?.ScheduledAt != null)
             {

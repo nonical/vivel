@@ -38,7 +38,7 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
         {
-            var entity = _context.Drives.Where(x => x.HospitalId == id).AsQueryable();
+            var entity = _context.Drives.Include(x => x.Status).Where(x => x.HospitalId == id).AsQueryable();
 
             if (request?.FromDate != null)
             {
@@ -63,7 +63,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
+                entity = entity.Where(drive => request.Status.Contains(drive.Status.Name));
             }
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
@@ -73,7 +73,7 @@ namespace Vivel.Services
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
-            var drives = _context.Drives.Include(x => x.Donations).AsQueryable();
+            var drives = _context.Drives.Include(x => x.Status).Include(x => x.Donations).AsQueryable();
 
             if (request.Urgency != null)
             {
@@ -82,9 +82,7 @@ namespace Vivel.Services
 
             if (request.Status != null)
             {
-                var status = DriveStatus.FromName(request.Status, true);
-
-                drives = drives.Where(x => x.Status == status);
+                drives = drives.Where(x => x.Status.Name == request.Status);
             }
 
             drives = drives.Where(x => x.HospitalId == id && request.From <= x.Date && x.Date <= request.To)
@@ -106,14 +104,14 @@ namespace Vivel.Services
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
-            var drives = _context.Drives.AsQueryable();
+            var drives = _context.Drives.Include(x => x.Status).AsQueryable();
 
             if (request.Urgency != null)
             {
                 drives = drives.Where(x => x.Urgency == request.Urgency);
             }
 
-            drives = drives.Where(x => x.HospitalId == id && x.Status == DriveStatus.Closed);
+            drives = drives.Where(x => x.HospitalId == id && x.Status.Name == "Closed");
 
             var stats = await drives.GroupBy(x => x.BloodType)
                                     .Select(x => new LitresByBloodTypeDTO

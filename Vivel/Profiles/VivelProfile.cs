@@ -27,7 +27,6 @@ namespace Vivel.Profiles
         {
             // Custom Type Converters
             EnumNameConverter<BloodType>();
-            EnumNameConverter<DriveStatus>();
             EnumNameConverter<DonationStatus>();
 
             CreateMap<Database.Faq, FaqDTO>().ReverseMap();
@@ -60,11 +59,14 @@ namespace Vivel.Profiles
             CreateMap<UserUpdateRequest, Database.User>()
                 .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
 
-            CreateMap<Database.Drive, DriveDTO>().ReverseMap();
+            CreateMap<Database.Drive, DriveDTO>()
+                .ForMember(destination => destination.Status, o => o.MapFrom(source => source.Status.Name))
+                .ReverseMap();
             CreateMap<Database.Drive, DriveDetailsDTO>()
                 .ForMember(destination => destination.AmountLeft, o => o.MapFrom(source => source.Amount - source.Donations.Where(x => x.Status == DonationStatus.Approved).Sum(x => x.Amount)))
                 .ForMember(destination => destination.PendingCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Pending).Count()))
-                .ForMember(destination => destination.ScheduledCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Scheduled).Count()));
+                .ForMember(destination => destination.ScheduledCount, o => o.MapFrom(source => source.Donations.Where(x => x.Status == DonationStatus.Scheduled).Count()))
+                .ForMember(destination => destination.Status, o => o.MapFrom(source => source.Status.Name));
             CreateMap<Database.Drive, DriveInsertRequest>().ReverseMap();
             CreateMap<Database.Drive, DriveUpdateRequest>().ReverseMap();
 

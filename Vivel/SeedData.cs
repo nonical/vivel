@@ -50,6 +50,20 @@ namespace Vivel
             context.Add(hospital);
             context.SaveChanges();
 
+            var openDriveStatus = new Database.DriveStatus
+            {
+                Name = "Open"
+            };
+            context.Add(openDriveStatus);
+            context.SaveChanges();
+
+            var closedDriveStatus = new Database.DriveStatus
+            {
+                Name = "Closed"
+            };
+            context.Add(closedDriveStatus);
+            context.SaveChanges();
+
             var drive1 = new Drive
             {
                 Hospital = hospital,
@@ -57,6 +71,7 @@ namespace Vivel
                 BloodType = BloodType.ABPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = openDriveStatus
             };
             context.Add(drive1);
             context.SaveChanges();
@@ -68,6 +83,7 @@ namespace Vivel
                 BloodType = BloodType.BPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = openDriveStatus
             };
             context.Add(drive2);
             context.SaveChanges();
@@ -79,6 +95,7 @@ namespace Vivel
                 BloodType = BloodType.APositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = openDriveStatus
             };
             context.Add(drive3);
             context.SaveChanges();
@@ -90,6 +107,7 @@ namespace Vivel
                 BloodType = BloodType.ONegative,
                 Date = System.DateTime.Today,
                 Urgency = false,
+                Status = openDriveStatus
             };
             context.Add(drive4);
             context.SaveChanges();
@@ -103,7 +121,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = closedDriveStatus
             };
             context.Add(driveBobUrgent);
             context.SaveChanges();
@@ -142,7 +160,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-7),
                 Date = System.DateTime.Today.AddMonths(-7),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = closedDriveStatus
             };
             context.Add(driveBobRejected);
             context.SaveChanges();
@@ -214,7 +232,7 @@ namespace Vivel
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
-                Status = DriveStatus.Closed,
+                Status = closedDriveStatus
             };
             context.Add(driveAliceApproved);
             context.SaveChanges();

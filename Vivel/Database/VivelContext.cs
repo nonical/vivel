@@ -15,6 +15,7 @@ namespace Vivel.Database
         public virtual DbSet<Donation> Donations { get; set; }
         public virtual DbSet<DonationReport> DonationReports { get; set; }
         public virtual DbSet<Drive> Drives { get; set; }
+        public virtual DbSet<DriveStatus> DriveStatuses { get; set; }
         public virtual DbSet<Faq> Faqs { get; set; }
         public virtual DbSet<Hospital> Hospitals { get; set; }
         public virtual DbSet<Notification> Notifications { get; set; }
@@ -141,12 +142,6 @@ namespace Vivel.Database
                     .IsUnicode(false)
                     .HasColumnName("HospitalID")
                     .IsFixedLength(true);
-
-                entity.Property(e => e.Status)
-                    .HasConversion(
-                        x => x.Name,
-                        x => DriveStatus.FromName(x, false))
-                    .HasMaxLength(50);
 
                 entity.Property(e => e.UpdatedAt).HasColumnType("datetime");
 
