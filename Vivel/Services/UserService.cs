@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +21,9 @@ namespace Vivel.Services
 
         public override async Task<PagedResult<UserDTO>> Get(UserSearchRequest request = null)
         {
-            var entity = _context.Users.AsQueryable();
+            var entity = _context.Users
+                .Include(x => x.BloodType)
+                .AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(request?.UserName))
             {
@@ -31,7 +32,7 @@ namespace Vivel.Services
 
             if (request?.BloodType?.Count > 0)
             {
-                entity = entity.Where(user => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == user.BloodType));
+                entity = entity.Where(user => request.BloodType.Any(x => x == user.BloodType.Name));
             }
 
             if (request?.Verified != null)
@@ -42,9 +43,23 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<User, UserDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
+        public async override Task<UserDTO> GetById(string id)
+        {
+            var entity = await _context.Users
+                .Include(x => x.BloodType)
+                .Where(x => x.UserId == id)
+                .FirstOrDefaultAsync();
+
+            return _mapper.Map<UserDTO>(entity);
+        }
+
         public async Task<UserDetailsDTO> Details(string id)
         {
-            var entity = await _context.Users.Include(x => x.Donations).FirstOrDefaultAsync(x => x.UserId == id);
+            var entity = await _context.Users
+                .Include(x => x.Donations)
+                .Include(x => x.BloodType)
+                .Where(x => x.UserId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<UserDetailsDTO>(entity);
         }
@@ -52,7 +67,10 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Include(x => x.Drive).ThenInclude(x => x.Hospital).Where(x => x.UserId == id);
+            var entity = _context.Donations
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
+                .Where(x => x.UserId == id);
 
             if (request?.ScheduledAt != null)
             {
@@ -69,7 +87,10 @@ namespace Vivel.Services
 
         public async Task<DonationDTO> Donation(string userId, string donationId)
         {
-            var entities = await _context.Donations.Where(x => x.UserId == userId && x.DonationId == donationId).FirstOrDefaultAsync();
+            var entities = await _context.Donations
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Where(x => x.UserId == userId && x.DonationId == donationId)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DonationDTO>(entities);
         }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DinkToPdf;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Extensions;
@@ -38,12 +35,14 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
         {
-            var entity = _context.Drives.Where(x => x.HospitalId == id).AsQueryable();
+            var entity = _context.Drives
+                .Include(x => x.BloodType)
+                .Where(x => x.HospitalId == id)
+                .AsQueryable();
 
             if (request?.FromDate != null)
             {
                 entity = entity.Where(x => x.Date >= request.FromDate);
-
             }
 
             if (request?.ToDate != null)
@@ -53,7 +52,7 @@ namespace Vivel.Services
 
             if (request?.BloodType?.Count > 0)
             {
-                entity = entity.Where(drive => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == drive.BloodType));
+                entity = entity.Where(drive => request.BloodType.Any(x => x == drive.BloodType.Name));
             }
 
             if (request?.Amount != null)
@@ -73,7 +72,10 @@ namespace Vivel.Services
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
-            var drives = _context.Drives.Include(x => x.Donations).AsQueryable();
+            var drives = _context.Drives
+                .Include(x => x.BloodType)
+                .Include(x => x.Donations)
+                .AsQueryable();
 
             if (request.Urgency != null)
             {
@@ -106,7 +108,9 @@ namespace Vivel.Services
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
-            var drives = _context.Drives.AsQueryable();
+            var drives = _context.Drives
+                .Include(x => x.BloodType)
+                .AsQueryable();
 
             if (request.Urgency != null)
             {

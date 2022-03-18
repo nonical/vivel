@@ -25,7 +25,11 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DonationDTO>> Get(DonationSearchRequest request = null)
         {
-            var entity = _context.Set<Donation>().Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Donation>()
+                .Include(x => x.User)
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
+                .AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
@@ -42,7 +46,12 @@ namespace Vivel.Services
 
         public async override Task<DonationDTO> GetById(string id)
         {
-            var entity = await _context.Donations.Include(x => x.User).Include(x => x.Drive).ThenInclude(x => x.Hospital).FirstOrDefaultAsync(x => x.DonationId == id);
+            var entity = await _context.Donations
+                .Include(x => x.User)
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
+                .Where(x => x.DonationId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DonationDTO>(entity);
         }
@@ -193,7 +202,7 @@ namespace Vivel.Services
         {
             var user = await _context.Users.FindAsync(userId);
 
-            user.BloodType = BloodType.FromName(request.BloodType);
+            user.BloodType = await _context.BloodTypes.Where(x => x.Name == request.BloodType).FirstAsync();
 
             await _context.SaveChangesAsync();
         }

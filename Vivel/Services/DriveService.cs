@@ -28,12 +28,14 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Drive>()
+                .Include(x => x.BloodType)
+                .Include(x => x.Hospital)
+                .AsQueryable();
 
             if (request?.FromDate != null)
             {
                 entity = entity.Where(x => x.Date >= request.FromDate);
-
             }
 
             if (request?.ToDate != null)
@@ -43,7 +45,7 @@ namespace Vivel.Services
 
             if (request?.BloodType?.Count > 0)
             {
-                entity = entity.Where(drive => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == drive.BloodType));
+                entity = entity.Where(drive => request.BloodType.Any(x => x == drive.BloodType.Name));
             }
 
             if (request?.Amount != null)
@@ -62,18 +64,22 @@ namespace Vivel.Services
             {
                 var location = GeographyHelper.CreatePoint(request.Longitude, request.Latitude);
 
-                entity = entity.Where(drive => drive.Hospital.Location.Distance(location) <= 30000)
+                entity = entity
+                    .Where(drive => drive.Hospital.Location.Distance(location) <= 30000)
                     .OrderByDescending(drive => drive.Urgency)
                     .ThenBy(drive => drive.Hospital.Location.Distance(location));
             }
-
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async override Task<DriveDTO> GetById(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
+            var entity = await _context.Drives
+                .Include(x => x.Hospital)
+                .Include(x => x.BloodType)
+                .Where(x => x.DriveId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DriveDTO>(entity);
         }
@@ -145,7 +151,12 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.DriveId == id).Include(x => x.User).AsQueryable();
+            var entity = _context.Donations
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
+                .Include(x => x.User)
+                .Where(x => x.DriveId == id)
+                .AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
@@ -162,7 +173,12 @@ namespace Vivel.Services
 
         public async Task<DriveDetailsDTO> Details(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Donations).Where(x => x.DriveId == id).FirstOrDefaultAsync();
+            var entity = await _context.Drives
+                .Include(x => x.BloodType)
+                .Include(x => x.Hospital)
+                .Include(x => x.Donations)
+                .Where(x => x.DriveId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DriveDetailsDTO>(entity);
         }

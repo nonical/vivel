@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vivel.Database;
 using Vivel.Helpers;
@@ -21,11 +20,22 @@ namespace Vivel
             var context = scope.ServiceProvider.GetService<VivelContext>();
             context.Database.Migrate();
 
+            var bloodType_APositive = new BloodType { Name = "A+" };
+            var bloodType_ANegative = new BloodType { Name = "A-" };
+            var bloodType_BPositive = new BloodType { Name = "B+" };
+            var bloodType_BNegative = new BloodType { Name = "B-" };
+            var bloodType_ABPositive = new BloodType { Name = "AB+" };
+            var bloodType_ABNegative = new BloodType { Name = "AB-" };
+            var bloodType_OPositive = new BloodType { Name = "O+" };
+            var bloodType_ONegative = new BloodType { Name = "O-" };
+            context.AddRange(new[] { bloodType_APositive, bloodType_ANegative, bloodType_BPositive, bloodType_BNegative, bloodType_ABPositive, bloodType_ABNegative, bloodType_OPositive, bloodType_ONegative });
+            context.SaveChanges();
+
             var bob = new User
             {
                 UserId = "6e0884d7-c18f-4c8f-bce7-968e2cc33571",
                 UserName = "bob",
-                BloodType = BloodType.ABPositive,
+                BloodType = bloodType_ABPositive,
                 Verified = true,
             };
             context.Add(bob);
@@ -35,7 +45,7 @@ namespace Vivel
             {
                 UserId = "e093aaec-8cf0-4359-972a-0a62f0191083",
                 UserName = "alice",
-                BloodType = BloodType.ONegative,
+                BloodType = bloodType_ONegative,
                 Verified = true,
             };
             context.Add(alice);
@@ -54,7 +64,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.ABPositive,
+                BloodType = bloodType_ABPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
             };
@@ -65,7 +75,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.BPositive,
+                BloodType = bloodType_BPositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
             };
@@ -76,7 +86,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.APositive,
+                BloodType = bloodType_APositive,
                 Date = System.DateTime.Today,
                 Urgency = false,
             };
@@ -87,7 +97,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.ONegative,
+                BloodType = bloodType_ONegative,
                 Date = System.DateTime.Today,
                 Urgency = false,
             };
@@ -99,7 +109,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.ABPositive,
+                BloodType = bloodType_ABPositive,
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
@@ -129,7 +139,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.OPositive,
+                BloodType = bloodType_OPositive,
                 CreatedAt = System.DateTime.Today.AddMonths(-7),
                 Date = System.DateTime.Today.AddMonths(-7),
                 Urgency = true,
@@ -193,7 +203,7 @@ namespace Vivel
             {
                 Hospital = hospital,
                 Amount = 5000,
-                BloodType = BloodType.ONegative,
+                BloodType = bloodType_ONegative,
                 CreatedAt = System.DateTime.Today.AddMonths(-5),
                 Date = System.DateTime.Today.AddMonths(-5),
                 Urgency = true,
