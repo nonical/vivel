@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<User, UserDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async override Task<UserDTO> GetById(string id)
+        public async override Task<UserDTO> GetById(Guid id)
         {
             var entity = await _context.Users
                 .Include(x => x.BloodType)
@@ -52,7 +53,7 @@ namespace Vivel.Services
             return _mapper.Map<UserDTO>(entity);
         }
 
-        public async Task<UserDetailsDTO> Details(string id)
+        public async Task<UserDetailsDTO> Details(Guid id)
         {
             var entity = await _context.Users
                 .Include(x => x.Donations).ThenInclude(x => x.Status)
@@ -64,7 +65,7 @@ namespace Vivel.Services
         }
 
 
-        public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(Guid id, DonationSearchRequest request)
         {
             var entity = _context.Donations
                 .Include(x => x.DonationReport)
@@ -86,7 +87,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<DonationDTO> Donation(string userId, string donationId)
+        public async Task<DonationDTO> Donation(Guid userId, Guid donationId)
         {
             var entities = await _context.Donations
                 .Include(x => x.DonationReport)
@@ -99,18 +100,18 @@ namespace Vivel.Services
             return _mapper.Map<DonationDTO>(entities);
         }
 
-        public async Task<PagedResult<NotificationDTO>> Notifications(string id, NotificationSearchRequest request)
+        public async Task<PagedResult<NotificationDTO>> Notifications(Guid id, NotificationSearchRequest request)
         {
             var entities = _context.Notifications.Where(x => x.UserId == id);
 
             if (request?.LinkId != null)
             {
-                entities = entities.Where(x => x.LinkId == request.LinkId);
+                entities = entities.Where(x => x.LinkId == Guid.Parse(request.LinkId));
             }
 
             if (request?.LinkId != null && request.LinkType != null)
             {
-                entities = entities.Where(x => x.LinkId == request.LinkId && x.LinkType == request.LinkType);
+                entities = entities.Where(x => x.LinkId == Guid.Parse(request.LinkId) && x.LinkType == request.LinkType);
             }
 
             entities = entities.OrderByDescending(x => x.CreatedAt);
@@ -118,7 +119,7 @@ namespace Vivel.Services
             return await entities.GetPagedAsync<Notification, NotificationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<PagedResult<BadgeDTO>> Badges(string id, BadgeSearchRequest request)
+        public async Task<PagedResult<BadgeDTO>> Badges(Guid id, BadgeSearchRequest request)
         {
             return await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync<Badge, BadgeDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }

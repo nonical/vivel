@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -6,8 +7,6 @@ using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
-using Vivel.Model.Requests.Faq;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
@@ -24,7 +23,7 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async override Task<ActionResult<DonationDTO>> GetById(string id)
+        public async override Task<ActionResult<DonationDTO>> GetById(Guid id)
         {
             return await base.GetById(id);
         }
@@ -45,7 +44,7 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin,staff")]
-        public async override Task<ActionResult<DonationDTO>> Update(string id, [FromBody] DonationUpdateRequest request)
+        public async override Task<ActionResult<DonationDTO>> Update(Guid id, [FromBody] DonationUpdateRequest request)
         {
             return await base.Update(id, request);
         }

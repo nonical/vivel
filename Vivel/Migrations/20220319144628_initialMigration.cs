@@ -54,7 +54,7 @@ namespace Vivel.Migrations
                 name: "Faqs",
                 columns: table => new
                 {
-                    Faqid = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FaqId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Question = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Answer = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Answered = table.Column<bool>(type: "bit", nullable: true),
@@ -63,14 +63,14 @@ namespace Vivel.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Faqs", x => x.Faqid);
+                    table.PrimaryKey("PK_Faqs", x => x.FaqId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Hospitals",
                 columns: table => new
                 {
-                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    HospitalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Location = table.Column<Point>(type: "geography", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -85,7 +85,7 @@ namespace Vivel.Migrations
                 name: "PresetBadges",
                 columns: table => new
                 {
-                    PresetBadgeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    PresetBadgeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -101,7 +101,7 @@ namespace Vivel.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BloodTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Verified = table.Column<bool>(type: "bit", nullable: true),
@@ -124,8 +124,8 @@ namespace Vivel.Migrations
                 name: "Drives",
                 columns: table => new
                 {
-                    DriveId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HospitalId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DriveId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    HospitalId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: true),
                     BloodTypeId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: true),
@@ -154,16 +154,16 @@ namespace Vivel.Migrations
                         column: x => x.HospitalId,
                         principalTable: "Hospitals",
                         principalColumn: "HospitalId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Badges",
                 columns: table => new
                 {
-                    BadgeId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    PresetBadgeId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BadgeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    PresetBadgeId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -176,24 +176,24 @@ namespace Vivel.Migrations
                         column: x => x.PresetBadgeId,
                         principalTable: "PresetBadges",
                         principalColumn: "PresetBadgeId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Badges_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
-                    NotificationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    NotificationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Content = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LinkId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LinkId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     LinkType = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -206,16 +206,16 @@ namespace Vivel.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Donations",
                 columns: table => new
                 {
-                    DonationId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    DriveId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DonationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DriveId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ScheduledAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Amount = table.Column<int>(type: "int", nullable: true),
                     StatusDonationStatusId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
@@ -236,13 +236,13 @@ namespace Vivel.Migrations
                         column: x => x.DriveId,
                         principalTable: "Drives",
                         principalColumn: "DriveId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Donations_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -250,7 +250,7 @@ namespace Vivel.Migrations
                 columns: table => new
                 {
                     DonationReportId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DonationId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    DonationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LeukocyteCount = table.Column<int>(type: "int", nullable: true),
                     ErythrocyteCount = table.Column<int>(type: "int", nullable: true),
@@ -266,7 +266,7 @@ namespace Vivel.Migrations
                         column: x => x.DonationId,
                         principalTable: "Donations",
                         principalColumn: "DonationId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -283,8 +283,7 @@ namespace Vivel.Migrations
                 name: "IX_DonationReports_DonationId",
                 table: "DonationReports",
                 column: "DonationId",
-                unique: true,
-                filter: "[DonationId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Donations_DriveId",

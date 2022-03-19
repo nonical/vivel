@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
@@ -10,7 +10,6 @@ using Vivel.Model.Requests.Badge;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Notification;
 using Vivel.Model.Requests.User;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
@@ -35,20 +34,20 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async override Task<ActionResult<UserDTO>> GetById(string id)
+        public async override Task<ActionResult<UserDTO>> GetById(Guid id)
         {
             return await base.GetById(id);
         }
 
         [Authorize(Roles = "admin,user")]
-        public async override Task<ActionResult<UserDTO>> Update(string id, [FromBody] UserUpdateRequest request)
+        public async override Task<ActionResult<UserDTO>> Update(Guid id, [FromBody] UserUpdateRequest request)
         {
             return await base.Update(id, request);
         }
 
         [HttpGet("{id}/details")]
         [Authorize(Roles = "admin,user")]
-        public async Task<ActionResult<UserDetailsDTO>> Details(string id)
+        public async Task<ActionResult<UserDetailsDTO>> Details(Guid id)
         {
             var userClaimValue = getUserClaim();
 
@@ -67,7 +66,7 @@ namespace Vivel.Controllers
 
         [HttpGet("{id}/donations")]
         [Authorize(Roles = "admin,user")]
-        public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(string id, [FromQuery] DonationSearchRequest request)
+        public async Task<ActionResult<PagedResult<DonationDTO>>> Donations(Guid id, [FromQuery] DonationSearchRequest request)
         {
             var userClaimValue = getUserClaim();
 
@@ -79,7 +78,7 @@ namespace Vivel.Controllers
 
         [HttpGet("{userId}/donation/{donationId}")]
         [Authorize(Roles = "admin,user")]
-        public async Task<ActionResult<DonationDTO>> Donations(string userId, string donationId)
+        public async Task<ActionResult<DonationDTO>> Donations(Guid userId, Guid donationId)
         {
             var userClaimValue = getUserClaim();
 
@@ -99,7 +98,7 @@ namespace Vivel.Controllers
 
         [HttpGet("{id}/notifications")]
         [Authorize(Roles = "admin,user")]
-        public async Task<ActionResult<PagedResult<NotificationDTO>>> Notifications(string id, [FromQuery] NotificationSearchRequest request)
+        public async Task<ActionResult<PagedResult<NotificationDTO>>> Notifications(Guid id, [FromQuery] NotificationSearchRequest request)
         {
             var userClaimValue = getUserClaim();
 
@@ -111,7 +110,7 @@ namespace Vivel.Controllers
 
         [HttpGet("{id}/badges")]
         [Authorize(Roles = "admin,user")]
-        public async Task<ActionResult<PagedResult<BadgeDTO>>> Badges(string id, [FromQuery] BadgeSearchRequest request)
+        public async Task<ActionResult<PagedResult<BadgeDTO>>> Badges(Guid id, [FromQuery] BadgeSearchRequest request)
         {
             var userClaimValue = getUserClaim();
 
@@ -121,9 +120,9 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
-        private string getUserClaim()
+        private Guid getUserClaim()
         {
-            return HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
         }
 
         private bool userIsAdmin()

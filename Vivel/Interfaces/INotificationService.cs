@@ -10,6 +10,6 @@ namespace Vivel.Interfaces
 {
     public interface INotificationService : IBaseCRUDService<NotificationDTO, NotificationSearchRequest, NotificationInsertRequest, object>
     {
-        Task PostNotifications<T>(List<string> userIds, string linkId, string title, string content);
+        Task PostNotifications<T>(List<Guid> userIds, Guid linkId, string title, string content);
     }
 }

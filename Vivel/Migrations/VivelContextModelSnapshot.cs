@@ -22,8 +22,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.Badge", b =>
                 {
-                    b.Property<string>("BadgeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("BadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -31,14 +32,14 @@ namespace Vivel.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PresetBadgeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("PresetBadgeId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("BadgeId");
 
@@ -71,8 +72,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.Donation", b =>
                 {
-                    b.Property<string>("DonationId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("DonationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Amount")
                         .HasColumnType("int");
@@ -80,8 +82,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DriveId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("DriveId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("ScheduledAt")
                         .HasColumnType("datetime2");
@@ -92,8 +94,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("DonationId");
 
@@ -115,8 +117,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DonationId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("DonationId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("ErythrocyteCount")
                         .HasColumnType("int");
@@ -136,8 +138,7 @@ namespace Vivel.Migrations
                     b.HasKey("DonationReportId");
 
                     b.HasIndex("DonationId")
-                        .IsUnique()
-                        .HasFilter("[DonationId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("DonationReports");
                 });
@@ -164,8 +165,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.Drive", b =>
                 {
-                    b.Property<string>("DriveId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("DriveId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("Amount")
                         .HasColumnType("int");
@@ -179,8 +181,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("HospitalId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("HospitalId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("StatusDriveStatusId")
                         .HasColumnType("uniqueidentifier");
@@ -224,8 +226,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.Faq", b =>
                 {
-                    b.Property<string>("Faqid")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("FaqId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Answer")
                         .HasColumnType("nvarchar(max)");
@@ -242,15 +245,16 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Faqid");
+                    b.HasKey("FaqId");
 
                     b.ToTable("Faqs");
                 });
 
             modelBuilder.Entity("Vivel.Database.Hospital", b =>
                 {
-                    b.Property<string>("HospitalId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("HospitalId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -271,8 +275,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.Notification", b =>
                 {
-                    b.Property<string>("NotificationId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("NotificationId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -280,8 +285,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("LinkId")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("LinkId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("LinkType")
                         .HasColumnType("nvarchar(max)");
@@ -292,8 +297,8 @@ namespace Vivel.Migrations
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("NotificationId");
 
@@ -304,8 +309,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.PresetBadge", b =>
                 {
-                    b.Property<string>("PresetBadgeId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("PresetBadgeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime?>("CreatedAt")
                         .HasColumnType("datetime2");
@@ -329,8 +335,9 @@ namespace Vivel.Migrations
 
             modelBuilder.Entity("Vivel.Database.User", b =>
                 {
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("BloodTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -361,11 +368,15 @@ namespace Vivel.Migrations
                 {
                     b.HasOne("Vivel.Database.PresetBadge", "PresetBadge")
                         .WithMany("Badges")
-                        .HasForeignKey("PresetBadgeId");
+                        .HasForeignKey("PresetBadgeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Vivel.Database.User", "User")
                         .WithMany("Badges")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("PresetBadge");
 
@@ -376,7 +387,9 @@ namespace Vivel.Migrations
                 {
                     b.HasOne("Vivel.Database.Drive", "Drive")
                         .WithMany("Donations")
-                        .HasForeignKey("DriveId");
+                        .HasForeignKey("DriveId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Vivel.Database.DonationStatus", "Status")
                         .WithMany()
@@ -384,7 +397,9 @@ namespace Vivel.Migrations
 
                     b.HasOne("Vivel.Database.User", "User")
                         .WithMany("Donations")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Drive");
 
@@ -397,7 +412,9 @@ namespace Vivel.Migrations
                 {
                     b.HasOne("Vivel.Database.Donation", "Donation")
                         .WithOne("DonationReport")
-                        .HasForeignKey("Vivel.Database.DonationReport", "DonationId");
+                        .HasForeignKey("Vivel.Database.DonationReport", "DonationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Donation");
                 });
@@ -410,7 +427,9 @@ namespace Vivel.Migrations
 
                     b.HasOne("Vivel.Database.Hospital", "Hospital")
                         .WithMany("Drives")
-                        .HasForeignKey("HospitalId");
+                        .HasForeignKey("HospitalId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Vivel.Database.DriveStatus", "Status")
                         .WithMany()
@@ -427,7 +446,9 @@ namespace Vivel.Migrations
                 {
                     b.HasOne("Vivel.Database.User", "User")
                         .WithMany("Notifications")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

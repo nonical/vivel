@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using DinkToPdf;
-using Microsoft.AspNetCore.Mvc;
-using Vivel.Database;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
@@ -15,8 +11,8 @@ namespace Vivel.Interfaces
 {
     public interface IHospitalService : IBaseCRUDService<HospitalDTO, HospitalSearchRequest, HospitalUpsertRequest, HospitalUpsertRequest>
     {
-        Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request);
-        Task<HtmlToPdfDocument> DrivesReport(string id, HospitalReportDrivesRequest request);
-        Task<HtmlToPdfDocument> LitresByBloodTypeReport(string id, HospitalReportLitresRequest request);
+        Task<PagedResult<DriveDTO>> Drives(Guid id, DriveSearchRequest request);
+        Task<HtmlToPdfDocument> DrivesReport(Guid id, HospitalReportDrivesRequest request);
+        Task<HtmlToPdfDocument> LitresByBloodTypeReport(Guid id, HospitalReportLitresRequest request);
     }
 }

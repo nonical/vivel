@@ -15,7 +15,7 @@ namespace Vivel.Database
             Notifications = new HashSet<Notification>();
         }
 
-        public string UserId { get; set; } = Guid.NewGuid().ToString();
+        public Guid UserId { get; set; }
         public string UserName { get; set; }
         public BloodType BloodType { get; set; }
         public bool? Verified { get; set; } = false;

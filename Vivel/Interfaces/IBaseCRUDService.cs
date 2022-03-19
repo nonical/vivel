@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Vivel.Model.Pagination;
 
@@ -14,12 +12,12 @@ namespace Vivel.Interfaces
     {
         Task<PagedResult<Dto>> Get(SearchRequest request = null);
 
-        Task<Dto> GetById(string id);
+        Task<Dto> GetById(Guid id);
 
         Task<Dto> Insert(InsertRequest request);
 
-        Task<Dto> Update(string id, UpdateRequest request);
+        Task<Dto> Update(Guid id, UpdateRequest request);
 
-        Task<Dto> Delete(string id);
+        Task<Dto> Delete(Guid id);
     }
 }

@@ -7,7 +7,7 @@ namespace Vivel.Database
 {
     public partial class Faq : BaseModel
     {
-        public string Faqid { get; set; } = Guid.NewGuid().ToString();
+        public Guid FaqId { get; set; }
         public string Question { get; set; }
         public string Answer { get; set; }
         public bool? Answered { get; set; } = false;

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
@@ -11,10 +11,10 @@ namespace Vivel.Interfaces
 {
     public interface IUserService : IBaseCRUDService<UserDTO, UserSearchRequest, object, UserUpdateRequest>
     {
-        Task<UserDetailsDTO> Details(string id);
-        Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request);
-        Task<DonationDTO> Donation(string userId, string donationId);
-        Task<PagedResult<NotificationDTO>> Notifications(string id, NotificationSearchRequest request);
-        Task<PagedResult<BadgeDTO>> Badges(string id, BadgeSearchRequest request);
+        Task<UserDetailsDTO> Details(Guid id);
+        Task<PagedResult<DonationDTO>> Donations(Guid id, DonationSearchRequest request);
+        Task<DonationDTO> Donation(Guid userId, Guid donationId);
+        Task<PagedResult<NotificationDTO>> Notifications(Guid id, NotificationSearchRequest request);
+        Task<PagedResult<BadgeDTO>> Badges(Guid id, BadgeSearchRequest request);
     }
 }

@@ -1,13 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
-using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.Notification;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
@@ -25,7 +23,7 @@ namespace Vivel.Controllers
         }
 
         [NonAction]
-        public override Task<ActionResult<NotificationDTO>> Update(string id, [FromBody] object request)
+        public override Task<ActionResult<NotificationDTO>> Update(Guid id, [FromBody] object request)
         {
             return base.Update(id, request);
         }

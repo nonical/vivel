@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vivel.Database;
 using Vivel.Helpers;
@@ -44,7 +45,7 @@ namespace Vivel
 
             var bob = new User
             {
-                UserId = "6e0884d7-c18f-4c8f-bce7-968e2cc33571",
+                UserId = Guid.Parse("6e0884d7-c18f-4c8f-bce7-968e2cc33571"),
                 UserName = "bob",
                 BloodType = bloodType_ABPositive,
                 Verified = true,
@@ -54,7 +55,7 @@ namespace Vivel
 
             var alice = new User
             {
-                UserId = "e093aaec-8cf0-4359-972a-0a62f0191083",
+                UserId = Guid.Parse("e093aaec-8cf0-4359-972a-0a62f0191083"),
                 UserName = "alice",
                 BloodType = bloodType_ONegative,
                 Verified = true,
@@ -64,7 +65,7 @@ namespace Vivel
 
             var hospital = new Hospital
             {
-                HospitalId = "c1f280c8-f8c7-4a50-9ee6-3acb906922d6",
+                HospitalId = Guid.Parse("c1f280c8-f8c7-4a50-9ee6-3acb906922d6"),
                 Name = "Bijeli Brijeg",
                 Location = GeographyHelper.CreatePoint((decimal)17.789455765426556, (decimal)43.344881230491005)
             };
