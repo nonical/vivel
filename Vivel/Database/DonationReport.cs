@@ -8,7 +8,7 @@ namespace Vivel.Database
     public partial class DonationReport : BaseModel
     {
         public Guid DonationReportId { get; set; }
-        public string DonationId { get; set; }
+        public Guid DonationId { get; set; }
         public string Note { get; set; }
         public int? LeukocyteCount { get; set; }
         public int? ErythrocyteCount { get; set; }

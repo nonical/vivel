@@ -13,7 +13,7 @@ namespace Vivel.Database
             Drives = new HashSet<Drive>();
         }
 
-        public string HospitalId { get; set; } = Guid.NewGuid().ToString();
+        public Guid HospitalId { get; set; }
         public string Name { get; set; }
         public Point Location { get; set; }
 

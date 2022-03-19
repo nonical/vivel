@@ -1,11 +1,11 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Faq;
-using Vivel.Services;
 
 namespace Vivel.Controllers
 {
@@ -22,7 +22,7 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin,user")]
-        public async override Task<ActionResult<FaqDTO>> GetById(string id)
+        public async override Task<ActionResult<FaqDTO>> GetById(Guid id)
         {
             return await base.GetById(id);
         }
@@ -34,7 +34,7 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async override Task<ActionResult<FaqDTO>> Update(string id, [FromBody] FaqUpdateRequest request)
+        public async override Task<ActionResult<FaqDTO>> Update(Guid id, [FromBody] FaqUpdateRequest request)
         {
             return await base.Update(id, request);
         }

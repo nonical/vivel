@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
-using Vivel.Model.Requests.Faq;
 using Vivel.Model.Requests.PresetBadge;
 
 namespace Vivel.Services

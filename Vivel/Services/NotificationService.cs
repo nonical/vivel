@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
@@ -18,7 +16,7 @@ namespace Vivel.Services
         {
         }
 
-        public async Task PostNotifications<T>(List<string> userIds, string linkId, string title, string content)
+        public async Task PostNotifications<T>(List<Guid> userIds, Guid linkId, string title, string content)
         {
             var notifications = userIds.Select(userId => new Notification
             {

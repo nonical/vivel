@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using DinkToPdf;
@@ -32,7 +33,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Hospital, HospitalDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<PagedResult<DriveDTO>> Drives(string id, DriveSearchRequest request)
+        public async Task<PagedResult<DriveDTO>> Drives(Guid id, DriveSearchRequest request)
         {
             var entity = _context.Drives
                 .Include(x => x.Status)
@@ -68,7 +69,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<HtmlToPdfDocument> DrivesReport(string id, HospitalReportDrivesRequest request)
+        public async Task<HtmlToPdfDocument> DrivesReport(Guid id, HospitalReportDrivesRequest request)
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 
@@ -103,7 +104,7 @@ namespace Vivel.Services
             return HtmlToPdfHelper.GetPdfDocument(html);
         }
 
-        public async Task<HtmlToPdfDocument> LitresByBloodTypeReport(string id, HospitalReportLitresRequest request)
+        public async Task<HtmlToPdfDocument> LitresByBloodTypeReport(Guid id, HospitalReportLitresRequest request)
         {
             var hospital = await _context.Hospitals.FindAsync(id);
 

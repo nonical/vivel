@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +31,7 @@ namespace Vivel.Controllers
         }
 
         [HttpGet("{id}")]
-        public async virtual Task<ActionResult<T>> GetById(string id)
+        public async virtual Task<ActionResult<T>> GetById(Guid id)
         {
             var entity = await _service.GetById(id);
             if (entity != null)
@@ -52,7 +53,7 @@ namespace Vivel.Controllers
         }
 
         [HttpPut("{id}")]
-        public async virtual Task<ActionResult<T>> Update(string id, [FromBody] UpdateRequest request)
+        public async virtual Task<ActionResult<T>> Update(Guid id, [FromBody] UpdateRequest request)
         {
             var entity = await _service.Update(id, request);
 
@@ -64,7 +65,7 @@ namespace Vivel.Controllers
 
         [HttpDelete]
         [Authorize(Roles = "admin")]
-        public async virtual Task<ActionResult<T>> Delete(string id)
+        public async virtual Task<ActionResult<T>> Delete(Guid id)
         {
             var entity = await _service.Delete(id);
 

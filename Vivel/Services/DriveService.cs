@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -72,7 +73,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async override Task<DriveDTO> GetById(string id)
+        public async override Task<DriveDTO> GetById(Guid id)
         {
             var entity = await _context.Drives
                 .Include(x => x.Status)
@@ -109,14 +110,14 @@ namespace Vivel.Services
             return _mapper.Map<DriveDTO>(entity);
         }
 
-        public async Task NotifyUsers(List<string> userIds, Drive drive)
+        public async Task NotifyUsers(List<Guid> userIds, Drive drive)
         {
             var title = drive.Urgency ? "Urgent drive in your area" : "New drive in your area";
 
             await _notificationService.PostNotifications<Drive>(userIds, drive.DriveId, title, "A drive just opened for your blood type!");
         }
 
-        public async override Task<DriveDTO> Update(string id, DriveUpdateRequest request)
+        public async override Task<DriveDTO> Update(Guid id, DriveUpdateRequest request)
         {
             using var connection = _context.Database.GetDbConnection();
             await connection.OpenAsync();
@@ -173,7 +174,7 @@ namespace Vivel.Services
             return _mapper.Map<DriveDTO>(entity);
         }
 
-        public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
+        public async Task<PagedResult<DonationDTO>> Donations(Guid id, DonationSearchRequest request)
         {
             var entity = _context.Donations
                 .Include(x => x.DonationReport)
@@ -197,7 +198,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async Task<DriveDetailsDTO> Details(string id)
+        public async Task<DriveDetailsDTO> Details(Guid id)
         {
             var entity = await _context.Drives
                 .Include(x => x.BloodType)

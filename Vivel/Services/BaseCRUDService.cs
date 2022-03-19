@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Interfaces;
@@ -33,7 +30,7 @@ namespace Vivel.Services
             return await _context.Set<TDb>().GetPagedAsync<TDb, Dto>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async virtual Task<Dto> GetById(string id)
+        public async virtual Task<Dto> GetById(Guid id)
         {
             var entity = await _context.Set<TDb>().FindAsync(id);
 
@@ -53,7 +50,7 @@ namespace Vivel.Services
             return _mapper.Map<Dto>(entity);
         }
 
-        public async virtual Task<Dto> Update(string id, UpdateRequest request)
+        public async virtual Task<Dto> Update(Guid id, UpdateRequest request)
         {
             var set = _context.Set<TDb>();
 
@@ -66,7 +63,7 @@ namespace Vivel.Services
             return _mapper.Map<Dto>(entity);
         }
 
-        public async virtual Task<Dto> Delete(string id)
+        public async virtual Task<Dto> Delete(Guid id)
         {
             var set = _context.Set<TDb>();
 

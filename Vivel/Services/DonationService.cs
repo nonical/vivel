@@ -45,7 +45,7 @@ namespace Vivel.Services
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
-        public async override Task<DonationDTO> GetById(string id)
+        public async override Task<DonationDTO> GetById(Guid id)
         {
             var entity = await _context.Donations
                 .Include(x => x.DonationReport)
@@ -65,12 +65,12 @@ namespace Vivel.Services
                 .Include(x => x.BloodType)
                 .Include(x => x.Donations)
                 .ThenInclude(x => x.Status)
-                .Where(x => x.UserId == request.UserId)
+                .Where(x => x.UserId == Guid.Parse(request.UserId))
                 .FirstOrDefaultAsync();
 
             var drive = await _context.Drives
                 .Include(x => x.BloodType)
-                .Where(x => x.DriveId == request.DriveId)
+                .Where(x => x.DriveId == Guid.Parse(request.DriveId))
                 .FirstOrDefaultAsync();
 
             if (user == null || drive == null)
@@ -107,7 +107,7 @@ namespace Vivel.Services
             return _mapper.Map<DonationDTO>(entity);
         }
 
-        public async override Task<DonationDTO> Update(string id, DonationUpdateRequest request)
+        public async override Task<DonationDTO> Update(Guid id, DonationUpdateRequest request)
         {
             var entity = await _context.Donations
                 .Include(x => x.DonationReport)
@@ -178,10 +178,10 @@ namespace Vivel.Services
                     break;
             }
 
-            await _notificationService.PostNotifications<Donation>(new List<string> { donation.UserId }, donation.DonationId, title, content);
+            await _notificationService.PostNotifications<Donation>(new List<Guid> { donation.UserId }, donation.DonationId, title, content);
         }
 
-        public async Task AddBadges(string userId, string driveId)
+        public async Task AddBadges(Guid userId, Guid driveId)
         {
 
             var user = await _context.Users.Include(x => x.Donations).FirstAsync(x => x.UserId == userId);
@@ -212,7 +212,7 @@ namespace Vivel.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task VerifyUser(string userId)
+        public async Task VerifyUser(Guid userId)
         {
             var user = await _context.Users.FindAsync(userId);
 
@@ -221,7 +221,7 @@ namespace Vivel.Services
             await _context.SaveChangesAsync();
         }
 
-        public async Task ChangeUserBloodtype(string userId, DonationUpdateRequest request)
+        public async Task ChangeUserBloodtype(Guid userId, DonationUpdateRequest request)
         {
             var user = await _context.Users.FindAsync(userId);
 

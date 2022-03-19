@@ -7,8 +7,8 @@ namespace Vivel.Database
 {
     public partial class Drive : BaseModel
     {
-        public string DriveId { get; set; } = Guid.NewGuid().ToString();
-        public string HospitalId { get; set; }
+        public Guid DriveId { get; set; }
+        public Guid HospitalId { get; set; }
         public DateTime? Date { get; set; }
         public BloodType BloodType { get; set; }
         public int? Amount { get; set; }
