@@ -119,10 +119,10 @@ namespace Vivel.Services
 
             drives = drives.Where(x => x.HospitalId == id && x.Status.Name == "Closed");
 
-            var stats = await drives.GroupBy(x => x.BloodType)
+            var stats = await drives.GroupBy(x => x.BloodType.Name)
                                     .Select(x => new LitresByBloodTypeDTO
                                     {
-                                        BloodType = x.Key.Name,
+                                        BloodType = x.Key,
                                         Amount = x.Sum(z => (int)z.Amount) / 1000.00
                                     })
                                     .ToListAsync();
