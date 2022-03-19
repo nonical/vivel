@@ -30,6 +30,9 @@ namespace Vivel.Identity
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
                     o => o.MigrationsAssembly(typeof(Startup).Assembly.FullName)));
 
+            services.AddDbContext<CoreDbContext>(options =>
+               options.UseSqlServer(Configuration.GetConnectionString("CoreConnection")));
+
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
