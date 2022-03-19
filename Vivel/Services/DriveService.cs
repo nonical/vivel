@@ -9,7 +9,6 @@ using Vivel.Extensions;
 using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
@@ -127,24 +126,45 @@ namespace Vivel.Services
 
             var entity = await _context.Drives.FindAsync(id);
             _mapper.Map(request, entity);
+
+            entity.Status = await _context.DriveStatuses.Where(x => x.Name == request.Status).FirstAsync();
+
             await _context.SaveChangesAsync();
 
             if (request.Status == "Closed")
             {
-                var rawSql = @"UPDATE Donation
-                               SET Status = 'Rejected', Note = @Note
-                               WHERE DriveID = @DriveID AND (Status = 'Pending' OR Status = 'Scheduled')";
+                var sqlUpdateDonations = @"UPDATE Donations
+                                           SET StatusDonationStatusId = @rejectedId, UpdatedAt = GETDATE()
+                                           WHERE DriveId = @driveId AND StatusDonationStatusId IN (@pendingId, @scheduledId)";
 
-                var driveId = new SqlParameter("@DriveID", id);
-                var note = new SqlParameter("@Note", "Drive has been closed by the hospital");
+                var sqlUpdateDonationReports = @"UPDATE DonationReports
+                                                 SET Note = @note, UpdatedAt = GETDATE()
+                                                 WHERE DonationId IN (SELECT DonationId
+                                                                      FROM Donations
+                                                                      WHERE DriveId = @driveId AND StatusDonationStatusId = @rejectedId AND Note IS NULL)";
 
-                var command = connection.CreateCommand();
-                command.Transaction = transaction;
-                command.CommandText = rawSql;
-                command.Parameters.Add(driveId);
-                command.Parameters.Add(note);
+                var rejectedStatusId = await _context.DonationStatuses.Where(x => x.Name == "Rejected").Select(x => x.DonationStatusId).FirstAsync();
+                var pendingStatusId = await _context.DonationStatuses.Where(x => x.Name == "Pending").Select(x => x.DonationStatusId).FirstAsync();
+                var scheduledStatusId = await _context.DonationStatuses.Where(x => x.Name == "Scheduled").Select(x => x.DonationStatusId).FirstAsync();
 
-                await command.ExecuteNonQueryAsync();
+                var commandDonations = connection.CreateCommand();
+                var commandDonationReports = connection.CreateCommand();
+
+                commandDonations.Transaction = transaction;
+                commandDonations.CommandText = sqlUpdateDonations;
+                commandDonations.Parameters.Add(new SqlParameter("@rejectedId", rejectedStatusId));
+                commandDonations.Parameters.Add(new SqlParameter("@driveId", id));
+                commandDonations.Parameters.Add(new SqlParameter("@pendingId", pendingStatusId));
+                commandDonations.Parameters.Add(new SqlParameter("@scheduledId", scheduledStatusId));
+
+                commandDonationReports.Transaction = transaction;
+                commandDonationReports.CommandText = sqlUpdateDonationReports;
+                commandDonationReports.Parameters.Add(new SqlParameter("@note", "Drive has been closed by the hospital"));
+                commandDonationReports.Parameters.Add(new SqlParameter("@driveId", id));
+                commandDonationReports.Parameters.Add(new SqlParameter("@rejectedId", rejectedStatusId));
+
+                await commandDonations.ExecuteNonQueryAsync();
+                await commandDonationReports.ExecuteNonQueryAsync();
             }
 
             transaction.Commit();
