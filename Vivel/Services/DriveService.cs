@@ -89,6 +89,7 @@ namespace Vivel.Services
             var entity = _mapper.Map<Drive>(request);
 
             entity.Status = await _context.DriveStatuses.FirstAsync(x => x.Name == "Open");
+            entity.BloodType = await _context.BloodTypes.Where(x => x.Name == request.BloodType).FirstAsync();
 
             await _context.AddAsync(entity);
 
@@ -104,7 +105,6 @@ namespace Vivel.Services
 
 
             await NotifyUsers(userIds, entity);
-
 
             return _mapper.Map<DriveDTO>(entity);
         }
@@ -128,6 +128,7 @@ namespace Vivel.Services
             _mapper.Map(request, entity);
 
             entity.Status = await _context.DriveStatuses.Where(x => x.Name == request.Status).FirstAsync();
+            entity.BloodType = await _context.BloodTypes.Where(x => x.Name == request.BloodType).FirstAsync();
 
             await _context.SaveChangesAsync();
 
