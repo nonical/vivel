@@ -242,7 +242,7 @@ namespace IdentityServerHost.Quickstart.UI
                 return new OkResult();
             }
 
-            return new BadRequestResult();
+            return StatusCode(400, result.Errors);
         }
 
 
