@@ -4,13 +4,11 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using NetTopologySuite.Geometries;
 using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Donation;
 using Vivel.Model.Requests.Drive;
@@ -28,12 +26,15 @@ namespace Vivel.Services
 
         public async override Task<PagedResult<DriveDTO>> Get(DriveSearchRequest request = null)
         {
-            var entity = _context.Set<Drive>().Include(x => x.Hospital).AsQueryable();
+            var entity = _context.Set<Drive>()
+                .Include(x => x.Status)
+                .Include(x => x.BloodType)
+                .Include(x => x.Hospital)
+                .AsQueryable();
 
             if (request?.FromDate != null)
             {
                 entity = entity.Where(x => x.Date >= request.FromDate);
-
             }
 
             if (request?.ToDate != null)
@@ -43,7 +44,7 @@ namespace Vivel.Services
 
             if (request?.BloodType?.Count > 0)
             {
-                entity = entity.Where(drive => request.BloodType.Select(x => BloodType.FromName(x, false)).Any(z => z == drive.BloodType));
+                entity = entity.Where(drive => request.BloodType.Any(x => x == drive.BloodType.Name));
             }
 
             if (request?.Amount != null)
@@ -53,7 +54,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(drive => request.Status.Select(x => DriveStatus.FromName(x, false)).Any(y => y == drive.Status));
+                entity = entity.Where(drive => request.Status.Contains(drive.Status.Name));
             }
 
             entity = entity.OrderByDescending(drive => drive.Urgency);
@@ -62,18 +63,23 @@ namespace Vivel.Services
             {
                 var location = GeographyHelper.CreatePoint(request.Longitude, request.Latitude);
 
-                entity = entity.Where(drive => drive.Hospital.Location.Distance(location) <= 30000)
+                entity = entity
+                    .Where(drive => drive.Hospital.Location.Distance(location) <= 30000)
                     .OrderByDescending(drive => drive.Urgency)
                     .ThenBy(drive => drive.Hospital.Location.Distance(location));
             }
-
 
             return await entity.GetPagedAsync<Drive, DriveDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
         }
 
         public async override Task<DriveDTO> GetById(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Hospital).FirstOrDefaultAsync(x => x.DriveId == id);
+            var entity = await _context.Drives
+                .Include(x => x.Status)
+                .Include(x => x.Hospital)
+                .Include(x => x.BloodType)
+                .Where(x => x.DriveId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DriveDTO>(entity);
         }
@@ -81,6 +87,9 @@ namespace Vivel.Services
         public async override Task<DriveDTO> Insert(DriveInsertRequest request)
         {
             var entity = _mapper.Map<Drive>(request);
+
+            entity.Status = await _context.DriveStatuses.FirstAsync(x => x.Name == "Open");
+            entity.BloodType = await _context.BloodTypes.Where(x => x.Name == request.BloodType).FirstAsync();
 
             await _context.AddAsync(entity);
 
@@ -96,7 +105,6 @@ namespace Vivel.Services
 
 
             await NotifyUsers(userIds, entity);
-
 
             return _mapper.Map<DriveDTO>(entity);
         }
@@ -118,24 +126,46 @@ namespace Vivel.Services
 
             var entity = await _context.Drives.FindAsync(id);
             _mapper.Map(request, entity);
+
+            entity.Status = await _context.DriveStatuses.Where(x => x.Name == request.Status).FirstAsync();
+            entity.BloodType = await _context.BloodTypes.Where(x => x.Name == request.BloodType).FirstAsync();
+
             await _context.SaveChangesAsync();
 
-            if (request.Status == DriveStatus.Closed.Name)
+            if (request.Status == "Closed")
             {
-                var rawSql = @"UPDATE Donation
-                               SET Status = 'Rejected', Note = @Note
-                               WHERE DriveID = @DriveID AND (Status = 'Pending' OR Status = 'Scheduled')";
+                var sqlUpdateDonations = @"UPDATE Donations
+                                           SET StatusDonationStatusId = @rejectedId, UpdatedAt = GETDATE()
+                                           WHERE DriveId = @driveId AND StatusDonationStatusId IN (@pendingId, @scheduledId)";
 
-                var driveId = new SqlParameter("@DriveID", id);
-                var note = new SqlParameter("@Note", "Drive has been closed by the hospital");
+                var sqlUpdateDonationReports = @"UPDATE DonationReports
+                                                 SET Note = @note, UpdatedAt = GETDATE()
+                                                 WHERE DonationId IN (SELECT DonationId
+                                                                      FROM Donations
+                                                                      WHERE DriveId = @driveId AND StatusDonationStatusId = @rejectedId AND Note IS NULL)";
 
-                var command = connection.CreateCommand();
-                command.Transaction = transaction;
-                command.CommandText = rawSql;
-                command.Parameters.Add(driveId);
-                command.Parameters.Add(note);
+                var rejectedStatusId = await _context.DonationStatuses.Where(x => x.Name == "Rejected").Select(x => x.DonationStatusId).FirstAsync();
+                var pendingStatusId = await _context.DonationStatuses.Where(x => x.Name == "Pending").Select(x => x.DonationStatusId).FirstAsync();
+                var scheduledStatusId = await _context.DonationStatuses.Where(x => x.Name == "Scheduled").Select(x => x.DonationStatusId).FirstAsync();
 
-                await command.ExecuteNonQueryAsync();
+                var commandDonations = connection.CreateCommand();
+                var commandDonationReports = connection.CreateCommand();
+
+                commandDonations.Transaction = transaction;
+                commandDonations.CommandText = sqlUpdateDonations;
+                commandDonations.Parameters.Add(new SqlParameter("@rejectedId", rejectedStatusId));
+                commandDonations.Parameters.Add(new SqlParameter("@driveId", id));
+                commandDonations.Parameters.Add(new SqlParameter("@pendingId", pendingStatusId));
+                commandDonations.Parameters.Add(new SqlParameter("@scheduledId", scheduledStatusId));
+
+                commandDonationReports.Transaction = transaction;
+                commandDonationReports.CommandText = sqlUpdateDonationReports;
+                commandDonationReports.Parameters.Add(new SqlParameter("@note", "Drive has been closed by the hospital"));
+                commandDonationReports.Parameters.Add(new SqlParameter("@driveId", id));
+                commandDonationReports.Parameters.Add(new SqlParameter("@rejectedId", rejectedStatusId));
+
+                await commandDonations.ExecuteNonQueryAsync();
+                await commandDonationReports.ExecuteNonQueryAsync();
             }
 
             transaction.Commit();
@@ -145,7 +175,14 @@ namespace Vivel.Services
 
         public async Task<PagedResult<DonationDTO>> Donations(string id, DonationSearchRequest request)
         {
-            var entity = _context.Donations.Where(x => x.DriveId == id).Include(x => x.User).AsQueryable();
+            var entity = _context.Donations
+                .Include(x => x.DonationReport)
+                .Include(x => x.Status)
+                .Include(x => x.Drive).ThenInclude(x => x.BloodType)
+                .Include(x => x.Drive).ThenInclude(x => x.Hospital)
+                .Include(x => x.User)
+                .Where(x => x.DriveId == id)
+                .AsQueryable();
 
             if (request?.ScheduledAt != null)
             {
@@ -154,7 +191,7 @@ namespace Vivel.Services
 
             if (request?.Status?.Count > 0)
             {
-                entity = entity.Where(donation => request.Status.Select(x => DonationStatus.FromName(x, false)).Any(y => y == donation.Status));
+                entity = entity.Where(donation => request.Status.Any(x => x == donation.Status.Name));
             }
 
             return await entity.GetPagedAsync<Donation, DonationDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
@@ -162,7 +199,12 @@ namespace Vivel.Services
 
         public async Task<DriveDetailsDTO> Details(string id)
         {
-            var entity = await _context.Drives.Include(x => x.Donations).Where(x => x.DriveId == id).FirstOrDefaultAsync();
+            var entity = await _context.Drives
+                .Include(x => x.BloodType)
+                .Include(x => x.Hospital)
+                .Include(x => x.Donations).ThenInclude(x => x.Status)
+                .Where(x => x.DriveId == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<DriveDetailsDTO>(entity);
         }
