@@ -6,7 +6,6 @@ using Vivel.Database;
 using Vivel.Extensions;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Badge;
 using Vivel.Model.Requests.Donation;

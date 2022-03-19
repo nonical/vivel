@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Vivel.Model.Enums;
 
 #nullable disable
 

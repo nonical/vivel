@@ -9,7 +9,6 @@ using Vivel.Helpers;
 using Vivel.Helpers.Reports;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
-using Vivel.Model.Enums;
 using Vivel.Model.Pagination;
 using Vivel.Model.Requests.Drive;
 using Vivel.Model.Requests.Hospital;

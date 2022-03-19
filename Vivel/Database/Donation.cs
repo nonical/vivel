@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
-using Vivel.Model.Enums;
 
 #nullable disable
 
