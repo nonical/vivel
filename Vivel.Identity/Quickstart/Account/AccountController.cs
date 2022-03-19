@@ -14,8 +14,14 @@ using IdentityModel;
 using IdentityServerHost.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Vivel.Identity.Data;
+using Vivel.Identity.Data.Entities;
+using Vivel.Identity.Quickstart.Account;
+using static Vivel.Identity.Data.CoreDbContext;
 
 namespace IdentityServerHost.Quickstart.UI
 {
@@ -25,6 +31,7 @@ namespace IdentityServerHost.Quickstart.UI
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly CoreDbContext _coreDbContext;
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IClientStore _clientStore;
         private readonly IAuthenticationSchemeProvider _schemeProvider;
@@ -33,6 +40,7 @@ namespace IdentityServerHost.Quickstart.UI
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
+            CoreDbContext coreDbContext,
             IIdentityServerInteractionService interaction,
             IClientStore clientStore,
             IAuthenticationSchemeProvider schemeProvider,
@@ -40,6 +48,7 @@ namespace IdentityServerHost.Quickstart.UI
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _coreDbContext = coreDbContext;
             _interaction = interaction;
             _clientStore = clientStore;
             _schemeProvider = schemeProvider;
@@ -205,6 +214,35 @@ namespace IdentityServerHost.Quickstart.UI
         public IActionResult AccessDenied()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SignUp(SignUpInputModel model)
+        {
+            ApplicationUser appUser = new ApplicationUser
+            {
+                UserName = model.Username,
+                EmailConfirmed = true
+            };
+
+            var result = await _userManager.CreateAsync(appUser, model.Password);
+
+            if (result.Succeeded)
+            {
+                var newUser = new CoreUser
+                {
+                    UserId = appUser.Id,
+                    UserName = appUser.UserName
+                };
+
+                _coreDbContext.Add(newUser);
+
+                await _coreDbContext.SaveChangesAsync();
+
+                return new OkResult();
+            }
+
+            return StatusCode(400, result.Errors);
         }
 
 
