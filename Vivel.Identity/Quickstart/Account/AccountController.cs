@@ -226,6 +226,7 @@ namespace IdentityServerHost.Quickstart.UI
             };
 
             var result = await _userManager.CreateAsync(appUser, model.Password);
+            await _userManager.AddToRoleAsync(appUser, "user");
 
             if (result.Succeeded)
             {
