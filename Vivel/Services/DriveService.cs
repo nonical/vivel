@@ -201,6 +201,7 @@ namespace Vivel.Services
         public async Task<DriveDetailsDTO> Details(Guid id)
         {
             var entity = await _context.Drives
+                .Include(x => x.Status)
                 .Include(x => x.BloodType)
                 .Include(x => x.Hospital)
                 .Include(x => x.Donations).ThenInclude(x => x.Status)

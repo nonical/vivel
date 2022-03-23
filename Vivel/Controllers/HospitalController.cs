@@ -52,7 +52,7 @@ namespace Vivel.Controllers
         {
             var hospitalClaimValue = getHospitalClaim();
 
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+            if (userIsAdmin() || (hospitalClaimValue != Guid.Empty && hospitalClaimValue == id))
                 return new OkObjectResult(await _hospitalService.Drives(id, request));
 
             return Unauthorized();
@@ -64,7 +64,7 @@ namespace Vivel.Controllers
         {
             var hospitalClaimValue = getHospitalClaim();
 
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+            if (userIsAdmin() || (hospitalClaimValue != Guid.Empty && hospitalClaimValue == id))
             {
                 var pdf = await _hospitalService.DrivesReport(id, request);
 
@@ -82,7 +82,7 @@ namespace Vivel.Controllers
         {
             var hospitalClaimValue = getHospitalClaim();
 
-            if (userIsAdmin() || (hospitalClaimValue != null && hospitalClaimValue == id))
+            if (userIsAdmin() || (hospitalClaimValue != Guid.Empty && hospitalClaimValue == id))
             {
                 var pdf = await _hospitalService.LitresByBloodTypeReport(id, request);
 
@@ -99,6 +99,9 @@ namespace Vivel.Controllers
             var identity = HttpContext.User.Identity as ClaimsIdentity;
 
             var hospitalClaimValue = identity.FindFirst("hospital")?.Value;
+
+            if (hospitalClaimValue == null)
+                return Guid.Empty;
 
             return Guid.Parse(hospitalClaimValue);
         }
