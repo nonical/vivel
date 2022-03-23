@@ -92,7 +92,7 @@ namespace Vivel.Services
                 .Select(x => x.UpdatedAt)
                 .FirstOrDefault();
 
-            if (lastDonationDate.Value.AddMonths(3) > DateTime.Now)
+            if (lastDonationDate != null && lastDonationDate.Value.AddMonths(3) > DateTime.Now)
                 return null;
 
             var entity = _mapper.Map<Donation>(request);
@@ -117,6 +117,8 @@ namespace Vivel.Services
                 .Where(x => x.DonationId == id)
                 .FirstOrDefaultAsync();
 
+            var donationStatus = entity.Status.Name;
+
             if (request.Status == "Approved")
             {
                 entity.Amount = 350;
@@ -130,7 +132,7 @@ namespace Vivel.Services
 
             await _context.SaveChangesAsync();
 
-            if (entity.Status.Name != request.Status)
+            if (donationStatus != request.Status)
                 await StatusChanged(entity, request);
 
             return _mapper.Map<DonationDTO>(entity);
