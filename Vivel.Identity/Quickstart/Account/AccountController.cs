@@ -232,7 +232,7 @@ namespace IdentityServerHost.Quickstart.UI
             {
                 var newUser = new CoreUser
                 {
-                    UserId = appUser.Id,
+                    UserId = Guid.Parse(appUser.Id),
                     UserName = appUser.UserName
                 };
 
