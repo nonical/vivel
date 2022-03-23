@@ -44,7 +44,7 @@ namespace Vivel.Profiles
             CreateMap<Database.User, UserDetailsDTO>()
                 .ForMember(destination => destination.BloodType, o => o.MapFrom(source => source.BloodType.Name))
                 .ForMember(destination => destination.DonationCount, o => o.MapFrom(source => source.Donations.Count))
-                .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status.Name == "Approved").OrderBy(x => x.UpdatedAt).Last().UpdatedAt))
+                .ForMember(destination => destination.LastDonation, o => o.MapFrom(source => source.Donations.Where(x => x.Status.Name == "Approved").OrderBy(x => x.UpdatedAt).LastOrDefault().UpdatedAt))
                 .ForMember(destination => destination.LitresDonated, o => o.MapFrom(source => source.Donations.Sum(x => x.Amount) * 0.001));
             CreateMap<UserUpdateRequest, Database.User>()
                 .ForMember(destination => destination.Location, o => o.MapFrom(source => GeographyHelper.CreatePoint(source.Longitude, source.Latitude)));
