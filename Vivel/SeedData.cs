@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Vivel.Database;
@@ -226,6 +226,17 @@ namespace Vivel
                 Status = donationStatus_Pending,
             };
             context.Add(donationAlicePending);
+            context.SaveChanges();
+
+            var donationAlicePendingReport = new DonationReport
+            {
+                Donation = donationAlicePending,
+                LeukocyteCount = 0,
+                ErythrocyteCount = 0,
+                PlateletCount = 0,
+                Note = ""
+            };
+            context.Add(donationAlicePendingReport);
             context.SaveChanges();
 
             // alice approved donation
