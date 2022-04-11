@@ -63,10 +63,7 @@ namespace Vivel.Desktop.Hospital
 
         private void lblHospitalClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            txtHospitalIdUpsert.Text = "";
-            txtHospitalNameUpsert.Text = "";
-            txtHospitalLatitudeUpsert.Text = "";
-            txtHospitalLongitudeUpsert.Text = "";
+            clearForm();
         }
 
         private async void btnHospitalSave_Click(object sender, EventArgs e)
@@ -89,10 +86,7 @@ namespace Vivel.Desktop.Hospital
                 await _service.Update<HospitalDTO>(id, request);
                 GetHospitals();
 
-                txtHospitalIdUpsert.Text = "";
-                txtHospitalNameUpsert.Text = "";
-                txtHospitalLatitudeUpsert.Text = "";
-                txtHospitalLongitudeUpsert.Text = "";
+                clearForm();
             }
         }
 
@@ -104,6 +98,14 @@ namespace Vivel.Desktop.Hospital
         private void lblHospitalPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             GetHospitals(_currentPage - 1);
+        }
+
+        private void clearForm()
+        {
+            txtHospitalIdUpsert.Text = "";
+            txtHospitalNameUpsert.Text = "";
+            txtHospitalLatitudeUpsert.Text = "";
+            txtHospitalLongitudeUpsert.Text = "";
         }
     }
 }
