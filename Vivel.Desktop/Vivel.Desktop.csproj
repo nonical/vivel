@@ -199,6 +199,7 @@
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DriveDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.HospitalDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.PresetBadgeDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
