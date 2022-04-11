@@ -48,12 +48,7 @@ namespace Vivel.Desktop.Resources.FAQ
                 txtQuestionId.Text = faq.Faqid;
                 txtQuestion.Text = faq.Question;
                 txtAnswer.Text = faq.Answer;
-            }
-            else
-            {
-                txtQuestionId.Text = null;
-                txtQuestion.Text = null;
-                txtAnswer.Text = null;
+                cbFAQFormAnswered.Checked = (bool)faq.Answered;
             }
         }
 
@@ -62,14 +57,13 @@ namespace Vivel.Desktop.Resources.FAQ
             updateFAQ(txtQuestionId.Text, new FaqUpdateRequest()
             {
                 Answer = txtAnswer.Text,
-                Answered = !string.IsNullOrWhiteSpace(txtAnswer.Text),
+                Answered = cbFAQFormAnswered.Checked,
                 Question = txtQuestion.Text
+
             });
             getFAQs();
 
-            txtQuestionId.Text = "";
-            txtQuestion.Text = "";
-            txtAnswer.Text = "";
+            clearForm();
         }
 
         private void btnFAQSearch_Click(object sender, System.EventArgs e)
@@ -85,6 +79,19 @@ namespace Vivel.Desktop.Resources.FAQ
         private void lblFAQPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             getFAQs(_currentPage - 1);
+        }
+
+        private void lblFAQClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            clearForm();
+        }
+
+        private void clearForm()
+        {
+            txtQuestionId.Text = "";
+            txtQuestion.Text = "";
+            txtAnswer.Text = "";
+            cbFAQFormAnswered.Checked = false;
         }
     }
 }
