@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,7 +40,7 @@ namespace Vivel.Desktop.Resources.PresetBadge
             {
                 Name = txtPresetBadgeNameUpsert.Text,
                 Description = txtPresetBadgeDescriptionUpsert.Text,
-                Picture = txtPresetBadgeImageUpsert.Text,
+                Picture = ConvertImageToBase64(pbPresetBadgeImage.Image)
             };
 
             if (string.IsNullOrWhiteSpace(txtPresetBadgeIdUpsert.Text))
@@ -54,19 +55,12 @@ namespace Vivel.Desktop.Resources.PresetBadge
                 GetPresetBadges();
 
             }
-            txtPresetBadgeIdUpsert.Text = "";
-            txtPresetBadgeNameUpsert.Text = "";
-            txtPresetBadgeDescriptionUpsert.Text = "";
-            txtPresetBadgeImageUpsert.Text = "";
+            clearForm();
         }
 
         private void lblPresetBadgeClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            txtPresetBadgeIdUpsert.Text = "";
-            txtPresetBadgeNameUpsert.Text = "";
-            txtPresetBadgeDescriptionUpsert.Text = "";
-            txtPresetBadgeImageUpsert.Text = "";
-
+            clearForm();
         }
 
         private void btnSearchPresetBadge_Click(object sender, EventArgs e)
@@ -86,7 +80,44 @@ namespace Vivel.Desktop.Resources.PresetBadge
             txtPresetBadgeIdUpsert.Text = badge.PresetBadgeId;
             txtPresetBadgeNameUpsert.Text = badge.Name;
             txtPresetBadgeDescriptionUpsert.Text = badge.Description;
-            txtPresetBadgeImageUpsert.Text = badge.Picture;
+            pbPresetBadgeImage.Image = LoadImageFromBase64(badge.Picture);
+        }
+
+        private void pbPresetBadgeImage_Click(object sender, EventArgs e)
+        {
+            ofdPresetBadgeImage.FileName = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;";
+            if (ofdPresetBadgeImage.ShowDialog() == DialogResult.OK)
+            {
+                pbPresetBadgeImage.Image = new Bitmap(ofdPresetBadgeImage.FileName);
+            }
+        }
+        public static Image LoadImageFromBase64(string base64)
+        {
+            byte[] bytes = Convert.FromBase64String(base64);
+            Image image;
+            using (MemoryStream ms = new MemoryStream(bytes))
+            {
+                image = Image.FromStream(ms);
+            }
+            return image;
+        }
+
+        public string ConvertImageToBase64(Image file)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                file.Save(memoryStream, file.RawFormat);
+                byte[] imageBytes = memoryStream.ToArray();
+                return Convert.ToBase64String(imageBytes);
+            }
+        }
+
+        private void clearForm()
+        {
+            txtPresetBadgeIdUpsert.Text = "";
+            txtPresetBadgeNameUpsert.Text = "";
+            txtPresetBadgeDescriptionUpsert.Text = "";
+            pbPresetBadgeImage.Image = null;
         }
     }
 }
