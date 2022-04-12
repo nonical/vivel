@@ -34,15 +34,6 @@ namespace Vivel.Desktop.Resources.FAQ
             dgvFAQs.DataSource = response.Results;
         }
 
-        async void insertFAQ(FaqUpsertRequest body)
-        {
-        }
-
-        async void updateFAQ(string faqId, FaqUpsertRequest updateBody)
-        {
-            await _apiService.Update<FaqDTO>(faqId, updateBody);
-        }
-
         private void dgvFAQs_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             if (e.Row.Selected)
