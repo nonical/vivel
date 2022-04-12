@@ -143,7 +143,7 @@ namespace Vivel.Desktop
         {
             cleanMdiParent();
 
-            var form = new frmUser(_accessToken)
+            var form = new frmDonation(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill

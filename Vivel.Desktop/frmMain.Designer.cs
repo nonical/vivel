@@ -37,10 +37,9 @@
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
-            //
+            // 
             // menuStrip
-            //
-            this.menuStrip.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
+            // 
             this.menuStrip.Enabled = false;
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -52,61 +51,61 @@
             this.reportsToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1910, 46);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(3, 1, 0, 1);
+            this.menuStrip.Size = new System.Drawing.Size(955, 24);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "MenuStrip";
-            //
+            // 
             // hospitalsToolStripMenuItem
-            //
+            // 
             this.hospitalsToolStripMenuItem.Name = "hospitalsToolStripMenuItem";
-            this.hospitalsToolStripMenuItem.Size = new System.Drawing.Size(132, 38);
+            this.hospitalsToolStripMenuItem.Size = new System.Drawing.Size(68, 22);
             this.hospitalsToolStripMenuItem.Text = "Hospitals";
             this.hospitalsToolStripMenuItem.Click += new System.EventHandler(this.hospitalsToolStripMenuItem_Click);
-            //
+            // 
             // usersToolStripMenuItem
-            //
+            // 
             this.usersToolStripMenuItem.Name = "usersToolStripMenuItem";
-            this.usersToolStripMenuItem.Size = new System.Drawing.Size(92, 38);
-            this.usersToolStripMenuItem.Text = "Users";
+            this.usersToolStripMenuItem.Size = new System.Drawing.Size(73, 22);
+            this.usersToolStripMenuItem.Text = "Donations";
             this.usersToolStripMenuItem.Click += new System.EventHandler(this.usersToolStripMenuItem_Click);
-            //
+            // 
             // drivesToolStripMenuItem
-            //
+            // 
             this.drivesToolStripMenuItem.Name = "drivesToolStripMenuItem";
-            this.drivesToolStripMenuItem.Size = new System.Drawing.Size(101, 38);
+            this.drivesToolStripMenuItem.Size = new System.Drawing.Size(51, 22);
             this.drivesToolStripMenuItem.Text = "Drives";
             this.drivesToolStripMenuItem.Click += new System.EventHandler(this.drivesToolStripMenuItem_Click);
-            //
+            // 
             // fAQToolStripMenuItem
-            //
+            // 
             this.fAQToolStripMenuItem.Name = "fAQToolStripMenuItem";
-            this.fAQToolStripMenuItem.Size = new System.Drawing.Size(79, 38);
+            this.fAQToolStripMenuItem.Size = new System.Drawing.Size(41, 22);
             this.fAQToolStripMenuItem.Text = "FAQ";
             this.fAQToolStripMenuItem.Click += new System.EventHandler(this.fAQToolStripMenuItem_Click);
-            //
+            // 
             // presetBadgesToolStripMenuItem
-            //
+            // 
             this.presetBadgesToolStripMenuItem.Name = "presetBadgesToolStripMenuItem";
-            this.presetBadgesToolStripMenuItem.Size = new System.Drawing.Size(184, 38);
+            this.presetBadgesToolStripMenuItem.Size = new System.Drawing.Size(92, 22);
             this.presetBadgesToolStripMenuItem.Text = "Preset Badges";
             this.presetBadgesToolStripMenuItem.Click += new System.EventHandler(this.presetBadgesToolStripMenuItem_Click);
-            //
+            // 
             // reportsToolStripMenuItem
-            //
+            // 
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
-            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(115, 38);
+            this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 22);
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
-            //
+            // 
             // frmMain
-            //
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1910, 1104);
+            this.ClientSize = new System.Drawing.Size(955, 552);
             this.Controls.Add(this.menuStrip);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip;
-            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmMain";
