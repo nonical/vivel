@@ -9,7 +9,7 @@ using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Controllers
 {
-    public class FaqController : BaseCRUDController<FaqDTO, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>
+    public class FaqController : BaseCRUDController<FaqDTO, FaqSearchRequest, FaqUpsertRequest, FaqUpsertRequest>
     {
         public FaqController(IFaqService service) : base(service)
         {
@@ -28,13 +28,13 @@ namespace Vivel.Controllers
         }
 
         [Authorize(Roles = "admin,user")]
-        public async override Task<ActionResult<FaqDTO>> Insert([FromBody] FaqInsertRequest request)
+        public async override Task<ActionResult<FaqDTO>> Insert([FromBody] FaqUpsertRequest request)
         {
             return await base.Insert(request);
         }
 
         [Authorize(Roles = "admin")]
-        public async override Task<ActionResult<FaqDTO>> Update(Guid id, [FromBody] FaqUpdateRequest request)
+        public async override Task<ActionResult<FaqDTO>> Update(Guid id, [FromBody] FaqUpsertRequest request)
         {
             return await base.Update(id, request);
         }

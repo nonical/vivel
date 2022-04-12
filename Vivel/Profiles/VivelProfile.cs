@@ -18,8 +18,7 @@ namespace Vivel.Profiles
         {
             // Faq
             CreateMap<Database.Faq, FaqDTO>();
-            CreateMap<FaqInsertRequest, Database.Faq>();
-            CreateMap<FaqUpdateRequest, Database.Faq>();
+            CreateMap<FaqUpsertRequest, Database.Faq>();
 
             // PresetBadge
             CreateMap<Database.PresetBadge, PresetBadgeDTO>();

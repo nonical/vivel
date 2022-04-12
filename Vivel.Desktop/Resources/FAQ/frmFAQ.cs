@@ -34,7 +34,11 @@ namespace Vivel.Desktop.Resources.FAQ
             dgvFAQs.DataSource = response.Results;
         }
 
-        async void updateFAQ(string faqId, FaqUpdateRequest updateBody)
+        async void insertFAQ(FaqUpsertRequest body)
+        {
+        }
+
+        async void updateFAQ(string faqId, FaqUpsertRequest updateBody)
         {
             await _apiService.Update<FaqDTO>(faqId, updateBody);
         }
@@ -52,18 +56,29 @@ namespace Vivel.Desktop.Resources.FAQ
             }
         }
 
-        private void btnSave_Click(object sender, System.EventArgs e)
+        private async void btnSave_Click(object sender, System.EventArgs e)
         {
-            updateFAQ(txtQuestionId.Text, new FaqUpdateRequest()
+            var request = new FaqUpsertRequest
             {
                 Answer = txtAnswer.Text,
                 Answered = cbFAQFormAnswered.Checked,
                 Question = txtQuestion.Text
+            };
 
-            });
-            getFAQs();
+            if (string.IsNullOrWhiteSpace(txtQuestionId.Text))
+            {
+                await _apiService.Insert<FaqDTO>(request);
 
-            clearForm();
+                getFAQs();
+            }
+            else
+            {
+                var id = txtQuestionId.Text;
+                await _apiService.Update<FaqDTO>(id, request);
+                getFAQs();
+
+                clearForm();
+            }
         }
 
         private void btnFAQSearch_Click(object sender, System.EventArgs e)
