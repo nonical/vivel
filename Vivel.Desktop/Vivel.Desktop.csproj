@@ -122,6 +122,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FormValidator.cs" />
     <Compile Include="Resources\Drive\frmDrive.cs">
       <SubType>Form</SubType>
     </Compile>

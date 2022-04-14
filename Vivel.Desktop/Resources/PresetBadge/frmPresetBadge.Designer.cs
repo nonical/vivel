@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.pbPresetBadgeImage = new System.Windows.Forms.PictureBox();
             this.txtPresetBadgeDescriptionUpsert = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.lblPresetBadgeClear = new System.Windows.Forms.LinkLabel();
@@ -39,24 +41,24 @@
             this.txtPresetBadgeNameUpsert = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dgvPresetBadge = new System.Windows.Forms.DataGridView();
+            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.presetBadgeDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnSearchPresetBadge = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.txtPresetBadgeNameSearch = new System.Windows.Forms.TextBox();
             this.ofdPresetBadgeImage = new System.Windows.Forms.OpenFileDialog();
-            this.pbPresetBadgeImage = new System.Windows.Forms.PictureBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.nameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descriptionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pictureDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetBadgeImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresetBadge)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetBadgeDTOBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbPresetBadgeImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -78,6 +80,26 @@
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Create/Update";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(18, 174);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(36, 13);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "Image";
+            // 
+            // pbPresetBadgeImage
+            // 
+            this.pbPresetBadgeImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pbPresetBadgeImage.Location = new System.Drawing.Point(21, 190);
+            this.pbPresetBadgeImage.Name = "pbPresetBadgeImage";
+            this.pbPresetBadgeImage.Size = new System.Drawing.Size(197, 80);
+            this.pbPresetBadgeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbPresetBadgeImage.TabIndex = 12;
+            this.pbPresetBadgeImage.TabStop = false;
+            this.pbPresetBadgeImage.Click += new System.EventHandler(this.pbPresetBadgeImage_Click);
             // 
             // txtPresetBadgeDescriptionUpsert
             // 
@@ -171,6 +193,41 @@
             this.dgvPresetBadge.TabIndex = 0;
             this.dgvPresetBadge.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPresetBadge_CellContentClick);
             // 
+            // nameDataGridViewTextBoxColumn
+            // 
+            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
+            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
+            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
+            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descriptionDataGridViewTextBoxColumn
+            // 
+            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
+            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
+            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
+            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // pictureDataGridViewTextBoxColumn
+            // 
+            this.pictureDataGridViewTextBoxColumn.DataPropertyName = "Picture";
+            this.pictureDataGridViewTextBoxColumn.HeaderText = "Picture";
+            this.pictureDataGridViewTextBoxColumn.Name = "pictureDataGridViewTextBoxColumn";
+            this.pictureDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createdAtDataGridViewTextBoxColumn
+            // 
+            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // updatedAtDataGridViewTextBoxColumn
+            // 
+            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
+            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // presetBadgeDTOBindingSource
             // 
             this.presetBadgeDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.PresetBadgeDTO);
@@ -215,60 +272,9 @@
             // 
             this.ofdPresetBadgeImage.FileName = "openFileDialog1";
             // 
-            // pbPresetBadgeImage
+            // errorProvider1
             // 
-            this.pbPresetBadgeImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pbPresetBadgeImage.Location = new System.Drawing.Point(21, 190);
-            this.pbPresetBadgeImage.Name = "pbPresetBadgeImage";
-            this.pbPresetBadgeImage.Size = new System.Drawing.Size(197, 80);
-            this.pbPresetBadgeImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbPresetBadgeImage.TabIndex = 12;
-            this.pbPresetBadgeImage.TabStop = false;
-            this.pbPresetBadgeImage.Click += new System.EventHandler(this.pbPresetBadgeImage_Click);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(18, 174);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(36, 13);
-            this.label4.TabIndex = 13;
-            this.label4.Text = "Image";
-            // 
-            // nameDataGridViewTextBoxColumn
-            // 
-            this.nameDataGridViewTextBoxColumn.DataPropertyName = "Name";
-            this.nameDataGridViewTextBoxColumn.HeaderText = "Name";
-            this.nameDataGridViewTextBoxColumn.Name = "nameDataGridViewTextBoxColumn";
-            this.nameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descriptionDataGridViewTextBoxColumn
-            // 
-            this.descriptionDataGridViewTextBoxColumn.DataPropertyName = "Description";
-            this.descriptionDataGridViewTextBoxColumn.HeaderText = "Description";
-            this.descriptionDataGridViewTextBoxColumn.Name = "descriptionDataGridViewTextBoxColumn";
-            this.descriptionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // pictureDataGridViewTextBoxColumn
-            // 
-            this.pictureDataGridViewTextBoxColumn.DataPropertyName = "Picture";
-            this.pictureDataGridViewTextBoxColumn.HeaderText = "Picture";
-            this.pictureDataGridViewTextBoxColumn.Name = "pictureDataGridViewTextBoxColumn";
-            this.pictureDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // createdAtDataGridViewTextBoxColumn
-            // 
-            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
-            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
-            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // updatedAtDataGridViewTextBoxColumn
-            // 
-            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
-            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            this.errorProvider1.ContainerControl = this;
             // 
             // frmPresetBadge
             // 
@@ -286,10 +292,11 @@
             this.Load += new System.EventHandler(this.frmPresetBadge_Load);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbPresetBadgeImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPresetBadge)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.presetBadgeDTOBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbPresetBadgeImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -319,5 +326,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn pictureDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

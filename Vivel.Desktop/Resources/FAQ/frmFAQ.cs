@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using Vivel.Desktop.Helpers;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
@@ -49,26 +50,30 @@ namespace Vivel.Desktop.Resources.FAQ
 
         private async void btnSave_Click(object sender, System.EventArgs e)
         {
-            var request = new FaqUpsertRequest
+            if (validateForm())
             {
-                Answer = txtAnswer.Text,
-                Answered = cbFAQFormAnswered.Checked,
-                Question = txtQuestion.Text
-            };
 
-            if (string.IsNullOrWhiteSpace(txtQuestionId.Text))
-            {
-                await _apiService.Insert<FaqDTO>(request);
+                var request = new FaqUpsertRequest
+                {
+                    Answer = txtAnswer.Text,
+                    Answered = cbFAQFormAnswered.Checked,
+                    Question = txtQuestion.Text
+                };
 
-                getFAQs();
-            }
-            else
-            {
-                var id = txtQuestionId.Text;
-                await _apiService.Update<FaqDTO>(id, request);
-                getFAQs();
+                if (string.IsNullOrWhiteSpace(txtQuestionId.Text))
+                {
+                    await _apiService.Insert<FaqDTO>(request);
 
-                clearForm();
+                    getFAQs();
+                }
+                else
+                {
+                    var id = txtQuestionId.Text;
+                    await _apiService.Update<FaqDTO>(id, request);
+                    getFAQs();
+
+                    clearForm();
+                }
             }
         }
 
@@ -98,6 +103,14 @@ namespace Vivel.Desktop.Resources.FAQ
             txtQuestion.Text = "";
             txtAnswer.Text = "";
             cbFAQFormAnswered.Checked = false;
+        }
+
+        private bool validateForm()
+        {
+            if (FormValidator.validateTextField(errorProvider1, txtQuestion, "Required field") 
+                && FormValidator.validateTextField(errorProvider1, txtAnswer, "Required field"))
+                return true;
+            else return false;
         }
     }
 }

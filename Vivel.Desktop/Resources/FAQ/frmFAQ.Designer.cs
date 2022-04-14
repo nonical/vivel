@@ -49,8 +49,10 @@
             this.lblFAQNext = new System.Windows.Forms.LinkLabel();
             this.cbFAQFormAnswered = new System.Windows.Forms.CheckBox();
             this.lblFAQClear = new System.Windows.Forms.LinkLabel();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvFAQs
@@ -245,6 +247,10 @@
             this.lblFAQClear.Text = "clear";
             this.lblFAQClear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblFAQClear_LinkClicked);
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // frmFAQ
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +275,7 @@
             this.Text = "frmFAQ";
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -295,5 +302,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.CheckBox cbFAQFormAnswered;
         private System.Windows.Forms.LinkLabel lblFAQClear;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

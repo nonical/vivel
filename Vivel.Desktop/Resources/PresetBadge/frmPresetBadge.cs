@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Vivel.Desktop.Helpers;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
@@ -36,26 +37,29 @@ namespace Vivel.Desktop.Resources.PresetBadge
 
         private async void btnPresetBadgeSave_Click(object sender, EventArgs e)
         {
-            var request = new PresetBadgeUpsertRequest
+            if (validateForm())
             {
-                Name = txtPresetBadgeNameUpsert.Text,
-                Description = txtPresetBadgeDescriptionUpsert.Text,
-                Picture = ConvertImageToBase64(pbPresetBadgeImage.Image)
-            };
+                var request = new PresetBadgeUpsertRequest
+                {
+                    Name = txtPresetBadgeNameUpsert.Text,
+                    Description = txtPresetBadgeDescriptionUpsert.Text,
+                    Picture = ConvertImageToBase64(pbPresetBadgeImage.Image)
+                };
 
-            if (string.IsNullOrWhiteSpace(txtPresetBadgeIdUpsert.Text))
-            {
-                await _service.Insert<PresetBadgeDTO>(request);
-                GetPresetBadges();
-            }
-            else
-            {
-                var id = txtPresetBadgeIdUpsert.Text;
-                await _service.Update<PresetBadgeDTO>(id, request);
-                GetPresetBadges();
+                if (string.IsNullOrWhiteSpace(txtPresetBadgeIdUpsert.Text))
+                {
+                    await _service.Insert<PresetBadgeDTO>(request);
+                    GetPresetBadges();
+                }
+                else
+                {
+                    var id = txtPresetBadgeIdUpsert.Text;
+                    await _service.Update<PresetBadgeDTO>(id, request);
+                    GetPresetBadges();
 
+                }
+                clearForm();
             }
-            clearForm();
         }
 
         private void lblPresetBadgeClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -119,5 +123,14 @@ namespace Vivel.Desktop.Resources.PresetBadge
             txtPresetBadgeDescriptionUpsert.Text = "";
             pbPresetBadgeImage.Image = null;
         }
+
+        private bool validateForm()
+        {
+            if (FormValidator.validateTextField(errorProvider1,txtPresetBadgeNameUpsert, "Required field") &&
+                FormValidator.validateTextField(errorProvider1,txtPresetBadgeDescriptionUpsert, "Required field"))
+                return true;
+            else return false;
+        }
+
     }
 }
