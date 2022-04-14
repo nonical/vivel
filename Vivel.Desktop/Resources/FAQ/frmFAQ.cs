@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
+using Vivel.Desktop.Helpers;
 using Vivel.Desktop.Services;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
@@ -34,11 +35,6 @@ namespace Vivel.Desktop.Resources.FAQ
             dgvFAQs.DataSource = response.Results;
         }
 
-        async void updateFAQ(string faqId, FaqUpdateRequest updateBody)
-        {
-            await _apiService.Update<FaqDTO>(faqId, updateBody);
-        }
-
         private void dgvFAQs_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
         {
             if (e.Row.Selected)
@@ -48,28 +44,37 @@ namespace Vivel.Desktop.Resources.FAQ
                 txtQuestionId.Text = faq.Faqid;
                 txtQuestion.Text = faq.Question;
                 txtAnswer.Text = faq.Answer;
-            }
-            else
-            {
-                txtQuestionId.Text = null;
-                txtQuestion.Text = null;
-                txtAnswer.Text = null;
+                cbFAQFormAnswered.Checked = (bool)faq.Answered;
             }
         }
 
-        private void btnSave_Click(object sender, System.EventArgs e)
+        private async void btnSave_Click(object sender, System.EventArgs e)
         {
-            updateFAQ(txtQuestionId.Text, new FaqUpdateRequest()
+            if (validateForm())
             {
-                Answer = txtAnswer.Text,
-                Answered = !string.IsNullOrWhiteSpace(txtAnswer.Text),
-                Question = txtQuestion.Text
-            });
-            getFAQs();
 
-            txtQuestionId.Text = "";
-            txtQuestion.Text = "";
-            txtAnswer.Text = "";
+                var request = new FaqUpsertRequest
+                {
+                    Answer = txtAnswer.Text,
+                    Answered = cbFAQFormAnswered.Checked,
+                    Question = txtQuestion.Text
+                };
+
+                if (string.IsNullOrWhiteSpace(txtQuestionId.Text))
+                {
+                    await _apiService.Insert<FaqDTO>(request);
+
+                    getFAQs();
+                }
+                else
+                {
+                    var id = txtQuestionId.Text;
+                    await _apiService.Update<FaqDTO>(id, request);
+                    getFAQs();
+
+                    clearForm();
+                }
+            }
         }
 
         private void btnFAQSearch_Click(object sender, System.EventArgs e)
@@ -85,6 +90,25 @@ namespace Vivel.Desktop.Resources.FAQ
         private void lblFAQPrevious_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             getFAQs(_currentPage - 1);
+        }
+
+        private void lblFAQClear_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            clearForm();
+        }
+
+        private void clearForm()
+        {
+            txtQuestionId.Text = "";
+            txtQuestion.Text = "";
+            txtAnswer.Text = "";
+            cbFAQFormAnswered.Checked = false;
+        }
+
+        private bool validateForm()
+        {
+            return FormValidator.validateTextField(errorProvider1, txtQuestion, "Required field")
+                && FormValidator.validateTextField(errorProvider1, txtAnswer, "Required field");
         }
     }
 }

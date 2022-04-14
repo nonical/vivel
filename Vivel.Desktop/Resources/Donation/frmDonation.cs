@@ -10,7 +10,7 @@ using Vivel.Model.Requests.User;
 
 namespace Vivel.Desktop.Resources.User
 {
-    public partial class frmUser : Form
+    public partial class frmDonation : Form
     {
         private readonly APIService _apiService;
 
@@ -18,7 +18,7 @@ namespace Vivel.Desktop.Resources.User
 
         private int _currentDonationPage;
 
-        public frmUser(string accessToken)
+        public frmDonation(string accessToken)
         {
             InitializeComponent();
             _apiService = new APIService("User", accessToken);

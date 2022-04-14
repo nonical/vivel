@@ -122,6 +122,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FormValidator.cs" />
     <Compile Include="Resources\Drive\frmDrive.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -154,11 +155,11 @@
     <Compile Include="Resources\Report\frmReport.Designer.cs">
       <DependentUpon>frmReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="Resources\User\frmUser.cs">
+    <Compile Include="Resources\Donation\frmDonation.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Resources\User\frmUser.Designer.cs">
-      <DependentUpon>frmUser.cs</DependentUpon>
+    <Compile Include="Resources\Donation\frmDonation.Designer.cs">
+      <DependentUpon>frmDonation.cs</DependentUpon>
     </Compile>
     <Compile Include="Services\APIService.cs" />
     <Compile Include="Services\ExtendedWebBrowser.cs">
@@ -192,13 +193,14 @@
     <EmbeddedResource Include="Resources\Report\frmReport.resx">
       <DependentUpon>frmReport.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\User\frmUser.resx">
-      <DependentUpon>frmUser.cs</DependentUpon>
+    <EmbeddedResource Include="Resources\Donation\frmDonation.resx">
+      <DependentUpon>frmDonation.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DriveDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.HospitalDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.PresetBadgeDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">

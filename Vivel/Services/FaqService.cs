@@ -10,7 +10,7 @@ using Vivel.Model.Requests.Faq;
 
 namespace Vivel.Services
 {
-    public class FaqService : BaseCRUDService<FaqDTO, Faq, FaqSearchRequest, FaqInsertRequest, FaqUpdateRequest>, IFaqService
+    public class FaqService : BaseCRUDService<FaqDTO, Faq, FaqSearchRequest, FaqUpsertRequest, FaqUpsertRequest>, IFaqService
     {
         public FaqService(VivelContext context, IMapper mapper) : base(context, mapper)
         {
