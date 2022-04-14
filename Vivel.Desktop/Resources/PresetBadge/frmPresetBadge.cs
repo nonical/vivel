@@ -126,10 +126,8 @@ namespace Vivel.Desktop.Resources.PresetBadge
 
         private bool validateForm()
         {
-            if (FormValidator.validateTextField(errorProvider1,txtPresetBadgeNameUpsert, "Required field") &&
-                FormValidator.validateTextField(errorProvider1,txtPresetBadgeDescriptionUpsert, "Required field"))
-                return true;
-            else return false;
+            return FormValidator.validateTextField(errorProvider1, txtPresetBadgeNameUpsert, "Required field") &&
+                FormValidator.validateTextField(errorProvider1, txtPresetBadgeDescriptionUpsert, "Required field");
         }
 
     }

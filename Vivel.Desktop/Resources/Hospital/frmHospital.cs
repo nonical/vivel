@@ -115,11 +115,9 @@ namespace Vivel.Desktop.Hospital
 
         private bool validateForm()
         {
-            if (FormValidator.validateTextField(errorProvider1, txtHospitalNameUpsert, "Required field") &&
+            return FormValidator.validateTextField(errorProvider1, txtHospitalNameUpsert, "Required field") &&
             FormValidator.validateTextField(errorProvider1, txtHospitalLatitudeUpsert, "Required field") &&
-            FormValidator.validateTextField(errorProvider1, txtHospitalLongitudeUpsert, "Required field"))
-                return true;
-            else return false;
+            FormValidator.validateTextField(errorProvider1, txtHospitalLongitudeUpsert, "Required field");
         }
     }
 }

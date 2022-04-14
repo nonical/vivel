@@ -107,10 +107,8 @@ namespace Vivel.Desktop.Resources.FAQ
 
         private bool validateForm()
         {
-            if (FormValidator.validateTextField(errorProvider1, txtQuestion, "Required field") 
-                && FormValidator.validateTextField(errorProvider1, txtAnswer, "Required field"))
-                return true;
-            else return false;
+            return FormValidator.validateTextField(errorProvider1, txtQuestion, "Required field")
+                && FormValidator.validateTextField(errorProvider1, txtAnswer, "Required field");
         }
     }
 }
