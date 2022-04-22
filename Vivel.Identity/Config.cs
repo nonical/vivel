@@ -20,7 +20,8 @@ namespace Vivel.Identity
         public static IEnumerable<ApiScope> ApiScopes =>
             new ApiScope[]
             {
-                new ApiScope("scope1", "API - full access")
+                new ApiScope("scope1", "API - full access"),
+                new ApiScope(IdentityServerConstants.LocalApi.ScopeName)
             };
 
         public static IEnumerable<Client> Clients =>
@@ -89,7 +90,8 @@ namespace Vivel.Identity
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        "scope1"
+                        "scope1",
+                        IdentityServerConstants.LocalApi.ScopeName
                     },
                 }
             };

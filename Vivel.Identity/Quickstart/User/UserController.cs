@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Duende.IdentityServer;
 using IdentityServerHost.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Vivel.Identity.Data;
@@ -30,6 +32,7 @@ namespace Vivel.Identity.Quickstart.User
 
     [ApiController]
     [Route("[Controller]")]
+    [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
     public class UserController : Controller
     {
         private readonly CoreDbContext _context;
