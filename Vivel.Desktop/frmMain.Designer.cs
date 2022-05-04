@@ -35,6 +35,7 @@
             this.fAQToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.presetBadgesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.usersToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.hospitalsToolStripMenuItem,
             this.usersToolStripMenuItem,
             this.drivesToolStripMenuItem,
+            this.usersToolStripMenuItem1,
             this.fAQToolStripMenuItem,
             this.presetBadgesToolStripMenuItem,
             this.reportsToolStripMenuItem});
@@ -98,6 +100,13 @@
             this.reportsToolStripMenuItem.Text = "Reports";
             this.reportsToolStripMenuItem.Click += new System.EventHandler(this.reportsToolStripMenuItem_Click);
             // 
+            // usersToolStripMenuItem1
+            // 
+            this.usersToolStripMenuItem1.Name = "usersToolStripMenuItem1";
+            this.usersToolStripMenuItem1.Size = new System.Drawing.Size(47, 22);
+            this.usersToolStripMenuItem1.Text = "Users";
+            this.usersToolStripMenuItem1.Click += new System.EventHandler(this.usersToolStripMenuItem1_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,5 +134,6 @@
         private System.Windows.Forms.ToolStripMenuItem fAQToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem reportsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem presetBadgesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem usersToolStripMenuItem1;
     }
 }

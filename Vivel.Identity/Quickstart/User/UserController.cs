@@ -73,7 +73,9 @@ namespace Vivel.Identity.Quickstart.User
             }
 
             await _userManager.AddToRoleAsync(user, model.Role);
-            await _userManager.AddClaimsAsync(user, model.Claims.Select(x => new Claim(x.Key, x.Value)));
+
+            if(model.Claims != null)
+                await _userManager.AddClaimsAsync(user, model.Claims.Select(x => new Claim(x.Key, x.Value)));
 
             if (model.Role.ToLower() == "user")
             {

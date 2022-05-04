@@ -161,10 +161,17 @@
     <Compile Include="Resources\Donation\frmDonation.Designer.cs">
       <DependentUpon>frmDonation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Users\frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\Users\frmUser.Designer.cs">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\APIService.cs" />
     <Compile Include="Services\ExtendedWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\IdentityAPIService.cs" />
     <Compile Include="Services\WinFormsWebView.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -195,6 +202,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Donation\frmDonation.resx">
       <DependentUpon>frmDonation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Users\frmUser.resx">
+      <DependentUpon>frmUser.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
