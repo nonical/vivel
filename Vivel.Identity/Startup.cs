@@ -55,6 +55,7 @@ namespace Vivel.Identity
                 .AddAuthorizeInteractionResponseGenerator<VivelAuthorizeInteractionResponseGenerator>();
 
             services.AddAuthentication();
+            services.AddLocalApiAuthentication();
         }
 
         public void Configure(IApplicationBuilder app)
