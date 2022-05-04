@@ -98,7 +98,10 @@ namespace Vivel.Desktop.Resources.Users
                         Role = "user"
                     };
 
-                    await _identity_service.Insert<UserDTO>(request);
+                    Tuple<int, dynamic> response = await _identity_service.Insert(request);
+
+                    if (response.Item1 != 200)
+                        MessageBox.Show($"Validation failed! Duplicate username or weak password!\n {response.Item2}");
 
                     GetUsers();
                     clearForm();
@@ -111,12 +114,13 @@ namespace Vivel.Desktop.Resources.Users
                     };
 
                     if (!string.IsNullOrWhiteSpace(txtUserPassword.Text))
-                    {
                         request.Password = txtUserPassword.Text;
-                    }
 
                     var id = txtUserID.Text;
-                    await _identity_service.Update<UserDTO>(id, request);
+                    Tuple<int, dynamic> response = await _identity_service.Update(id, request);
+
+                    if (response.Item1 != 200)
+                        MessageBox.Show($"Validation failed! Duplicate username or weak password!\n {response.Item2}");
 
                     GetUsers();
                     clearForm();

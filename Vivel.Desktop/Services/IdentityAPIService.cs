@@ -18,18 +18,33 @@ namespace Vivel.Desktop.Services
             _accessToken = accessToken;
         }
 
-        public async Task<T> Insert<T>(object request)
+        public async Task<Tuple<int, dynamic>> Insert(object request)
         {
-            var result = await $"{_apiUrl}".WithHeader("Authorization", $"Bearer {_accessToken}").PostJsonAsync(request).ReceiveJson<T>();
+            try
+            {
+                var result = await $"{_apiUrl}".WithHeader("Authorization", $"Bearer {_accessToken}").PostJsonAsync(request).ReceiveJson();
 
-            return result;
+                return new Tuple<int, dynamic>(200, result);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<int, dynamic>(-1, e.Message);
+            }
+
         }
 
-        public async Task<T> Update<T>(string id, object request)
+        public async Task<Tuple<int, dynamic>> Update(string id, object request)
         {
-            var result = await $"{_apiUrl}/{id}".WithHeader("Authorization", $"Bearer {_accessToken}").PutJsonAsync(request).ReceiveJson<T>();
+            try
+            {
+                var result = await $"{_apiUrl}/{id}".WithHeader("Authorization", $"Bearer {_accessToken}").PutJsonAsync(request).ReceiveJson();
 
-            return result;
+                return new Tuple<int, dynamic>(200, result);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<int, dynamic>(-1, e.Message);
+            }
         }
     }
 }
