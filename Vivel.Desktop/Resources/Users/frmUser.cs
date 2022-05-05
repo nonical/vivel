@@ -108,7 +108,7 @@ namespace Vivel.Desktop.Resources.Users
                 }
                 else
                 {
-                    var request = new UserUpdateRequest
+                    var request = new AdminUserUpdateRequest
                     {
                         UserName = txtUserUsername.Text
                     };
