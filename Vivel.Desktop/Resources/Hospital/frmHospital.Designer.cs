@@ -64,9 +64,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dgvHospital);
-            this.groupBox1.Location = new System.Drawing.Point(-1, 99);
+            this.groupBox1.Location = new System.Drawing.Point(69, 115);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(547, 349);
+            this.groupBox1.Size = new System.Drawing.Size(550, 349);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Hospitals";
@@ -89,7 +89,7 @@
             this.dgvHospital.Name = "dgvHospital";
             this.dgvHospital.ReadOnly = true;
             this.dgvHospital.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvHospital.Size = new System.Drawing.Size(541, 330);
+            this.dgvHospital.Size = new System.Drawing.Size(544, 330);
             this.dgvHospital.TabIndex = 0;
             this.dgvHospital.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvHospital_CellContentClick);
             // 
@@ -145,7 +145,7 @@
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.txtHospitalNameUpsert);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(552, 99);
+            this.groupBox2.Location = new System.Drawing.Point(670, 115);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(249, 349);
             this.groupBox2.TabIndex = 1;
@@ -240,7 +240,7 @@
             // 
             // txtHospitalNameSearch
             // 
-            this.txtHospitalNameSearch.Location = new System.Drawing.Point(16, 45);
+            this.txtHospitalNameSearch.Location = new System.Drawing.Point(72, 76);
             this.txtHospitalNameSearch.Name = "txtHospitalNameSearch";
             this.txtHospitalNameSearch.Size = new System.Drawing.Size(141, 20);
             this.txtHospitalNameSearch.TabIndex = 2;
@@ -248,7 +248,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 29);
+            this.label1.Location = new System.Drawing.Point(69, 60);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 3;
@@ -256,7 +256,7 @@
             // 
             // btnSearchHospital
             // 
-            this.btnSearchHospital.Location = new System.Drawing.Point(163, 43);
+            this.btnSearchHospital.Location = new System.Drawing.Point(219, 74);
             this.btnSearchHospital.Name = "btnSearchHospital";
             this.btnSearchHospital.Size = new System.Drawing.Size(97, 23);
             this.btnSearchHospital.TabIndex = 4;
@@ -268,7 +268,7 @@
             // 
             this.lblHospitalNext.AutoSize = true;
             this.lblHospitalNext.Enabled = false;
-            this.lblHospitalNext.Location = new System.Drawing.Point(492, 83);
+            this.lblHospitalNext.Location = new System.Drawing.Point(589, 99);
             this.lblHospitalNext.Name = "lblHospitalNext";
             this.lblHospitalNext.Size = new System.Drawing.Size(27, 13);
             this.lblHospitalNext.TabIndex = 5;
@@ -280,7 +280,7 @@
             // 
             this.lblHospitalPrevious.AutoSize = true;
             this.lblHospitalPrevious.Enabled = false;
-            this.lblHospitalPrevious.Location = new System.Drawing.Point(412, 83);
+            this.lblHospitalPrevious.Location = new System.Drawing.Point(509, 99);
             this.lblHospitalPrevious.Name = "lblHospitalPrevious";
             this.lblHospitalPrevious.Size = new System.Drawing.Size(47, 13);
             this.lblHospitalPrevious.TabIndex = 6;
@@ -297,7 +297,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.lblHospitalPrevious);
             this.Controls.Add(this.lblHospitalNext);
             this.Controls.Add(this.btnSearchHospital);

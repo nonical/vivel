@@ -35,19 +35,11 @@
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
-            this.userDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dgvUserDonations = new System.Windows.Forms.DataGridView();
-            this.donationDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.lbSearch = new System.Windows.Forms.Label();
-            this.lbUsers = new System.Windows.Forms.Label();
-            this.lbUserDonations = new System.Windows.Forms.Label();
-            this.lblUserPrevious = new System.Windows.Forms.LinkLabel();
-            this.lblUserNext = new System.Windows.Forms.LinkLabel();
-            this.lblDonationPrevious = new System.Windows.Forms.LinkLabel();
-            this.lblDonationNext = new System.Windows.Forms.LinkLabel();
             this.userNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bloodTypeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.verifiedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.userDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.dgvUserDonations = new System.Windows.Forms.DataGridView();
             this.scheduledAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.amountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.statusDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,6 +49,14 @@
             this.plateletCountDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.donationDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lbSearch = new System.Windows.Forms.Label();
+            this.lbUsers = new System.Windows.Forms.Label();
+            this.lbUserDonations = new System.Windows.Forms.Label();
+            this.lblUserPrevious = new System.Windows.Forms.LinkLabel();
+            this.lblUserNext = new System.Windows.Forms.LinkLabel();
+            this.lblDonationPrevious = new System.Windows.Forms.LinkLabel();
+            this.lblDonationNext = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserDonations)).BeginInit();
@@ -65,7 +65,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(12, 25);
+            this.txtSearch.Location = new System.Drawing.Point(13, 40);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(143, 23);
@@ -75,7 +75,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(161, 25);
+            this.btnSearch.Location = new System.Drawing.Point(162, 40);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 1;
@@ -113,15 +113,39 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvUsers.Location = new System.Drawing.Point(12, 67);
+            this.dgvUsers.Location = new System.Drawing.Point(12, 113);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.RowHeadersVisible = false;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.Size = new System.Drawing.Size(292, 371);
+            this.dgvUsers.Size = new System.Drawing.Size(203, 371);
             this.dgvUsers.TabIndex = 2;
             this.dgvUsers.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvUsers_RowStateChanged);
+            // 
+            // userNameDataGridViewTextBoxColumn
+            // 
+            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
+            this.userNameDataGridViewTextBoxColumn.HeaderText = "UserName";
+            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
+            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // bloodTypeDataGridViewTextBoxColumn
+            // 
+            this.bloodTypeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.bloodTypeDataGridViewTextBoxColumn.DataPropertyName = "BloodType";
+            this.bloodTypeDataGridViewTextBoxColumn.HeaderText = "BloodType";
+            this.bloodTypeDataGridViewTextBoxColumn.Name = "bloodTypeDataGridViewTextBoxColumn";
+            this.bloodTypeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // verifiedDataGridViewTextBoxColumn
+            // 
+            this.verifiedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.verifiedDataGridViewTextBoxColumn.DataPropertyName = "Verified";
+            this.verifiedDataGridViewTextBoxColumn.HeaderText = "Verified";
+            this.verifiedDataGridViewTextBoxColumn.Name = "verifiedDataGridViewTextBoxColumn";
+            this.verifiedDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // userDTOBindingSource
             // 
@@ -156,117 +180,14 @@
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgvUserDonations.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvUserDonations.Location = new System.Drawing.Point(318, 67);
+            this.dgvUserDonations.Location = new System.Drawing.Point(234, 113);
             this.dgvUserDonations.Name = "dgvUserDonations";
             this.dgvUserDonations.ReadOnly = true;
             this.dgvUserDonations.RowHeadersVisible = false;
             this.dgvUserDonations.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvUserDonations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUserDonations.Size = new System.Drawing.Size(470, 371);
+            this.dgvUserDonations.Size = new System.Drawing.Size(764, 371);
             this.dgvUserDonations.TabIndex = 3;
-            // 
-            // donationDTOBindingSource
-            // 
-            this.donationDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.DonationDTO);
-            // 
-            // lbSearch
-            // 
-            this.lbSearch.AutoSize = true;
-            this.lbSearch.Location = new System.Drawing.Point(12, 9);
-            this.lbSearch.Name = "lbSearch";
-            this.lbSearch.Size = new System.Drawing.Size(112, 13);
-            this.lbSearch.TabIndex = 4;
-            this.lbSearch.Text = "Search users by name";
-            // 
-            // lbUsers
-            // 
-            this.lbUsers.AutoSize = true;
-            this.lbUsers.Location = new System.Drawing.Point(12, 51);
-            this.lbUsers.Name = "lbUsers";
-            this.lbUsers.Size = new System.Drawing.Size(34, 13);
-            this.lbUsers.TabIndex = 5;
-            this.lbUsers.Text = "Users";
-            // 
-            // lbUserDonations
-            // 
-            this.lbUserDonations.AutoSize = true;
-            this.lbUserDonations.Location = new System.Drawing.Point(315, 51);
-            this.lbUserDonations.Name = "lbUserDonations";
-            this.lbUserDonations.Size = new System.Drawing.Size(87, 13);
-            this.lbUserDonations.TabIndex = 6;
-            this.lbUserDonations.Text = "User\'s Donations";
-            // 
-            // lblUserPrevious
-            // 
-            this.lblUserPrevious.AutoSize = true;
-            this.lblUserPrevious.Enabled = false;
-            this.lblUserPrevious.Location = new System.Drawing.Point(197, 51);
-            this.lblUserPrevious.Name = "lblUserPrevious";
-            this.lblUserPrevious.Size = new System.Drawing.Size(47, 13);
-            this.lblUserPrevious.TabIndex = 19;
-            this.lblUserPrevious.TabStop = true;
-            this.lblUserPrevious.Text = "previous";
-            this.lblUserPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserPrevious_LinkClicked);
-            // 
-            // lblUserNext
-            // 
-            this.lblUserNext.AutoSize = true;
-            this.lblUserNext.Enabled = false;
-            this.lblUserNext.Location = new System.Drawing.Point(277, 51);
-            this.lblUserNext.Name = "lblUserNext";
-            this.lblUserNext.Size = new System.Drawing.Size(27, 13);
-            this.lblUserNext.TabIndex = 18;
-            this.lblUserNext.TabStop = true;
-            this.lblUserNext.Text = "next";
-            this.lblUserNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserNext_LinkClicked);
-            // 
-            // lblDonationPrevious
-            // 
-            this.lblDonationPrevious.AutoSize = true;
-            this.lblDonationPrevious.Enabled = false;
-            this.lblDonationPrevious.Location = new System.Drawing.Point(682, 51);
-            this.lblDonationPrevious.Name = "lblDonationPrevious";
-            this.lblDonationPrevious.Size = new System.Drawing.Size(47, 13);
-            this.lblDonationPrevious.TabIndex = 21;
-            this.lblDonationPrevious.TabStop = true;
-            this.lblDonationPrevious.Text = "previous";
-            this.lblDonationPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationPrevious_LinkClicked);
-            // 
-            // lblDonationNext
-            // 
-            this.lblDonationNext.AutoSize = true;
-            this.lblDonationNext.Enabled = false;
-            this.lblDonationNext.Location = new System.Drawing.Point(762, 51);
-            this.lblDonationNext.Name = "lblDonationNext";
-            this.lblDonationNext.Size = new System.Drawing.Size(27, 13);
-            this.lblDonationNext.TabIndex = 20;
-            this.lblDonationNext.TabStop = true;
-            this.lblDonationNext.Text = "next";
-            this.lblDonationNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationNext_LinkClicked);
-            // 
-            // userNameDataGridViewTextBoxColumn
-            // 
-            this.userNameDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.userNameDataGridViewTextBoxColumn.DataPropertyName = "UserName";
-            this.userNameDataGridViewTextBoxColumn.HeaderText = "UserName";
-            this.userNameDataGridViewTextBoxColumn.Name = "userNameDataGridViewTextBoxColumn";
-            this.userNameDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // bloodTypeDataGridViewTextBoxColumn
-            // 
-            this.bloodTypeDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.bloodTypeDataGridViewTextBoxColumn.DataPropertyName = "BloodType";
-            this.bloodTypeDataGridViewTextBoxColumn.HeaderText = "BloodType";
-            this.bloodTypeDataGridViewTextBoxColumn.Name = "bloodTypeDataGridViewTextBoxColumn";
-            this.bloodTypeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // verifiedDataGridViewTextBoxColumn
-            // 
-            this.verifiedDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.verifiedDataGridViewTextBoxColumn.DataPropertyName = "Verified";
-            this.verifiedDataGridViewTextBoxColumn.HeaderText = "Verified";
-            this.verifiedDataGridViewTextBoxColumn.Name = "verifiedDataGridViewTextBoxColumn";
-            this.verifiedDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // scheduledAtDataGridViewTextBoxColumn
             // 
@@ -341,11 +262,90 @@
             this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
             this.updatedAtDataGridViewTextBoxColumn.Width = 83;
             // 
-            // frmUser
+            // donationDTOBindingSource
+            // 
+            this.donationDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.DonationDTO);
+            // 
+            // lbSearch
+            // 
+            this.lbSearch.AutoSize = true;
+            this.lbSearch.Location = new System.Drawing.Point(13, 24);
+            this.lbSearch.Name = "lbSearch";
+            this.lbSearch.Size = new System.Drawing.Size(112, 13);
+            this.lbSearch.TabIndex = 4;
+            this.lbSearch.Text = "Search users by name";
+            // 
+            // lbUsers
+            // 
+            this.lbUsers.AutoSize = true;
+            this.lbUsers.Location = new System.Drawing.Point(13, 97);
+            this.lbUsers.Name = "lbUsers";
+            this.lbUsers.Size = new System.Drawing.Size(34, 13);
+            this.lbUsers.TabIndex = 5;
+            this.lbUsers.Text = "Users";
+            // 
+            // lbUserDonations
+            // 
+            this.lbUserDonations.AutoSize = true;
+            this.lbUserDonations.Location = new System.Drawing.Point(231, 97);
+            this.lbUserDonations.Name = "lbUserDonations";
+            this.lbUserDonations.Size = new System.Drawing.Size(87, 13);
+            this.lbUserDonations.TabIndex = 6;
+            this.lbUserDonations.Text = "User\'s Donations";
+            // 
+            // lblUserPrevious
+            // 
+            this.lblUserPrevious.AutoSize = true;
+            this.lblUserPrevious.Enabled = false;
+            this.lblUserPrevious.Location = new System.Drawing.Point(108, 97);
+            this.lblUserPrevious.Name = "lblUserPrevious";
+            this.lblUserPrevious.Size = new System.Drawing.Size(47, 13);
+            this.lblUserPrevious.TabIndex = 19;
+            this.lblUserPrevious.TabStop = true;
+            this.lblUserPrevious.Text = "previous";
+            this.lblUserPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserPrevious_LinkClicked);
+            // 
+            // lblUserNext
+            // 
+            this.lblUserNext.AutoSize = true;
+            this.lblUserNext.Enabled = false;
+            this.lblUserNext.Location = new System.Drawing.Point(188, 97);
+            this.lblUserNext.Name = "lblUserNext";
+            this.lblUserNext.Size = new System.Drawing.Size(27, 13);
+            this.lblUserNext.TabIndex = 18;
+            this.lblUserNext.TabStop = true;
+            this.lblUserNext.Text = "next";
+            this.lblUserNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblUserNext_LinkClicked);
+            // 
+            // lblDonationPrevious
+            // 
+            this.lblDonationPrevious.AutoSize = true;
+            this.lblDonationPrevious.Enabled = false;
+            this.lblDonationPrevious.Location = new System.Drawing.Point(881, 97);
+            this.lblDonationPrevious.Name = "lblDonationPrevious";
+            this.lblDonationPrevious.Size = new System.Drawing.Size(47, 13);
+            this.lblDonationPrevious.TabIndex = 21;
+            this.lblDonationPrevious.TabStop = true;
+            this.lblDonationPrevious.Text = "previous";
+            this.lblDonationPrevious.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationPrevious_LinkClicked);
+            // 
+            // lblDonationNext
+            // 
+            this.lblDonationNext.AutoSize = true;
+            this.lblDonationNext.Enabled = false;
+            this.lblDonationNext.Location = new System.Drawing.Point(961, 97);
+            this.lblDonationNext.Name = "lblDonationNext";
+            this.lblDonationNext.Size = new System.Drawing.Size(27, 13);
+            this.lblDonationNext.TabIndex = 20;
+            this.lblDonationNext.TabStop = true;
+            this.lblDonationNext.Text = "next";
+            this.lblDonationNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationNext_LinkClicked);
+            // 
+            // frmDonation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.lblDonationPrevious);
             this.Controls.Add(this.lblDonationNext);
             this.Controls.Add(this.lblUserPrevious);
@@ -358,7 +358,7 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.txtSearch);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmUser";
+            this.Name = "frmDonation";
             this.Text = "frmUser";
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).EndInit();

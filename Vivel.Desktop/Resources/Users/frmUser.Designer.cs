@@ -72,11 +72,12 @@
             this.latitudeDataGridViewTextBoxColumn,
             this.longitudeDataGridViewTextBoxColumn});
             this.dgvUsers.DataSource = this.userDTOBindingSource;
-            this.dgvUsers.Location = new System.Drawing.Point(6, 19);
+            this.dgvUsers.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvUsers.Location = new System.Drawing.Point(3, 16);
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
             this.dgvUsers.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUsers.Size = new System.Drawing.Size(504, 333);
+            this.dgvUsers.Size = new System.Drawing.Size(543, 333);
             this.dgvUsers.TabIndex = 0;
             this.dgvUsers.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvUsers_CellContentClick);
             // 
@@ -122,9 +123,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.dgvUsers);
-            this.groupBox1.Location = new System.Drawing.Point(0, 86);
+            this.groupBox1.Location = new System.Drawing.Point(46, 112);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(516, 352);
+            this.groupBox1.Size = new System.Drawing.Size(549, 352);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Users";
@@ -139,7 +140,7 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtUserUsername);
             this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Location = new System.Drawing.Point(531, 86);
+            this.groupBox2.Location = new System.Drawing.Point(669, 112);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(257, 352);
             this.groupBox2.TabIndex = 2;
@@ -219,7 +220,7 @@
             // btnSearchUser
             // 
             this.btnSearchUser.Enabled = false;
-            this.btnSearchUser.Location = new System.Drawing.Point(162, 41);
+            this.btnSearchUser.Location = new System.Drawing.Point(196, 68);
             this.btnSearchUser.Name = "btnSearchUser";
             this.btnSearchUser.Size = new System.Drawing.Size(97, 23);
             this.btnSearchUser.TabIndex = 14;
@@ -230,7 +231,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 27);
+            this.label4.Location = new System.Drawing.Point(46, 54);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(55, 13);
             this.label4.TabIndex = 13;
@@ -238,7 +239,7 @@
             // 
             // txtUserUsernameSearch
             // 
-            this.txtUserUsernameSearch.Location = new System.Drawing.Point(15, 43);
+            this.txtUserUsernameSearch.Location = new System.Drawing.Point(49, 70);
             this.txtUserUsernameSearch.Name = "txtUserUsernameSearch";
             this.txtUserUsernameSearch.Size = new System.Drawing.Size(141, 20);
             this.txtUserUsernameSearch.TabIndex = 12;
@@ -247,7 +248,7 @@
             // 
             this.lblUserPrevious.AutoSize = true;
             this.lblUserPrevious.Enabled = false;
-            this.lblUserPrevious.Location = new System.Drawing.Point(401, 70);
+            this.lblUserPrevious.Location = new System.Drawing.Point(489, 96);
             this.lblUserPrevious.Name = "lblUserPrevious";
             this.lblUserPrevious.Size = new System.Drawing.Size(47, 13);
             this.lblUserPrevious.TabIndex = 17;
@@ -259,7 +260,7 @@
             // 
             this.lblUserNext.AutoSize = true;
             this.lblUserNext.Enabled = false;
-            this.lblUserNext.Location = new System.Drawing.Point(481, 70);
+            this.lblUserNext.Location = new System.Drawing.Point(569, 96);
             this.lblUserNext.Name = "lblUserNext";
             this.lblUserNext.Size = new System.Drawing.Size(27, 13);
             this.lblUserNext.TabIndex = 16;
@@ -275,7 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1000, 600);
             this.Controls.Add(this.lblUserPrevious);
             this.Controls.Add(this.lblUserNext);
             this.Controls.Add(this.btnSearchUser);
