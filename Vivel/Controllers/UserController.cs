@@ -120,6 +120,19 @@ namespace Vivel.Controllers
             return Unauthorized();
         }
 
+        [HttpPost("{id}/location")]
+        [Authorize(Roles = "user")]
+        public async Task<ActionResult> UpdateLocation(Guid id, UserUpdateRequest body)
+        {
+            if (body == null || body.Latitude is null || body.Longitude is null)
+            {
+                return UnprocessableEntity();
+            }
+
+            await _userService.UpdateLocation(id, (decimal)body.Latitude, (decimal)body.Longitude);
+            return Ok();
+        }
+
         private Guid getUserClaim()
         {
             return Guid.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);

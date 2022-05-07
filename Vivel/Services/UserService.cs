@@ -5,6 +5,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Vivel.Database;
 using Vivel.Extensions;
+using Vivel.Helpers;
 using Vivel.Interfaces;
 using Vivel.Model.Dto;
 using Vivel.Model.Pagination;
@@ -122,6 +123,15 @@ namespace Vivel.Services
         public async Task<PagedResult<BadgeDTO>> Badges(Guid id, BadgeSearchRequest request)
         {
             return await _context.Badges.Include(x => x.PresetBadge).Where(x => x.UserId == id).GetPagedAsync<Badge, BadgeDTO>(_mapper, request.Page, request.PageSize, request.Paginate);
+        }
+
+        public async Task UpdateLocation(Guid id, decimal latitude, decimal longitude)
+        {
+            var user = await _context.Users.FindAsync(id);
+
+            user.Location = GeographyHelper.CreatePoint(longitude, latitude);
+
+            await _context.SaveChangesAsync();
         }
 
     }

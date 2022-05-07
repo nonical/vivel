@@ -16,5 +16,6 @@ namespace Vivel.Interfaces
         Task<DonationDTO> Donation(Guid userId, Guid donationId);
         Task<PagedResult<NotificationDTO>> Notifications(Guid id, NotificationSearchRequest request);
         Task<PagedResult<BadgeDTO>> Badges(Guid id, BadgeSearchRequest request);
+        Task UpdateLocation(Guid id, decimal latitude, decimal longitude);
     }
 }
