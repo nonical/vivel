@@ -104,7 +104,7 @@ namespace Vivel.Desktop.Resources.Report
             Tuple<int, dynamic> response = await _service.DownloadFile(path, request, fileName);
 
             if (response.Item1 == 200)
-                MessageBox.Show("Check your c:\\downloads folder");
+                MessageBox.Show($"Check your c:\\downloads folder for {fileName}");
             else
                 MessageBox.Show($"Error occured: {response.Item2}");
         }
