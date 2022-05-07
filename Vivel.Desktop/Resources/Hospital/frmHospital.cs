@@ -74,8 +74,8 @@ namespace Vivel.Desktop.Hospital
                 var request = new HospitalUpsertRequest
                 {
                     Name = txtHospitalNameUpsert.Text,
-                    Latitude = decimal.Parse(txtHospitalLatitudeUpsert.Text),
-                    Longitude = decimal.Parse(txtHospitalLongitudeUpsert.Text),
+                    Latitude = decimal.Parse(txtHospitalLatitudeUpsert.Text.Replace(",", ".")),
+                    Longitude = decimal.Parse(txtHospitalLongitudeUpsert.Text.Replace(",", ".")),
                 };
 
                 if (string.IsNullOrWhiteSpace(txtHospitalIdUpsert.Text))
@@ -117,7 +117,8 @@ namespace Vivel.Desktop.Hospital
         {
             return FormValidator.validateTextField(errorProvider1, txtHospitalNameUpsert, "Required field") &&
             FormValidator.validateTextField(errorProvider1, txtHospitalLatitudeUpsert, "Required field") &&
-            FormValidator.validateTextField(errorProvider1, txtHospitalLongitudeUpsert, "Required field");
+            FormValidator.validateTextField(errorProvider1, txtHospitalLongitudeUpsert, "Required field") &&
+            FormValidator.validateGeolocation(errorProvider1, txtHospitalLatitudeUpsert, txtHospitalLongitudeUpsert);
         }
     }
 }
