@@ -92,7 +92,6 @@ namespace Vivel.Desktop.Resources.Report
                 await DownloadFile(request, hospitalId, reportUrl);
             }
 
-            MessageBox.Show("Check your c:\\downloads folder");
 
             btnPrint.Enabled = true;
         }
@@ -102,7 +101,12 @@ namespace Vivel.Desktop.Resources.Report
             var path = $"{hospitalId}/report/{reportUrl}";
             var fileName = $"{reportUrl}_report_{DateTime.Now:MMM-dd-yyyy-HH-mm-ss}.pdf";
 
-            await _service.DownloadFile(path, request, fileName);
+            Tuple<int, dynamic> response = await _service.DownloadFile(path, request, fileName);
+
+            if (response.Item1 == 200)
+                MessageBox.Show("Check your c:\\downloads folder");
+            else
+                MessageBox.Show($"Error occured: {response.Item2}");
         }
     }
 }

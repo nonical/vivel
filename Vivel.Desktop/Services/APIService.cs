@@ -62,10 +62,19 @@ namespace Vivel.Desktop.Services
             return result;
         }
 
-        public async Task DownloadFile(string path, object request, string filename)
+        public async Task<Tuple<int, dynamic>> DownloadFile(string path, object request, string filename)
         {
-            var queryString = await request.ToQueryString();
-            await $"{_apiUrl}/{path}?{queryString}".WithHeader("Authorization", $"Bearer {_accessToken}").DownloadFileAsync("c:\\downloads", filename);
+            try
+            {
+                var queryString = await request.ToQueryString();
+                var result = await $"{_apiUrl}/{path}?{queryString}".WithHeader("Authorization", $"Bearer {_accessToken}").DownloadFileAsync("c:\\downloads", filename);
+
+                return new Tuple<int, dynamic>(200, result);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<int, dynamic>(-1, e.Message);
+            }
         }
     }
 }
