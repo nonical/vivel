@@ -64,7 +64,7 @@ namespace Vivel.Identity.Quickstart.User
             {
                 item.HospitalId = await GetHospitalClaim(item);
             }
-            
+
             return Ok(response);
         }
 
