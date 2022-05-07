@@ -138,7 +138,7 @@ namespace Vivel.Desktop.Resources.Users
             if (string.IsNullOrEmpty(txtUserID.Text))
                 return;
 
-            Tuple<int, dynamic> response =  await _identity_service.Delete(txtUserID.Text);
+            Tuple<int, dynamic> response = await _identity_service.Delete(txtUserID.Text);
 
             if (response.Item1 != 200)
                 MessageBox.Show($"{response.Item2}");

@@ -42,6 +42,13 @@ namespace Vivel.Controllers
         [Authorize(Roles = "admin,user")]
         public async override Task<ActionResult<UserDTO>> Update(Guid id, [FromBody] UserUpdateRequest request)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (User.IsInRole("user") && userId != id.ToString())
+            {
+                return Forbid();
+            }
+
             return await base.Update(id, request);
         }
 
