@@ -161,6 +161,12 @@
     <Compile Include="Resources\Donation\frmDonation.Designer.cs">
       <DependentUpon>frmDonation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Staff\frmStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\Staff\frmStaff.Designer.cs">
+      <DependentUpon>frmStaff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Users\frmUser.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     <EmbeddedResource Include="Resources\Donation\frmDonation.resx">
       <DependentUpon>frmDonation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Staff\frmStaff.resx">
+      <DependentUpon>frmStaff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Users\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>
     </EmbeddedResource>
@@ -212,6 +221,7 @@
     <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.HospitalDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.PresetBadgeDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.StaffUserDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

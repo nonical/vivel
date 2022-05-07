@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Flurl.Http;
+using Vivel.Model.Dto;
 
 namespace Vivel.Desktop.Services
 {
@@ -16,6 +17,20 @@ namespace Vivel.Desktop.Services
         {
             _apiUrl = $"{Properties.Settings.Default.IdentityApiURL}/{resource}";
             _accessToken = accessToken;
+        }
+
+        public async Task<Tuple<int, dynamic>> Get<T>()
+        {
+            try
+            {
+                var result = await $"{_apiUrl}".WithHeader("Authorization", $"Bearer {_accessToken}").GetJsonAsync<T>();
+
+                return new Tuple<int, dynamic>(200, result);
+            }
+            catch (Exception e)
+            {
+                return new Tuple<int, dynamic>(-1, e.Message);
+            }
         }
 
         public async Task<Tuple<int, dynamic>> Insert(object request)

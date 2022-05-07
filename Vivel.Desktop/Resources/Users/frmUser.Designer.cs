@@ -38,10 +38,10 @@
             this.userDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.labelDelete = new System.Windows.Forms.LinkLabel();
             this.txtUserPassword = new System.Windows.Forms.TextBox();
             this.lblUserClear = new System.Windows.Forms.LinkLabel();
             this.btnSave = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.txtUserID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtUserUsername = new System.Windows.Forms.TextBox();
@@ -52,7 +52,7 @@
             this.lblUserPrevious = new System.Windows.Forms.LinkLabel();
             this.lblUserNext = new System.Windows.Forms.LinkLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.labelDelete = new System.Windows.Forms.LinkLabel();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -133,21 +133,33 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.labelDelete);
             this.groupBox2.Controls.Add(this.txtUserPassword);
             this.groupBox2.Controls.Add(this.lblUserClear);
             this.groupBox2.Controls.Add(this.btnSave);
-            this.groupBox2.Controls.Add(this.label1);
             this.groupBox2.Controls.Add(this.txtUserID);
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Controls.Add(this.txtUserUsername);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Location = new System.Drawing.Point(669, 112);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(257, 352);
+            this.groupBox2.Size = new System.Drawing.Size(319, 352);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Create/Update";
+            // 
+            // labelDelete
+            // 
+            this.labelDelete.AutoSize = true;
+            this.labelDelete.LinkColor = System.Drawing.Color.Red;
+            this.labelDelete.Location = new System.Drawing.Point(19, 210);
+            this.labelDelete.Name = "labelDelete";
+            this.labelDelete.Size = new System.Drawing.Size(36, 13);
+            this.labelDelete.TabIndex = 22;
+            this.labelDelete.TabStop = true;
+            this.labelDelete.Text = "delete";
+            this.labelDelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelDelete_LinkClicked);
             // 
             // txtUserPassword
             // 
@@ -176,15 +188,6 @@
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 122);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
-            this.label1.TabIndex = 21;
-            this.label1.Text = "Password";
             // 
             // txtUserID
             // 
@@ -274,17 +277,14 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // labelDelete
+            // label3
             // 
-            this.labelDelete.AutoSize = true;
-            this.labelDelete.LinkColor = System.Drawing.Color.Red;
-            this.labelDelete.Location = new System.Drawing.Point(19, 210);
-            this.labelDelete.Name = "labelDelete";
-            this.labelDelete.Size = new System.Drawing.Size(36, 13);
-            this.labelDelete.TabIndex = 22;
-            this.labelDelete.TabStop = true;
-            this.labelDelete.Text = "delete";
-            this.labelDelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelDelete_LinkClicked);
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 122);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(296, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Password (leave blank if you don\'t want to change password)";
             // 
             // frmUser
             // 
@@ -325,7 +325,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.LinkLabel lblUserClear;
         private System.Windows.Forms.TextBox txtUserPassword;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSearchUser;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtUserUsernameSearch;
@@ -339,5 +338,6 @@
         private System.Windows.Forms.LinkLabel lblUserNext;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel labelDelete;
+        private System.Windows.Forms.Label label3;
     }
 }

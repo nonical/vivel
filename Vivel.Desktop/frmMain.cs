@@ -7,6 +7,7 @@ using Vivel.Desktop.Resources.Drive;
 using Vivel.Desktop.Resources.FAQ;
 using Vivel.Desktop.Resources.PresetBadge;
 using Vivel.Desktop.Resources.Report;
+using Vivel.Desktop.Resources.Staff;
 using Vivel.Desktop.Resources.User;
 using Vivel.Desktop.Resources.Users;
 using Vivel.Desktop.Services;
@@ -216,6 +217,19 @@ namespace Vivel.Desktop
             cleanMdiParent();
 
             var form = new frmUser(_accessToken)
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
+        }
+
+        private void staffToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            cleanMdiParent();
+
+            var form = new frmStaff(_accessToken)
             {
                 MdiParent = this,
                 Dock = DockStyle.Fill

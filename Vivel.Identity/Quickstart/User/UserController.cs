@@ -29,6 +29,13 @@ namespace Vivel.Identity.Quickstart.User
     {
         public bool? Verified { get; set; }
     }
+    public class StaffUserDTO
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string HospitalId { get; set; }
+        public string Hospital { get; set; }
+    }
 
     [ApiController]
     [Route("[Controller]")]
@@ -44,6 +51,29 @@ namespace Vivel.Identity.Quickstart.User
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("staff");
+
+            var response = users.Select(x => new StaffUserDTO { UserId = x.Id, UserName = x.UserName, HospitalId = "" }).ToList();
+
+            foreach (var item in response)
+            {
+                item.HospitalId = await GetHospitalClaim(item);
+            }
+            
+            return Ok(response);
+        }
+
+        private async Task<string> GetHospitalClaim(StaffUserDTO user)
+        {
+            var identityUser = await _userManager.FindByIdAsync(user.UserId);
+            var claims = await _userManager.GetClaimsAsync(identityUser);
+
+            return claims.First(x => x.Type == "hospital").Value;
         }
 
         [HttpPost]
