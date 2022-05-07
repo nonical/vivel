@@ -52,6 +52,7 @@
             this.lblUserPrevious = new System.Windows.Forms.LinkLabel();
             this.lblUserNext = new System.Windows.Forms.LinkLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.labelDelete = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -132,6 +133,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.labelDelete);
             this.groupBox2.Controls.Add(this.txtUserPassword);
             this.groupBox2.Controls.Add(this.lblUserClear);
             this.groupBox2.Controls.Add(this.btnSave);
@@ -167,9 +169,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(22, 205);
+            this.btnSave.Location = new System.Drawing.Point(81, 205);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(197, 23);
+            this.btnSave.Size = new System.Drawing.Size(138, 23);
             this.btnSave.TabIndex = 19;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -272,6 +274,18 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // labelDelete
+            // 
+            this.labelDelete.AutoSize = true;
+            this.labelDelete.LinkColor = System.Drawing.Color.Red;
+            this.labelDelete.Location = new System.Drawing.Point(19, 210);
+            this.labelDelete.Name = "labelDelete";
+            this.labelDelete.Size = new System.Drawing.Size(36, 13);
+            this.labelDelete.TabIndex = 22;
+            this.labelDelete.TabStop = true;
+            this.labelDelete.Text = "delete";
+            this.labelDelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelDelete_LinkClicked);
+            // 
             // frmUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -324,5 +338,6 @@
         private System.Windows.Forms.LinkLabel lblUserPrevious;
         private System.Windows.Forms.LinkLabel lblUserNext;
         private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.LinkLabel labelDelete;
     }
 }

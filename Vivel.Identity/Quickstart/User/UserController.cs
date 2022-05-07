@@ -74,7 +74,7 @@ namespace Vivel.Identity.Quickstart.User
 
             await _userManager.AddToRoleAsync(user, model.Role);
 
-            if(model.Claims != null)
+            if (model.Claims != null)
                 await _userManager.AddClaimsAsync(user, model.Claims.Select(x => new Claim(x.Key, x.Value)));
 
             if (model.Role.ToLower() == "user")
@@ -146,6 +146,48 @@ namespace Vivel.Identity.Quickstart.User
 
                 _context.Update(coreUser);
                 await _context.SaveChangesAsync();
+            }
+
+            return Json(user);
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(Guid userId)
+        {
+            dynamic result;
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (user is null)
+            {
+                return NotFound(new[] {
+                    new {
+                        code = "UserNotFound", description = $"User with ID {userId} not found!"
+                    }
+                });
+            }
+
+            if (await _userManager.IsInRoleAsync(user, "user"))
+            {
+                result = await _userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
+
+                var coreUser = await _context.Users.FindAsync(Guid.Parse(user.Id));
+
+                _context.Remove(coreUser);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                result = await _userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
             }
 
             return Json(user);

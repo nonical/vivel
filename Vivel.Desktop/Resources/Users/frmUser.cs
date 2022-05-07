@@ -132,5 +132,19 @@ namespace Vivel.Desktop.Resources.Users
         {
             return FormValidator.validateTextField(errorProvider1, txtUserUsername, "Required field");
         }
+
+        private async void labelDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtUserID.Text))
+                return;
+
+            Tuple<int, dynamic> response =  await _identity_service.Delete(txtUserID.Text);
+
+            if (response.Item1 != 200)
+                MessageBox.Show($"Validation failed! Duplicate username or weak password!\n {response.Item2}");
+
+            GetUsers();
+            clearForm();
+        }
     }
 }
