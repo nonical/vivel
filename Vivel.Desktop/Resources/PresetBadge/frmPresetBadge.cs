@@ -49,15 +49,13 @@ namespace Vivel.Desktop.Resources.PresetBadge
                 if (string.IsNullOrWhiteSpace(txtPresetBadgeIdUpsert.Text))
                 {
                     await _service.Insert<PresetBadgeDTO>(request);
-                    GetPresetBadges();
                 }
                 else
                 {
                     var id = txtPresetBadgeIdUpsert.Text;
                     await _service.Update<PresetBadgeDTO>(id, request);
-                    GetPresetBadges();
-
                 }
+                GetPresetBadges();
                 clearForm();
             }
         }
@@ -130,5 +128,15 @@ namespace Vivel.Desktop.Resources.PresetBadge
                 FormValidator.validateTextField(errorProvider1, txtPresetBadgeDescriptionUpsert, "Required field");
         }
 
+        private async void labelDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtPresetBadgeIdUpsert.Text))
+                return;
+
+            await _service.Delete<PresetBadgeDTO>(txtPresetBadgeIdUpsert.Text);
+
+            GetPresetBadges();
+            clearForm();
+        }
     }
 }

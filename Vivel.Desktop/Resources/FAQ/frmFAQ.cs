@@ -63,17 +63,14 @@ namespace Vivel.Desktop.Resources.FAQ
                 if (string.IsNullOrWhiteSpace(txtQuestionId.Text))
                 {
                     await _apiService.Insert<FaqDTO>(request);
-
-                    getFAQs();
                 }
                 else
                 {
                     var id = txtQuestionId.Text;
                     await _apiService.Update<FaqDTO>(id, request);
-                    getFAQs();
-
-                    clearForm();
                 }
+                getFAQs();
+                clearForm();
             }
         }
 
@@ -109,6 +106,17 @@ namespace Vivel.Desktop.Resources.FAQ
         {
             return FormValidator.validateTextField(errorProvider1, txtQuestion, "Required field")
                 && FormValidator.validateTextField(errorProvider1, txtAnswer, "Required field");
+        }
+
+        private async void labelDelete_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtQuestionId.Text))
+                return;
+
+            await _apiService.Delete<FaqDTO>(txtQuestionId.Text);
+
+            getFAQs();
+            clearForm();
         }
     }
 }

@@ -63,7 +63,7 @@ namespace Vivel.Controllers
                 return new NotFoundResult();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async virtual Task<ActionResult<T>> Delete(Guid id)
         {

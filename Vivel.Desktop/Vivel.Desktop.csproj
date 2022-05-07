@@ -161,10 +161,23 @@
     <Compile Include="Resources\Donation\frmDonation.Designer.cs">
       <DependentUpon>frmDonation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Staff\frmStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\Staff\frmStaff.Designer.cs">
+      <DependentUpon>frmStaff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources\Users\frmUser.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Resources\Users\frmUser.Designer.cs">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Services\APIService.cs" />
     <Compile Include="Services\ExtendedWebBrowser.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Services\IdentityAPIService.cs" />
     <Compile Include="Services\WinFormsWebView.cs" />
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
@@ -196,12 +209,19 @@
     <EmbeddedResource Include="Resources\Donation\frmDonation.resx">
       <DependentUpon>frmDonation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Staff\frmStaff.resx">
+      <DependentUpon>frmStaff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Users\frmUser.resx">
+      <DependentUpon>frmUser.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DonationDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.DriveDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.FaqDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.HospitalDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.PresetBadgeDTO.datasource" />
+    <None Include="Properties\DataSources\Vivel.Model.Dto.StaffUserDTO.datasource" />
     <None Include="Properties\DataSources\Vivel.Model.Dto.UserDTO.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

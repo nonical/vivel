@@ -55,6 +55,13 @@ namespace Vivel.Desktop.Services
             return result;
         }
 
+        public async Task<T> Delete<T>(string id)
+        {
+            var result = await $"{_apiUrl}/{id}".WithHeader("Authorization", $"Bearer {_accessToken}").DeleteAsync().ReceiveJson<T>();
+
+            return result;
+        }
+
         public async Task DownloadFile(string path, object request, string filename)
         {
             var queryString = await request.ToQueryString();

@@ -29,6 +29,13 @@ namespace Vivel.Identity.Quickstart.User
     {
         public bool? Verified { get; set; }
     }
+    public class StaffUserDTO
+    {
+        public string UserId { get; set; }
+        public string UserName { get; set; }
+        public string HospitalId { get; set; }
+        public string Hospital { get; set; }
+    }
 
     [ApiController]
     [Route("[Controller]")]
@@ -44,6 +51,29 @@ namespace Vivel.Identity.Quickstart.User
             _context = context;
             _userManager = userManager;
             _roleManager = roleManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var users = await _userManager.GetUsersInRoleAsync("staff");
+
+            var response = users.Select(x => new StaffUserDTO { UserId = x.Id, UserName = x.UserName, HospitalId = "" }).ToList();
+
+            foreach (var item in response)
+            {
+                item.HospitalId = await GetHospitalClaim(item);
+            }
+            
+            return Ok(response);
+        }
+
+        private async Task<string> GetHospitalClaim(StaffUserDTO user)
+        {
+            var identityUser = await _userManager.FindByIdAsync(user.UserId);
+            var claims = await _userManager.GetClaimsAsync(identityUser);
+
+            return claims.First(x => x.Type == "hospital").Value;
         }
 
         [HttpPost]
@@ -73,7 +103,9 @@ namespace Vivel.Identity.Quickstart.User
             }
 
             await _userManager.AddToRoleAsync(user, model.Role);
-            await _userManager.AddClaimsAsync(user, model.Claims.Select(x => new Claim(x.Key, x.Value)));
+
+            if (model.Claims != null)
+                await _userManager.AddClaimsAsync(user, model.Claims.Select(x => new Claim(x.Key, x.Value)));
 
             if (model.Role.ToLower() == "user")
             {
@@ -144,6 +176,48 @@ namespace Vivel.Identity.Quickstart.User
 
                 _context.Update(coreUser);
                 await _context.SaveChangesAsync();
+            }
+
+            return Json(user);
+        }
+
+        [HttpDelete("{userId}")]
+        public async Task<IActionResult> Delete(Guid userId)
+        {
+            dynamic result;
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+
+            if (user is null)
+            {
+                return NotFound(new[] {
+                    new {
+                        code = "UserNotFound", description = $"User with ID {userId} not found!"
+                    }
+                });
+            }
+
+            if (await _userManager.IsInRoleAsync(user, "user"))
+            {
+                result = await _userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
+
+                var coreUser = await _context.Users.FindAsync(Guid.Parse(user.Id));
+
+                _context.Remove(coreUser);
+                await _context.SaveChangesAsync();
+            }
+            else
+            {
+                result = await _userManager.DeleteAsync(user);
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
             }
 
             return Json(user);
