@@ -37,9 +37,11 @@ namespace Vivel.Identity.Quickstart.User
         public string Hospital { get; set; }
     }
 
+
+
     [ApiController]
     [Route("[Controller]")]
-    [Authorize(IdentityServerConstants.LocalApi.PolicyName)]
+    [Authorize(IdentityServerConstants.LocalApi.PolicyName, Roles = "admin")]
     public class UserController : Controller
     {
         private readonly CoreDbContext _context;
