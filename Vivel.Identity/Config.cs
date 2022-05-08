@@ -55,7 +55,8 @@ namespace Vivel.Identity
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        "scope1"
+                        "scope1",
+                        IdentityServerConstants.LocalApi.ScopeName
                     },
                 },
 
