@@ -223,4 +223,38 @@ namespace Vivel.Identity.Quickstart.User
             return Json(user);
         }
     }
+
+    public class ChangePasswordInputModel
+    {
+        public string CurrentPassword { get; set; }
+        public string NewPassword { get; set; }
+    }
+
+    [ApiController]
+    [Route("[Controller]")]
+    [Authorize(IdentityServerConstants.LocalApi.PolicyName, Roles = "user")]
+    public class PasswordController : Controller
+    {
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public PasswordController(UserManager<ApplicationUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Post(ChangePasswordInputModel model)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(result.Errors);
+            }
+        }
+    }
 }
