@@ -81,16 +81,14 @@ namespace Vivel.Desktop.Hospital
                 if (string.IsNullOrWhiteSpace(txtHospitalIdUpsert.Text))
                 {
                     await _service.Insert<HospitalDTO>(request);
-                    GetHospitals();
                 }
                 else
                 {
                     var id = txtHospitalIdUpsert.Text;
                     await _service.Update<HospitalDTO>(id, request);
-                    GetHospitals();
-
-                    clearForm();
                 }
+                GetHospitals();
+                clearForm();
             }
 
         }
