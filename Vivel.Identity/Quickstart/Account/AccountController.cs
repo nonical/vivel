@@ -226,10 +226,11 @@ namespace IdentityServerHost.Quickstart.UI
             };
 
             var result = await _userManager.CreateAsync(appUser, model.Password);
-            await _userManager.AddToRoleAsync(appUser, "user");
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(appUser, "user");
+
                 var newUser = new CoreUser
                 {
                     UserId = Guid.Parse(appUser.Id),
@@ -237,13 +238,12 @@ namespace IdentityServerHost.Quickstart.UI
                 };
 
                 _coreDbContext.Add(newUser);
-
                 await _coreDbContext.SaveChangesAsync();
 
-                return new OkResult();
+                return Ok();
             }
 
-            return StatusCode(400, result.Errors);
+            return BadRequest(result.Errors);
         }
 
 
