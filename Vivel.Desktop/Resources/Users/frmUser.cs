@@ -130,6 +130,18 @@ namespace Vivel.Desktop.Resources.Users
 
         private bool validateForm()
         {
+            if (string.IsNullOrEmpty(txtUserID.Text) && string.IsNullOrEmpty(txtUserPassword.Text))
+            {
+                return FormValidator.validateTextField(errorProvider1, txtUserUsername, "Required field")
+                    && FormValidator.validateTextField(errorProvider1, txtUserPassword, "Required field");
+            }
+            
+            if(!string.IsNullOrEmpty(txtUserPassword.Text))
+            {
+                return FormValidator.validateTextField(errorProvider1, txtUserUsername, "Required field")
+                && FormValidator.validatePassword(errorProvider1, txtUserPassword);
+            }
+
             return FormValidator.validateTextField(errorProvider1, txtUserUsername, "Required field");
         }
 

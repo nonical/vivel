@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvFAQs = new System.Windows.Forms.DataGridView();
+            this.faqDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtQuestionId = new System.Windows.Forms.TextBox();
             this.txtAnswer = new System.Windows.Forms.TextBox();
             this.lbQuestionId = new System.Windows.Forms.Label();
@@ -45,15 +46,16 @@
             this.lblFAQClear = new System.Windows.Forms.LinkLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.labelDelete = new System.Windows.Forms.LinkLabel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.questionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.answerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.answeredDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.faqDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvFAQs
@@ -82,6 +84,10 @@
             this.dgvFAQs.Size = new System.Drawing.Size(452, 397);
             this.dgvFAQs.TabIndex = 2;
             this.dgvFAQs.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvFAQs_RowStateChanged);
+            // 
+            // faqDTOBindingSource
+            // 
+            this.faqDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.FaqDTO);
             // 
             // txtQuestionId
             // 
@@ -225,6 +231,28 @@
             this.labelDelete.Text = "delete";
             this.labelDelete.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.labelDelete_LinkClicked);
             // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(402, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(211, 16);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "Modify frequently asked questions";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(374, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(276, 25);
+            this.textBox1.TabIndex = 24;
+            this.textBox1.Text = "Frequently asked questions";
+            // 
             // questionDataGridViewTextBoxColumn
             // 
             this.questionDataGridViewTextBoxColumn.DataPropertyName = "Question";
@@ -249,26 +277,24 @@
             // createdAtDataGridViewTextBoxColumn
             // 
             this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "Created At";
             this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
             this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // updatedAtDataGridViewTextBoxColumn
             // 
             this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "Updated At";
             this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
             this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // faqDTOBindingSource
-            // 
-            this.faqDTOBindingSource.DataSource = typeof(Vivel.Model.Dto.FaqDTO);
             // 
             // frmFAQ
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.labelDelete);
             this.Controls.Add(this.lblFAQClear);
             this.Controls.Add(this.cbFAQFormAnswered);
@@ -288,8 +314,8 @@
             this.Name = "frmFAQ";
             this.Text = "frmFAQ";
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -309,14 +335,16 @@
         private System.Windows.Forms.CheckBox cbFAQAnswered;
         private System.Windows.Forms.LinkLabel lblFAQPrevious;
         private System.Windows.Forms.LinkLabel lblFAQNext;
+        private System.Windows.Forms.CheckBox cbFAQFormAnswered;
+        private System.Windows.Forms.LinkLabel lblFAQClear;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.LinkLabel labelDelete;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.DataGridViewTextBoxColumn questionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn answerDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn answeredDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.CheckBox cbFAQFormAnswered;
-        private System.Windows.Forms.LinkLabel lblFAQClear;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
-        private System.Windows.Forms.LinkLabel labelDelete;
     }
 }

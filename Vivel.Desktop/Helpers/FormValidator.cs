@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -38,6 +39,48 @@ namespace Vivel.Desktop.Helpers
             }
 
             return true;
+        }
+
+        public static bool validatePassword(ErrorProvider errorProvider, TextBox txtPassword)
+        {
+            var input = txtPassword.Text;
+
+            var hasNumber = new Regex(@"[0-9]+");
+            var hasUpperChar = new Regex(@"[A-Z]+");
+            var hasMiniMaxChars = new Regex(@".{8,15}");
+            var hasLowerChar = new Regex(@"[a-z]+");
+            var hasSymbols = new Regex(@"[!@#$%^&*()_+=\[{\]};:<>|./?,-]");
+
+            if (!hasLowerChar.IsMatch(input))
+            {
+                errorProvider.SetError(txtPassword, "Password should contain at least one lower case letter.");
+                return false;
+            }
+            else if (!hasUpperChar.IsMatch(input))
+            {
+                errorProvider.SetError(txtPassword, "Password should contain at least one upper case letter.");
+                return false;
+            }
+            else if (!hasMiniMaxChars.IsMatch(input))
+            {
+                errorProvider.SetError(txtPassword, "Password should not be lesser than 8 or greater than 15 characters.");
+                return false;
+            }
+            else if (!hasNumber.IsMatch(input))
+            {
+                errorProvider.SetError(txtPassword, "Password should contain at least one numeric value.");
+                return false;
+            }
+
+            else if (!hasSymbols.IsMatch(input))
+            {
+                errorProvider.SetError(txtPassword, "Password should contain at least one special case character.");
+                return false;
+            }
+            else
+            {
+                return true;
+            }
         }
     }
 }
