@@ -347,7 +347,7 @@ namespace Vivel
             {
                 Question = "What if I don't come to the scheduled donation time?",
                 Answer = "Your donation request will automatically be rejected after the drive you applied to closes.",
-                Answered = true
+                Answered = false
             };
             context.Add(faq6);
             context.SaveChanges();
