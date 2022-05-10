@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.dgvUsers = new System.Windows.Forms.DataGridView();
@@ -57,6 +57,8 @@
             this.lblUserNext = new System.Windows.Forms.LinkLabel();
             this.lblDonationPrevious = new System.Windows.Forms.LinkLabel();
             this.lblDonationNext = new System.Windows.Forms.LinkLabel();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUserDonations)).BeginInit();
@@ -65,7 +67,7 @@
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(13, 40);
+            this.txtSearch.Location = new System.Drawing.Point(14, 53);
             this.txtSearch.Multiline = true;
             this.txtSearch.Name = "txtSearch";
             this.txtSearch.Size = new System.Drawing.Size(143, 23);
@@ -75,7 +77,7 @@
             // 
             // btnSearch
             // 
-            this.btnSearch.Location = new System.Drawing.Point(162, 40);
+            this.btnSearch.Location = new System.Drawing.Point(163, 53);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(75, 23);
             this.btnSearch.TabIndex = 1;
@@ -91,29 +93,29 @@
             this.dgvUsers.AllowUserToResizeRows = false;
             this.dgvUsers.AutoGenerateColumns = false;
             this.dgvUsers.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleVertical;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvUsers.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvUsers.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvUsers.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.userNameDataGridViewTextBoxColumn,
             this.bloodTypeDataGridViewTextBoxColumn,
             this.verifiedDataGridViewTextBoxColumn});
             this.dgvUsers.DataSource = this.userDTOBindingSource;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Consolas", 8.25F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle2;
-            this.dgvUsers.Location = new System.Drawing.Point(12, 113);
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Consolas", 8.25F);
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUsers.DefaultCellStyle = dataGridViewCellStyle5;
+            this.dgvUsers.Location = new System.Drawing.Point(13, 126);
             this.dgvUsers.MultiSelect = false;
             this.dgvUsers.Name = "dgvUsers";
             this.dgvUsers.ReadOnly = true;
@@ -172,21 +174,21 @@
             this.createdAtDataGridViewTextBoxColumn,
             this.updatedAtDataGridViewTextBoxColumn});
             this.dgvUserDonations.DataSource = this.donationDTOBindingSource;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 8.25F);
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvUserDonations.DefaultCellStyle = dataGridViewCellStyle3;
-            this.dgvUserDonations.Location = new System.Drawing.Point(234, 113);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Consolas", 8.25F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvUserDonations.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgvUserDonations.Location = new System.Drawing.Point(235, 126);
             this.dgvUserDonations.Name = "dgvUserDonations";
             this.dgvUserDonations.ReadOnly = true;
             this.dgvUserDonations.RowHeadersVisible = false;
             this.dgvUserDonations.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvUserDonations.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvUserDonations.Size = new System.Drawing.Size(764, 371);
+            this.dgvUserDonations.Size = new System.Drawing.Size(753, 371);
             this.dgvUserDonations.TabIndex = 3;
             // 
             // scheduledAtDataGridViewTextBoxColumn
@@ -269,7 +271,7 @@
             // lbSearch
             // 
             this.lbSearch.AutoSize = true;
-            this.lbSearch.Location = new System.Drawing.Point(13, 24);
+            this.lbSearch.Location = new System.Drawing.Point(14, 37);
             this.lbSearch.Name = "lbSearch";
             this.lbSearch.Size = new System.Drawing.Size(112, 13);
             this.lbSearch.TabIndex = 4;
@@ -278,7 +280,7 @@
             // lbUsers
             // 
             this.lbUsers.AutoSize = true;
-            this.lbUsers.Location = new System.Drawing.Point(13, 97);
+            this.lbUsers.Location = new System.Drawing.Point(14, 110);
             this.lbUsers.Name = "lbUsers";
             this.lbUsers.Size = new System.Drawing.Size(34, 13);
             this.lbUsers.TabIndex = 5;
@@ -287,7 +289,7 @@
             // lbUserDonations
             // 
             this.lbUserDonations.AutoSize = true;
-            this.lbUserDonations.Location = new System.Drawing.Point(231, 97);
+            this.lbUserDonations.Location = new System.Drawing.Point(232, 110);
             this.lbUserDonations.Name = "lbUserDonations";
             this.lbUserDonations.Size = new System.Drawing.Size(87, 13);
             this.lbUserDonations.TabIndex = 6;
@@ -297,7 +299,7 @@
             // 
             this.lblUserPrevious.AutoSize = true;
             this.lblUserPrevious.Enabled = false;
-            this.lblUserPrevious.Location = new System.Drawing.Point(108, 97);
+            this.lblUserPrevious.Location = new System.Drawing.Point(109, 110);
             this.lblUserPrevious.Name = "lblUserPrevious";
             this.lblUserPrevious.Size = new System.Drawing.Size(47, 13);
             this.lblUserPrevious.TabIndex = 19;
@@ -309,7 +311,7 @@
             // 
             this.lblUserNext.AutoSize = true;
             this.lblUserNext.Enabled = false;
-            this.lblUserNext.Location = new System.Drawing.Point(188, 97);
+            this.lblUserNext.Location = new System.Drawing.Point(189, 110);
             this.lblUserNext.Name = "lblUserNext";
             this.lblUserNext.Size = new System.Drawing.Size(27, 13);
             this.lblUserNext.TabIndex = 18;
@@ -321,7 +323,7 @@
             // 
             this.lblDonationPrevious.AutoSize = true;
             this.lblDonationPrevious.Enabled = false;
-            this.lblDonationPrevious.Location = new System.Drawing.Point(881, 97);
+            this.lblDonationPrevious.Location = new System.Drawing.Point(852, 110);
             this.lblDonationPrevious.Name = "lblDonationPrevious";
             this.lblDonationPrevious.Size = new System.Drawing.Size(47, 13);
             this.lblDonationPrevious.TabIndex = 21;
@@ -333,7 +335,7 @@
             // 
             this.lblDonationNext.AutoSize = true;
             this.lblDonationNext.Enabled = false;
-            this.lblDonationNext.Location = new System.Drawing.Point(961, 97);
+            this.lblDonationNext.Location = new System.Drawing.Point(932, 110);
             this.lblDonationNext.Name = "lblDonationNext";
             this.lblDonationNext.Size = new System.Drawing.Size(27, 13);
             this.lblDonationNext.TabIndex = 20;
@@ -341,11 +343,35 @@
             this.lblDonationNext.Text = "next";
             this.lblDonationNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDonationNext_LinkClicked);
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(452, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(101, 25);
+            this.textBox1.TabIndex = 22;
+            this.textBox1.Text = "Donations";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(413, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(191, 16);
+            this.textBox2.TabIndex = 23;
+            this.textBox2.Text = "View selected user\'s donations";
+            // 
             // frmDonation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblDonationPrevious);
             this.Controls.Add(this.lblDonationNext);
             this.Controls.Add(this.lblUserPrevious);
@@ -396,5 +422,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn plateletCountDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

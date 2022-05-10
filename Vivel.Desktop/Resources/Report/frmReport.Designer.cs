@@ -42,6 +42,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.cmbHospitals = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,9 +63,9 @@
             this.groupBox1.Controls.Add(this.cmbHospitals);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(38, 70);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(338, 437);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
@@ -72,7 +74,7 @@
             // btnPrint
             // 
             this.btnPrint.Location = new System.Drawing.Point(62, 387);
-            this.btnPrint.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPrint.Margin = new System.Windows.Forms.Padding(2);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(210, 30);
             this.btnPrint.TabIndex = 12;
@@ -84,7 +86,7 @@
             // 
             this.cmbReports.FormattingEnabled = true;
             this.cmbReports.Location = new System.Drawing.Point(10, 45);
-            this.cmbReports.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbReports.Margin = new System.Windows.Forms.Padding(2);
             this.cmbReports.Name = "cmbReports";
             this.cmbReports.Size = new System.Drawing.Size(144, 21);
             this.cmbReports.TabIndex = 11;
@@ -103,7 +105,7 @@
             // 
             this.cmbUrgency.FormattingEnabled = true;
             this.cmbUrgency.Location = new System.Drawing.Point(10, 334);
-            this.cmbUrgency.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbUrgency.Margin = new System.Windows.Forms.Padding(2);
             this.cmbUrgency.Name = "cmbUrgency";
             this.cmbUrgency.Size = new System.Drawing.Size(144, 21);
             this.cmbUrgency.TabIndex = 9;
@@ -122,7 +124,7 @@
             // 
             this.cmbStatus.FormattingEnabled = true;
             this.cmbStatus.Location = new System.Drawing.Point(10, 273);
-            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbStatus.Margin = new System.Windows.Forms.Padding(2);
             this.cmbStatus.Name = "cmbStatus";
             this.cmbStatus.Size = new System.Drawing.Size(144, 21);
             this.cmbStatus.TabIndex = 7;
@@ -140,7 +142,7 @@
             // dtpTo
             // 
             this.dtpTo.Location = new System.Drawing.Point(10, 214);
-            this.dtpTo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpTo.Margin = new System.Windows.Forms.Padding(2);
             this.dtpTo.Name = "dtpTo";
             this.dtpTo.Size = new System.Drawing.Size(238, 20);
             this.dtpTo.TabIndex = 5;
@@ -158,7 +160,7 @@
             // dtpFrom
             // 
             this.dtpFrom.Location = new System.Drawing.Point(10, 154);
-            this.dtpFrom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dtpFrom.Margin = new System.Windows.Forms.Padding(2);
             this.dtpFrom.Name = "dtpFrom";
             this.dtpFrom.Size = new System.Drawing.Size(238, 20);
             this.dtpFrom.TabIndex = 3;
@@ -177,7 +179,7 @@
             // 
             this.cmbHospitals.FormattingEnabled = true;
             this.cmbHospitals.Location = new System.Drawing.Point(10, 96);
-            this.cmbHospitals.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmbHospitals.Margin = new System.Windows.Forms.Padding(2);
             this.cmbHospitals.Name = "cmbHospitals";
             this.cmbHospitals.Size = new System.Drawing.Size(144, 21);
             this.cmbHospitals.TabIndex = 1;
@@ -192,20 +194,45 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Hospital";
             // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(403, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(169, 16);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "Print hospital related reports";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(447, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(80, 25);
+            this.textBox1.TabIndex = 24;
+            this.textBox1.Text = "Reports";
+            // 
             // frmReport
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmReport";
             this.Text = "frmReport";
             this.Load += new System.EventHandler(this.frmReport_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -224,5 +251,7 @@
         private System.Windows.Forms.ComboBox cmbStatus;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnPrint;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

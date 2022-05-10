@@ -46,6 +46,8 @@
             this.cbDriveClosed = new System.Windows.Forms.CheckBox();
             this.lblDrivePrevious = new System.Windows.Forms.LinkLabel();
             this.lblDriveNext = new System.Windows.Forms.LinkLabel();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDrive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.driveDTOBindingSource)).BeginInit();
@@ -213,11 +215,35 @@
             this.lblDriveNext.Text = "next";
             this.lblDriveNext.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblDriveNext_LinkClicked);
             // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(403, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(191, 16);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "View selected hospital\'s drives";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(457, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(68, 25);
+            this.textBox1.TabIndex = 24;
+            this.textBox1.Text = "Drives";
+            // 
             // frmDrive
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblDrivePrevious);
             this.Controls.Add(this.lblDriveNext);
             this.Controls.Add(this.cbDriveClosed);
@@ -257,5 +283,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn urgencyDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

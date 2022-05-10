@@ -54,6 +54,8 @@
             this.lblHospitalNext = new System.Windows.Forms.LinkLabel();
             this.lblHospitalPrevious = new System.Windows.Forms.LinkLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvHospital)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.hospitalDTOBindingSource)).BeginInit();
@@ -292,12 +294,36 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(462, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(94, 25);
+            this.textBox1.TabIndex = 7;
+            this.textBox1.Text = "Hospitals";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(454, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(102, 16);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "Modify hospitals";
+            // 
             // frmHospital
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblHospitalPrevious);
             this.Controls.Add(this.lblHospitalNext);
             this.Controls.Add(this.btnSearchHospital);
@@ -340,12 +366,14 @@
         private System.Windows.Forms.LinkLabel lblHospitalClear;
         private System.Windows.Forms.LinkLabel lblHospitalNext;
         private System.Windows.Forms.LinkLabel lblHospitalPrevious;
+        private System.Windows.Forms.BindingSource hospitalDTOBindingSource;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn latitudeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn longitudeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.BindingSource hospitalDTOBindingSource;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

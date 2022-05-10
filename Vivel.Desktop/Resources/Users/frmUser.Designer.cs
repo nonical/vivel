@@ -38,6 +38,7 @@
             this.userDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.labelDelete = new System.Windows.Forms.LinkLabel();
             this.txtUserPassword = new System.Windows.Forms.TextBox();
             this.lblUserClear = new System.Windows.Forms.LinkLabel();
@@ -52,7 +53,8 @@
             this.lblUserPrevious = new System.Windows.Forms.LinkLabel();
             this.lblUserNext = new System.Windows.Forms.LinkLabel();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.label3 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.userDTOBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
@@ -149,6 +151,15 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Create/Update";
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(19, 122);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(296, 13);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "Password (leave blank if you don\'t want to change password)";
+            // 
             // labelDelete
             // 
             this.labelDelete.AutoSize = true;
@@ -165,6 +176,7 @@
             // 
             this.txtUserPassword.Location = new System.Drawing.Point(22, 138);
             this.txtUserPassword.Name = "txtUserPassword";
+            this.txtUserPassword.PasswordChar = '*';
             this.txtUserPassword.Size = new System.Drawing.Size(197, 20);
             this.txtUserPassword.TabIndex = 0;
             // 
@@ -277,20 +289,35 @@
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // label3
+            // textBox2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(19, 122);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(296, 13);
-            this.label3.TabIndex = 23;
-            this.label3.Text = "Password (leave blank if you don\'t want to change password)";
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.Location = new System.Drawing.Point(452, 43);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(84, 16);
+            this.textBox2.TabIndex = 25;
+            this.textBox2.Text = "Modify users";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.Location = new System.Drawing.Point(458, 12);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(66, 25);
+            this.textBox1.TabIndex = 24;
+            this.textBox1.Text = "Users";
             // 
             // frmUser
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 600);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lblUserPrevious);
             this.Controls.Add(this.lblUserNext);
             this.Controls.Add(this.btnSearchUser);
@@ -339,5 +366,7 @@
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel labelDelete;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }
