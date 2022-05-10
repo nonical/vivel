@@ -35,7 +35,20 @@ namespace Vivel.Desktop
 
             _oidcClient = new OidcClient(options);
 
-            Login().GetAwaiter().OnCompleted(() => menuStrip.Enabled = true);
+            Login().GetAwaiter().OnCompleted(() => DisplayHospitalForm());
+        }
+
+        private void DisplayHospitalForm()
+        {
+            menuStrip.Enabled = true;
+
+            var form = new frmHospital(_accessToken)
+            {
+                MdiParent = this,
+                Dock = DockStyle.Fill
+            };
+
+            form.Show();
         }
 
         private async Task Login()
