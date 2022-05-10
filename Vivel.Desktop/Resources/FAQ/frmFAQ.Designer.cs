@@ -30,11 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dgvFAQs = new System.Windows.Forms.DataGridView();
-            this.questionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.answerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.answeredDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.faqDTOBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtQuestionId = new System.Windows.Forms.TextBox();
             this.txtAnswer = new System.Windows.Forms.TextBox();
@@ -53,6 +48,11 @@
             this.labelDelete = new System.Windows.Forms.LinkLabel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.questionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.answerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.answeredDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.createdAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.updatedAtDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvFAQs)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.faqDTOBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
@@ -84,41 +84,6 @@
             this.dgvFAQs.Size = new System.Drawing.Size(452, 397);
             this.dgvFAQs.TabIndex = 2;
             this.dgvFAQs.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvFAQs_RowStateChanged);
-            // 
-            // questionDataGridViewTextBoxColumn
-            // 
-            this.questionDataGridViewTextBoxColumn.DataPropertyName = "Question";
-            this.questionDataGridViewTextBoxColumn.HeaderText = "Question";
-            this.questionDataGridViewTextBoxColumn.Name = "questionDataGridViewTextBoxColumn";
-            this.questionDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // answerDataGridViewTextBoxColumn
-            // 
-            this.answerDataGridViewTextBoxColumn.DataPropertyName = "Answer";
-            this.answerDataGridViewTextBoxColumn.HeaderText = "Answer";
-            this.answerDataGridViewTextBoxColumn.Name = "answerDataGridViewTextBoxColumn";
-            this.answerDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // answeredDataGridViewTextBoxColumn
-            // 
-            this.answeredDataGridViewTextBoxColumn.DataPropertyName = "Answered";
-            this.answeredDataGridViewTextBoxColumn.HeaderText = "Answered";
-            this.answeredDataGridViewTextBoxColumn.Name = "answeredDataGridViewTextBoxColumn";
-            this.answeredDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // createdAtDataGridViewTextBoxColumn
-            // 
-            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
-            this.createdAtDataGridViewTextBoxColumn.HeaderText = "CreatedAt";
-            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
-            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // updatedAtDataGridViewTextBoxColumn
-            // 
-            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "UpdatedAt";
-            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
-            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // faqDTOBindingSource
             // 
@@ -288,6 +253,41 @@
             this.textBox1.TabIndex = 24;
             this.textBox1.Text = "Frequently asked questions";
             // 
+            // questionDataGridViewTextBoxColumn
+            // 
+            this.questionDataGridViewTextBoxColumn.DataPropertyName = "Question";
+            this.questionDataGridViewTextBoxColumn.HeaderText = "Question";
+            this.questionDataGridViewTextBoxColumn.Name = "questionDataGridViewTextBoxColumn";
+            this.questionDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // answerDataGridViewTextBoxColumn
+            // 
+            this.answerDataGridViewTextBoxColumn.DataPropertyName = "Answer";
+            this.answerDataGridViewTextBoxColumn.HeaderText = "Answer";
+            this.answerDataGridViewTextBoxColumn.Name = "answerDataGridViewTextBoxColumn";
+            this.answerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // answeredDataGridViewTextBoxColumn
+            // 
+            this.answeredDataGridViewTextBoxColumn.DataPropertyName = "Answered";
+            this.answeredDataGridViewTextBoxColumn.HeaderText = "Answered";
+            this.answeredDataGridViewTextBoxColumn.Name = "answeredDataGridViewTextBoxColumn";
+            this.answeredDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // createdAtDataGridViewTextBoxColumn
+            // 
+            this.createdAtDataGridViewTextBoxColumn.DataPropertyName = "CreatedAt";
+            this.createdAtDataGridViewTextBoxColumn.HeaderText = "Created At";
+            this.createdAtDataGridViewTextBoxColumn.Name = "createdAtDataGridViewTextBoxColumn";
+            this.createdAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // updatedAtDataGridViewTextBoxColumn
+            // 
+            this.updatedAtDataGridViewTextBoxColumn.DataPropertyName = "UpdatedAt";
+            this.updatedAtDataGridViewTextBoxColumn.HeaderText = "Updated At";
+            this.updatedAtDataGridViewTextBoxColumn.Name = "updatedAtDataGridViewTextBoxColumn";
+            this.updatedAtDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // frmFAQ
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -335,16 +335,16 @@
         private System.Windows.Forms.CheckBox cbFAQAnswered;
         private System.Windows.Forms.LinkLabel lblFAQPrevious;
         private System.Windows.Forms.LinkLabel lblFAQNext;
-        private System.Windows.Forms.DataGridViewTextBoxColumn questionDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn answerDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn answeredDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
         private System.Windows.Forms.CheckBox cbFAQFormAnswered;
         private System.Windows.Forms.LinkLabel lblFAQClear;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.LinkLabel labelDelete;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn questionDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn answerDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn answeredDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn createdAtDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn updatedAtDataGridViewTextBoxColumn;
     }
 }
